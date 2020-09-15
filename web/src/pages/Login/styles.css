@@ -1,0 +1,13 @@
+#page-login {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(48, 12, 75);
+  background-image: url("../../assets/images/background.svg");
+  background-size: contain;
+}
+
+@media (min-width: 1100px) {
+  #page-login {
+    background-size: cover;
+  }
+}

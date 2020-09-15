@@ -1,0 +1,26 @@
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  width: 100%;
+  padding: 2rem;
+  padding-top: 6rem;
+  margin: 0 auto;
+}
+
+.logo-container img {
+  height: 1.7rem;
+}
+
+
+@media (min-width: 1100px) {
+  .landing-header {
+    width: 86%;
+  }
+
+  .logo-container img {
+    height: 3.5rem;
+  }
+
+}

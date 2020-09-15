@@ -1,0 +1,143 @@
+#page-home {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(48, 12, 75);
+  background-image: url("../../assets/images/background.svg");
+  background-size: contain;
+}
+
+#button-user {
+  width: 7rem;
+  height: 3rem;
+  margin-right: 0.5rem;
+}
+
+#button-user img {
+  width: 1.6rem;
+  margin-right: 0.5rem;
+}
+
+
+#button-user p {
+  font-size: 1.2rem;
+}
+
+#button-logout {
+  width: 7rem;
+  height: 3rem;
+}
+
+#button-logout img {
+  width: 1.6rem;
+  margin-right: 0.5rem;
+}
+
+#button-logout p {
+  font-size: 1.2rem;
+}
+
+.box-alert-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.box-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 95%;
+  background-color: var(--color-white);
+  border-radius: 0.4rem;
+  padding: 5rem;
+}
+
+.box-alert img {
+  width: 8rem;
+}
+ 
+.box-alert h1{
+  color: black;
+  font-weight: 100;
+  font-size: 2.2rem;
+  margin-top: 1.6rem;
+  text-align: center;
+}
+
+.box-alert p {
+  color: black;
+  font-weight: 100;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.box-alert a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 4rem;
+  background-color: var(--color-button);
+  color: var(--color-white);
+  width: 16rem;
+  height: 3.3rem;
+  border-radius: 0.3rem;
+  transition: 0.2s;
+}
+
+.box-alert a:hover {
+  width: 17rem;
+  opacity: 0.8;
+  height: 3.5rem;
+}
+
+@media (min-width: 1100px) {
+  #page-home {
+    background-size: cover;
+  }
+
+  #button-user {
+    width: 12rem;
+    height: 3.3rem;
+    margin-right: 2rem;
+  }
+  
+  #button-user img {
+    width: 1.8rem;
+    margin-right: 0.7rem;
+  }
+  
+  
+  #button-user p {
+    font-size: 1.5rem;
+  }
+  
+  #button-logout {
+    width: 12rem;
+    height: 3.3rem;
+  }
+  
+  #button-logout img {
+    width: 1.8rem;
+    margin-right: 0.7rem;
+  }
+  
+  #button-logout p {
+    font-size: 1.5rem;
+  }
+
+  .box-header .nova-campanha {
+    width: 20rem;
+    height: 3.8rem;
+    font-size: 1.6rem;
+    transition: 0.6s;
+  }
+
+  .box-header .nova-campanha:hover {
+    opacity: 0.8;
+  }
+
+}

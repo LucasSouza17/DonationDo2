@@ -1,0 +1,166 @@
+:root {
+  --color-background: linear-gradient(180deg, #300C4B 0%, #74009E 100%);
+  --color-white: #FFFFFF;
+  --color-description: #B1A0F4;
+  --color-button: #F90CC5;
+  font-size: 60%
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: rgb(48,12,75);
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body,
+input,
+button,
+textarea {
+  font: 500 1.6rem "Roboto";
+  color: var(--color-white);
+}
+
+.container {
+  width: 90vw;
+  max-width: 700px;
+}
+
+.container-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 3.2rem 0;
+}
+
+.container-buttons a {
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+
+  transition: all linear 0.4s;
+}
+
+.container-buttons a:hover{
+  opacity: 0.8;
+}
+
+.container-buttons a.button-link {
+  background-color: var(--color-button);
+  border-radius: 0.3rem;
+  width: 8rem;
+  height: 2.5rem;
+}
+
+.container-buttons a:first-child {
+  margin-right: 1.6rem;
+}
+
+.container-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.box-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  width: 95%;
+  background-color: #F3F3F3;
+  border-radius: 0.3rem;
+}
+
+.box-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+.box-header h1 {
+  font-size: 2.6rem;
+  color: #9B2EBF;
+  font-weight: lighter;
+}
+
+.box-header h3 {
+  color: #9B2EBF;
+  font-size: 1.4rem;
+}
+
+.box-header .nova-campanha {
+  background-color: var(--color-button);
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 13rem;
+  height: 3rem;
+  transition: all linear 0.4s;
+  border-radius: 0.3rem;
+}
+
+@media (min-width: 1100px) {
+
+  .box-home {
+    width: 85%;
+    padding: 5rem;
+  }
+
+  .box-header h1 {
+    font-size: 5rem;
+  }
+
+  .box-header h3 {
+    font-size: 2rem;
+  }
+
+  .container-buttons a.button-link {
+    width: 14rem;
+    height: 3.5rem;
+  }
+
+  .container-buttons a {
+    font-size: 1.5rem;
+  }
+}
+
+button {
+  outline: none !important;
+}
+
+@media (min-width: 700px) {
+  :root {
+    font-size: 62.5%;
+  }
+  .container {
+    width: 100vw;
+    max-width: 1366px;
+  }
+}

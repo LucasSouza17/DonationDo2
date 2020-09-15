@@ -1,0 +1,189 @@
+#page-login {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(48, 12, 75);
+  background-image: url("../../assets/images/background.svg");
+  background-size: contain;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.box-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  width: 90%;
+  background-color: var(--color-white);
+  border-radius: 0.3rem;
+}
+
+.box-form-container h1 {
+  font-size: 2.6rem;
+  color: #74009e;
+  font-family: Poiret One;
+  letter-spacing: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.box-form-container span {
+  color: #000000;
+  letter-spacing: 0.3rem;
+  font-size: 1.2rem;
+}
+
+.box-form-container .field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.box-form-container .field-group-row {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.box-form-container .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.box-form-container .field input[type="text"],
+.box-form-container .field input[type="password"],
+.box-form-container .field select {
+  width: 90%;
+  border: none;
+  border-bottom: solid 1px;
+  color: #000000;
+  outline: none;
+  transition: 0.5s;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.box-form-container .field input[type="text"]:focus,
+.box-form-container .field input[type="password"]:focus,
+.box-form-container .field select:focus {
+  border: solid 1px;
+  border-radius: 0.3rem;
+  width: 98%;
+  color: #74009e;
+}
+
+.box-form-container .field label {
+  color: #000000;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.box-form-container .button-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-form-container .button-submit button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 3rem;
+  background-color: var(--color-button);
+  border: none;
+  border-radius: 0.3rem;
+  transition: all linear 0.1s;
+  cursor: pointer;
+  margin-bottom: 3rem;
+}
+
+.box-form-container .button-submit button:hover {
+  opacity: 0.8;
+  width: 23rem;
+  height: 3.2rem;
+}
+
+.spans {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-form-container .spans .span-cadastro {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.box-form-container .spans .span-link {
+  font-size: 1.2rem;
+  color: #74009e;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all linear 0.6s;
+  text-align: center;
+  text-decoration: none;
+}
+
+.box-form-container .spans .span-link:hover {
+  opacity: 0.8;
+}
+
+.container-map {
+  width: 100%;
+  margin-bottom: 4rem;
+  color: #000000;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.container-map label {
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1100px) {
+  .box-form-container {
+    width: 50%;
+  }
+
+  .box-form-container .field {
+    align-items: initial;
+  }
+
+  .box-form-container .field-group-row {
+    flex-direction: row;
+  }
+
+  .box-form-container .field input[type="text"],
+  .box-form-container .field input[type="password"],
+  .box-form-container .field input[type="number"] {
+    width: 95%;
+    text-align: initial;
+  }
+
+  .box-form-container .field input[type="text"]:focus,
+  .box-form-container .field input[type="password"]:focus {
+    width: 80%;
+    border: solid 1px;
+    border-radius: 0.3rem;
+    color: #74009e;
+  }
+
+  .box-form-container .field label {
+    text-align: initial;
+  }
+
+  .container-map {
+    text-align: initial;
+  }
+}
