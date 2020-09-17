@@ -1,7 +1,7 @@
 {
   "sqltools.connections": [
     {
-      "database": "donation.do",
+      "database": "donationdo",
       "driver": "MySQL",
       "mysqlOptions": {
         "authProtocol": "default"
