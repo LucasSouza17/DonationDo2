@@ -1,0 +1,17 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "donation.do",
+      "driver": "MySQL",
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "name": "localhost",
+      "port": 3306,
+      "previewLimit": 50,
+      "server": "localhost",
+      "username": "root",
+      "password": ""
+    }
+  ]
+}
