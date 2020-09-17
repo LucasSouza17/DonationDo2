@@ -21,7 +21,7 @@ class NecessidadesAndamentoController {
      .where('necessidade.cod_Receptor', id).andWhere('status', 'Em andamento')
      .limit(10)
      .offset((Number(page) - 1) * 10)
-     .select('necessidade.*');
+     .select("necessidade.*");
      
      const [count] = await knex('necessidade')
      .where('cod_Receptor', id).andWhere('status', 'Em andamento')

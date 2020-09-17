@@ -2,10 +2,7 @@ import React from "react";
 
 import Header from "../../components/LandingHeader";
 
-import MarkerIcon from "../../assets/images/iconmap.svg";
-
-import { Map, TileLayer, Marker } from "react-leaflet";
-import L, { LeafletMouseEvent } from "leaflet";
+import { Map, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 import "./styles.css";

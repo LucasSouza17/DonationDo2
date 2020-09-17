@@ -60,6 +60,7 @@
 }
 
 .box-form-container .field input[type="text"],
+.box-form-container .field input[type="email"],
 .box-form-container .field input[type="password"],
 .box-form-container .field select {
   width: 90%;
@@ -165,13 +166,16 @@
   }
 
   .box-form-container .field input[type="text"],
+  .box-form-container .field input[type="email"],
   .box-form-container .field input[type="password"],
   .box-form-container .field input[type="number"] {
     width: 95%;
     text-align: initial;
   }
 
+
   .box-form-container .field input[type="text"]:focus,
+  .box-form-container .field input[type="email"]:focus,
   .box-form-container .field input[type="password"]:focus {
     width: 80%;
     border: solid 1px;

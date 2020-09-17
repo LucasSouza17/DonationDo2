@@ -10,6 +10,7 @@ import EmAndamento from './pages/EmAndamento';
 import Canceladas from './pages/Canceladas';
 import Finalizadas from './pages/Finalizadas';
 import Perfil from './pages/Perfil';
+import AtualizarPerfil from './pages/AtualizarPerfil';
 
 const Routes: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const Routes: React.FC = () => {
       <Route path="/canceladas" component={Canceladas} />
       <Route path="/finalizadas" component={Finalizadas} />
       <Route path="/perfil" component={Perfil} />
+      <Route path="/atualizarperfil" component={AtualizarPerfil} />
     </BrowserRouter>
   );
 }

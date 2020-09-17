@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 
 import "./styles.css";
 
-function FinalRegister() {
+function AtualizarPerfil() {
 
   const icon = L.icon({
     iconUrl: MarkerIcon,
@@ -36,13 +36,13 @@ function FinalRegister() {
   }
 
   return (
-    <div id="page-final-register">
+    <div id="page-att-perfil">
       <Header />
 
       <div className="form-container">
         <form className="box-form-container">
-          <h1>Concluir Cadastro</h1>
-          <span>Conclua o cadastro para começar as campanhas de doação</span>
+          <h1>Atualizar Perfil</h1>
+          <span>Atualize seu perfil para que as informações sejam mais atuais possíveis</span>
 
           <div className="field">
             <label htmlFor="Nome">Nome do local*</label>
@@ -144,7 +144,7 @@ function FinalRegister() {
             </Map>
           </div>
           <div className="button-submit">
-          <button>Concluir cadastro</button>
+          <button>Atualizar perfil</button>
           </div>
         </form>
       </div>
@@ -152,4 +152,4 @@ function FinalRegister() {
   );
 }
 
-export default FinalRegister;
+export default AtualizarPerfil;
