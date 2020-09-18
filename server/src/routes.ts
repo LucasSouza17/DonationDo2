@@ -41,7 +41,7 @@ routes.get('/itens', itemController.index);
 //Rotas dos Receptores
 routes.get('/receptor', receptoresController.index);
 routes.post('/receptor', VerificacaoReceptor, receptoresController.create);
-routes.put('/receptor/ConcluirCadastro/:id', uploads.single('Img_Local'), VerificacaoReceptorConcluido, concluirReceptorController.update);
+routes.put('/receptor/ConcluirCadastro/:id', uploads.single("Img_Local"), VerificacaoReceptorConcluido, concluirReceptorController.update,);
 routes.put('/receptor/:id', uploads.single('Img_Local'), receptoresController.update);
 routes.get('/receptor/:id', receptoresController.show);
 
@@ -52,26 +52,26 @@ routes.post('/sessionReceptor', sessionControler.createReceptor);
 routes.post('/sessionDoador', sessionControler.createDoador);
 
 //Rotas da Necessidade do Receptor
-routes.post('/receptor/:cod_Receptor/necessidade',VerificacaoNecessidade, necessidadesController.create);
+routes.post('/receptor/:cod_Receptor/necessidade', VerificacaoNecessidade, necessidadesController.create);
 
-  //Rotas da Necessidade Em andamento
-  routes.get('/receptor/:id/necessidade/EmAndamento', necessidadeAndamentoController.index);
-  routes.put('/receptor/necessidade/EmAndamento/:id', necessidadeAndamentoController.update);
-  
-  //Rotas da Necessidade Canceladas
-   routes.get('/receptor/:id/necessidade/Canceladas', necessidadesCanceladaController.index);
-   routes.put('/receptor/necessidade/:id/Cancelar', necessidadesCanceladaController.update);
-   
-  //Rotas da Necessidade Finalizadas
-   routes.get('/receptor/:id/necessidade/Finalizadas', necessidadesFinalizadaController.index);
-   routes.put('/receptor/necessidade/:id/Finalizar', necessidadesFinalizadaController.update);
-  
-  //Rotas para Reaproveitar Necessidade
-   routes.post('/receptor/necessidade/:id', VerificacaoReaproveitarNecessidade, reaproveitaNecessidadeController.create);
-  
-  //Rotas da Necessidade Finalizadas pela Data
-   routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.update);
- 
+//Rotas da Necessidade Em andamento
+routes.get('/receptor/:id/necessidade/EmAndamento', necessidadeAndamentoController.index);
+routes.put('/receptor/necessidade/EmAndamento/:id', necessidadeAndamentoController.update);
+
+//Rotas da Necessidade Canceladas
+routes.get('/receptor/:id/necessidade/Canceladas', necessidadesCanceladaController.index);
+routes.put('/receptor/necessidade/:id/Cancelar', necessidadesCanceladaController.update);
+
+//Rotas da Necessidade Finalizadas
+routes.get('/receptor/:id/necessidade/Finalizadas', necessidadesFinalizadaController.index);
+routes.put('/receptor/necessidade/:id/Finalizar', necessidadesFinalizadaController.update);
+
+//Rotas para Reaproveitar Necessidade
+routes.post('/receptor/necessidade/:id', VerificacaoReaproveitarNecessidade, reaproveitaNecessidadeController.create);
+
+//Rotas da Necessidade Finalizadas pela Data
+routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.update);
+
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);
 routes.get('/doador/necessidade/:cod_Item', doadorController.index);

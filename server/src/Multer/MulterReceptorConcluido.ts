@@ -12,9 +12,10 @@ const VerificacaoReceptorConcluido = celebrate({
     Numero: Joi.string().required(),
     Rua: Joi.string().required(),
     Bairro: Joi.string().required(),
-    CEP: Joi.string().required(),
+    CEP: Joi.string().allow(),
     Latitude: Joi.number().required(),
     Longitude: Joi.number().required(),
+    Img_Local: Joi.string().allow()
   })
 }, 
 {abortEarly: false});

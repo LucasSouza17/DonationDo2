@@ -10,6 +10,25 @@ import User from "../../assets/images/user.svg";
 import "./styles.css";
 
 function UserNotAuth() {
+
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(localStorage);
+    async function AuthExpires() {
+      setTimeout(() => {
+        localStorage.clear();
+        alert("Sua sessão expirou, entre novamente.");
+        history.push("login");
+      }, 3600000);
+    }
+    AuthExpires();
+  }, [history]);
+
+  function handleRegister() {
+    localStorage.removeItem("Nome");
+  }
+
   return (
     <div id="page-home">
       <Header></Header>
@@ -23,7 +42,7 @@ function UserNotAuth() {
               Precisamos que nos informe algumas coisas sobre o local de
               recepção
             </p>
-            <Link to="/finalregister">Finalizar cadastro</Link>
+            <Link to="/finalregister" onClick={handleRegister}>Finalizar cadastro</Link>
           </div>
         </div>
       </div>
