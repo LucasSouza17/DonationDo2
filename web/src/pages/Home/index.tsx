@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import Header from "../../components/LandingHeader";
 import BoxFilters from "../../components/BoxFilters";
@@ -9,9 +9,7 @@ import User from "../../assets/images/user.svg";
 
 import "./styles.css";
 
-const frango = "authorizated";
-
-function UserAuth() {
+function UserNotAuth() {
   return (
     <div id="page-home">
       <Header></Header>
@@ -33,7 +31,25 @@ function UserAuth() {
   );
 }
 
-function UserNotAuth() {
+function UserAuth() {
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(localStorage);
+    function AuthExpires() {
+      setTimeout(() => {
+        localStorage.clear();
+        alert("Sua sessão expirou, entre novamente.");
+        history.push("login");
+      }, 3600000);
+    }
+    return AuthExpires();
+  }, [history]);
+
+  function handleLogout() {
+    localStorage.clear();
+  }
+
   return (
     <div id="page-home">
       <Header>
@@ -42,7 +58,7 @@ function UserNotAuth() {
             <img src={User} alt="" />
             <p>PERFIL</p>
           </Link>
-          <Link to="/home" id="button-logout">
+          <Link to="/login" id="button-logout" onClick={handleLogout}>
             <img src={LogOut} alt="" />
             <p>SAIR</p>
           </Link>
@@ -64,7 +80,9 @@ function UserNotAuth() {
 }
 
 function ValidadeUser() {
-  if (frango === "authorizated") {
+  const auth = localStorage.getItem("Nome");
+ 
+  if (auth === "null") {
     return <UserNotAuth />;
   } else {
     return <UserAuth />;

@@ -22,7 +22,7 @@ class SessionController {
        Status = "Cadastro concluido";
      }
  
-    return response.json([{receptor}, {Status}]);
+    return response.json(receptor);
   }
   
   async createDoador (request: Request, response:Response){
