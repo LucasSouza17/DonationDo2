@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import api from "../../services/api";
 
 import Header from "../../components/LandingHeader";
 import BoxFilters from "../../components/BoxFilters";
@@ -10,7 +11,6 @@ import User from "../../assets/images/user.svg";
 import "./styles.css";
 
 function UserNotAuth() {
-
   const history = useHistory();
 
   useEffect(() => {
@@ -42,7 +42,9 @@ function UserNotAuth() {
               Precisamos que nos informe algumas coisas sobre o local de
               recepção
             </p>
-            <Link to="/finalregister" onClick={handleRegister}>Finalizar cadastro</Link>
+            <Link to="/finalregister" onClick={handleRegister}>
+              Finalizar cadastro
+            </Link>
           </div>
         </div>
       </div>
@@ -51,7 +53,20 @@ function UserNotAuth() {
 }
 
 function UserAuth() {
+  const id_Receptor = localStorage.getItem("id_Receptor");
+
   const history = useHistory();
+
+  useEffect(() => {
+    async function finalizarNecessidade() {
+      try {
+        await api.put(`receptor/${id_Receptor}/necessidade`);
+      } catch (err) {
+        //console.log("Não há nenhuma necessidade à ser finalizada")
+      }
+    }
+    finalizarNecessidade()
+  }, [id_Receptor]);
 
   useEffect(() => {
     console.log(localStorage);
@@ -100,7 +115,7 @@ function UserAuth() {
 
 function ValidadeUser() {
   const auth = localStorage.getItem("Nome");
- 
+
   if (auth === "null") {
     return <UserNotAuth />;
   } else {

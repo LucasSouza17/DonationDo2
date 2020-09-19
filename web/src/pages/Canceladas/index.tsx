@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import api from '../../services/api'
 
 import Header from "../../components/LandingHeader";
 import BoxFilters from "../../components/BoxFilters";
@@ -7,7 +8,29 @@ import BoxNecessidade from "../../components/BoxNecessidade";
 import LogOut from "../../assets/images/logout.svg";
 import User from "../../assets/images/user.svg";
 
+interface NecessidadeI {
+  Titulo: string;
+  Descricao: string;
+  Status: string;
+  Data_Inicio: string;
+  Data_Final: string;
+  id_Necessidade: string;
+}
+
 function Canceladas() {
+  const id_Receptor = localStorage.getItem("id_Receptor");
+
+  const [necessidade, setNecessidade] = useState<NecessidadeI[]>([]);
+
+  useEffect(() => {
+    async function dataNecessidade() {
+      const response = await api.get(`receptor/${id_Receptor}/necessidade/canceladas`);
+      setNecessidade(response.data);
+      console.log(response.data)
+    }
+    dataNecessidade();
+  }, [id_Receptor])
+
   return (
     <div id="page-home">
       <Header>
@@ -34,16 +57,19 @@ function Canceladas() {
             backColorCanceladas="rgb(219, 10, 211, 21%)"
             lineCanceladas="#DB0AD3"
           />
+          {necessidade.map(data => (
           <BoxNecessidade
-            titulo="Semana do agasalho"
-            necessidade="Roupas"
-            dataInicio="27/08/2020"
-            dataFinal="27/10/20"
-            status="Canceladas"
+            key={data.id_Necessidade}
+            titulo={data.Titulo}
+            necessidade={data.Descricao}
+            dataInicio={data.Data_Inicio}
+            dataFinal={data.Data_Final}
+            status={data.Status}
             colorStatus="red"
             toLink="/home"
-            link="Visualizar"
+            link="Editar"
           />
+          ))}
         </div>
       </div>
     </div>

@@ -29,8 +29,16 @@ class NecessidadesFinalizadaController {
      .count('*');
       
     response.header('X-Total-Count', String(count['count(*)']) );
-        
-    return response.json(necessidades_finalizadas);
+
+    const serializeNecessidade = necessidades_finalizadas.map(necessidade => {
+      return {
+        ...necessidade,
+        Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd/mm/yyyy"),
+        Data_Final: dateFormat(necessidade.Data_Final, "dd/mm/yyyy"),
+      }
+    })
+
+    return response.json(serializeNecessidade);
   }
   
   async update (request: Request, response:Response){

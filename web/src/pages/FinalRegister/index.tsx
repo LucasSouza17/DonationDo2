@@ -61,6 +61,12 @@ function FinalRegister() {
   });
 
   useEffect(() => {
+    axios.get('http://localhost:3333/receptor/7/necessidade/EmAndamento').then((response) => {
+      console.log(response.data);
+    })
+  },[])
+
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setInitialPosition([latitude, longitude]);

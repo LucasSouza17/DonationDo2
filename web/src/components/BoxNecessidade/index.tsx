@@ -23,7 +23,7 @@ const ListNecessidade: React.FC<ListaNecessidadeProps> = ({titulo, necessidade, 
           </div>
 
           <div className="container-data">
-            <p>Tipo de necessidade</p>
+            <p>Descrição</p>
             <h2>{necessidade}</h2>
           </div>
 
