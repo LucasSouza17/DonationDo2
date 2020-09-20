@@ -21,15 +21,28 @@ function Canceladas() {
   const id_Receptor = localStorage.getItem("id_Receptor");
 
   const [necessidade, setNecessidade] = useState<NecessidadeI[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [pages, setPages] = useState<number[]>([]);
+  const limit = 5;
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     async function dataNecessidade() {
-      const response = await api.get(`receptor/${id_Receptor}/necessidade/canceladas`);
+      const response = await api.get(`receptor/${id_Receptor}/necessidade/canceladas?page=${currentPage}`);
+      
+      setTotal(response.headers["x-total-count"]);
+      const totalPages = Math.ceil(total / limit);
+
+      const arrayPages = [];
+      for (let i = 1; i <= totalPages; i++) {
+        arrayPages.push(i);
+      }
+
+      setPages(arrayPages);
       setNecessidade(response.data);
-      console.log(response.data)
     }
     dataNecessidade();
-  }, [id_Receptor])
+  }, [currentPage, limit, total, id_Receptor])
 
   return (
     <div id="page-home">
@@ -70,6 +83,13 @@ function Canceladas() {
             link="Editar"
           />
           ))}
+          <div className="pagination">
+            {pages.map((page) => (
+              <button className={currentPage === page ? "selected": "button-pagination"} key={page} onClick={() => setCurrentPage(page)}>
+                {page}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ function EmAndamento() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    async function getNecessidade() {
+    async function dataNecessidade() {
       const response = await api.get(
         `receptor/${id_Receptor}/necessidade/EmAndamento?page=${currentPage}`
       );
@@ -44,7 +44,7 @@ function EmAndamento() {
       console.log(total);
     }
 
-    getNecessidade();
+    dataNecessidade();
   }, [currentPage, limit, total, id_Receptor]);
 
   return (
