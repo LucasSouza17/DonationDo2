@@ -26,11 +26,16 @@
 }
 
 .info-container .img-container {
-  background-color: blueviolet;
-  width: 95%;
-  height: 18rem;
+  display: flex;
+  justify-content: center;
   border-radius: 0.8rem;
   margin-bottom: 2.5rem;
+}
+
+.info-container .img-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.8rem;
 }
 
 .info-container .info {
@@ -62,7 +67,7 @@
 
 .map-container {
   display: flex;
-  width: 90%;
+  width: 100%;
   height: 30rem;
 }
 
@@ -108,13 +113,13 @@
   }
   
   .info-container .img-container {
-    display: flex;
-    align-self: center;
-    background-color: blueviolet;
-    width: 100%;
-    height: 20rem;
-    border-radius: 0.8rem;
-    margin-bottom: 2.5rem;
+    background-color: #74009E;
+  }
+
+  .info-container .img-container img {
+    width: 50%;
+    object-fit: cover;
+    border-radius: 0rem;
   }
   
   .info-container .info {

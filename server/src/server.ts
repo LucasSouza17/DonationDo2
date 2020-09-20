@@ -7,11 +7,12 @@ import cors from 'cors';
 const app = express();
 
 const options: cors.CorsOptions = {
-  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token", "Authorization"],
+  allowedHeaders: ["Origin", "Access-Control-Allow-Origin", "Access-Control-Expose-Headers", "X-Requested-With", "Content-Type, X-Total-Count", "Accept", "X-Access-Token", "X-Total-Count",  "Authorization"],
   credentials: true,
   methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
   origin: 'http://localhost:3000',
-  preflightContinue: false
+  preflightContinue: false,
+  exposedHeaders: "x-total-count"
 };
 
 app.use(cors(options));

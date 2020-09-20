@@ -20,8 +20,9 @@ class NecessidadesAndamentoController {
     const necessidades_andamento = await knex('receptor')
       .join('necessidade', 'id_Receptor', '=', 'cod_Receptor')
       .where('necessidade.cod_Receptor', id).andWhere('status', 'Em andamento')
-      .limit(10)
-      .offset((Number(page) - 1) * 10)
+      .limit(5)
+      .offset((Number(page) - 1) * 5)
+      .orderBy('necessidade.id_Necessidade', 'desc')
       .select('necessidade.*');
 
 

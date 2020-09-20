@@ -1,19 +1,18 @@
 .dropzone {
-  width: 100%;
-  height: 180px;
-  background: #74009E;
+  height: 300px;
+  background: #65078db2;
   border-radius: 8px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 48px;
   outline: 0;
-  margin-top: 2.5rem;
 }
 
 .dropzone img {
-  width: 96%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 

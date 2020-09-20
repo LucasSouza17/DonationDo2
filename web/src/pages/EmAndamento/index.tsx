@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from '../../services/api';
+import api from "../../services/api";
 
 import Header from "../../components/LandingHeader";
 import BoxFilters from "../../components/BoxFilters";
@@ -21,14 +21,31 @@ function EmAndamento() {
   const id_Receptor = localStorage.getItem("id_Receptor");
 
   const [necessidade, setNecessidade] = useState<NecessidadeI[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [pages, setPages] = useState<number[]>([]);
+  const limit = 5;
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    async function dataNecessidade() {
-      const response = await api.get(`receptor/${id_Receptor}/necessidade/EmAndamento`);
+    async function getNecessidade() {
+      const response = await api.get(
+        `receptor/${id_Receptor}/necessidade/EmAndamento?page=${currentPage}`
+      );
+      setTotal(response.headers["x-total-count"]);
+      const totalPages = Math.ceil(total / limit);
+
+      const arrayPages = [];
+      for (let i = 1; i <= totalPages; i++) {
+        arrayPages.push(i);
+      }
+
+      setPages(arrayPages);
       setNecessidade(response.data);
+      console.log(total);
     }
-    dataNecessidade();
-  }, [id_Receptor])
+
+    getNecessidade();
+  }, [currentPage, limit, total, id_Receptor]);
 
   return (
     <div id="page-home">
@@ -56,24 +73,30 @@ function EmAndamento() {
             backColorAndamento="rgb(219, 10, 211, 21%)"
             lineAndamento="#DB0AD3"
           />
-          {necessidade.map(data => (
-          <BoxNecessidade
-            key={data.id_Necessidade}
-            titulo={data.Titulo}
-            necessidade={data.Descricao}
-            dataInicio={data.Data_Inicio}
-            dataFinal={data.Data_Final}
-            status={data.Status}
-            colorStatus="orange"
-            toLink="/home"
-            link="Editar"
-          />
+          {necessidade.map((data) => (
+            <BoxNecessidade
+              key={data.id_Necessidade}
+              titulo={data.Titulo}
+              necessidade={data.Descricao}
+              dataInicio={data.Data_Inicio}
+              dataFinal={data.Data_Final}
+              status={data.Status}
+              colorStatus="orange"
+              toLink="/home"
+              link="Editar"
+            />
           ))}
+          <div className="pagination">
+            {pages.map((page) => (
+              <button className={currentPage === page ? "selected": "button-pagination"} key={page} onClick={() => setCurrentPage(page)}>
+                {page}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 export default EmAndamento;
