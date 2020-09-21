@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 
 import Header from "../../components/LandingHeader";
 
@@ -53,7 +54,9 @@ function Perfil() {
         <div id="box-home">
           <div className="box-header">
             <h1>Perfil</h1>
-            <h3>Voltar para o menu</h3>
+            <Link to="home" style={{textDecoration: "none"}}>
+              <h3>Voltar para o menu</h3>
+              </Link>
           </div>
             {userdata.map(data => (
               <div className="info-container" key={data.id_Receptor}>
