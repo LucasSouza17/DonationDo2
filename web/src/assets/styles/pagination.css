@@ -39,6 +39,7 @@
 }
 
 .button-pagination:hover {
+  margin-top: 0rem;
   background-color: rgba(218, 115, 255, 0.60);
 }
 
