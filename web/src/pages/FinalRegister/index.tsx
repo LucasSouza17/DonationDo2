@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Header from "../../components/LandingHeader";
@@ -34,7 +34,11 @@ function FinalRegister() {
     iconSize: [38, 95],
   });
 
-  const [selectedFile, setSelectedFile] = useState<File>();
+  const text = "Nenhuma_Imagem_Selecionada"
+  const img = JSON.stringify(text);
+  const imgFile = JSON.parse(img);
+
+  const [selectedFile, setSelectedFile] = useState<File>(imgFile);
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedUf, setSelectedUf] = useState("0");
@@ -61,10 +65,12 @@ function FinalRegister() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:3333/receptor/7/necessidade/EmAndamento').then((response) => {
-      console.log(response.data);
-    })
-  },[])
+    axios
+      .get("http://localhost:3333/receptor/7/necessidade/EmAndamento")
+      .then((response) => {
+        console.log(response.data);
+      });
+  }, []);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -128,7 +134,7 @@ function FinalRegister() {
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData)
+    console.log(formData);
   }
 
   function handleSelectTipo(event: ChangeEvent<HTMLSelectElement>) {
@@ -183,16 +189,17 @@ function FinalRegister() {
       } else if (Cidade === "0") {
         toast.warning("Cidade não pode ser nulo.");
         document.getElementById("cidade")?.focus();
-      } else if (!selectedFile) {
-        toast.warning("Selecione a imagem do seu estabelecimento.");
       } else if (Latitude === 0 && Longitude === 0) {
         toast.warning("Marque no mapa sua localização.");
       } else {
-        const response = await api.put(`receptor/ConcluirCadastro/${id_Receptor}`, data);
+        const response = await api.put(
+          `receptor/ConcluirCadastro/${id_Receptor}`,
+          data
+        );
         toast.success("Cadastro realizado com sucesso");
         setTimeout(() => {
-          history.push("home")
-          localStorage.setItem("Nome", response.data.Nome)
+          history.push("home");
+          localStorage.setItem("Nome", response.data.Nome);
         }, 2200);
       }
     } catch (err) {
@@ -283,7 +290,7 @@ function FinalRegister() {
 
           <div className="field">
             <label>Insira uma foto do local*</label>
-            <Dropzone onFileUploaded={setSelectedFile}/>
+            <Dropzone onFileUploaded={setSelectedFile} />
           </div>
 
           <div className="field">
