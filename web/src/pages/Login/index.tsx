@@ -34,7 +34,7 @@ function Login() {
    try {
    const response = await api
       .post<StorageI>("/sessionReceptor", data);
-        toast.success("😀 Cadastro realizado com sucesso!");
+        toast.success("😀 Login realizado com sucesso!");
         localStorage.setItem("id_Receptor", response.data.id_Receptor)
         localStorage.setItem("Nome", response.data.Nome)
         console.log(localStorage)
