@@ -11,6 +11,7 @@ import Canceladas from './pages/Canceladas';
 import Finalizadas from './pages/Finalizadas';
 import Perfil from './pages/Perfil';
 import AtualizarPerfil from './pages/AtualizarPerfil';
+import CadastrarCampanha from './pages/CadastroCampanha';
 
 const Routes: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const Routes: React.FC = () => {
       <Route path="/finalizadas" component={Finalizadas} />
       <Route path="/perfil" component={Perfil} />
       <Route path="/atualizarperfil" component={AtualizarPerfil} />
+      <Route path="/cadastrocampanha" component={CadastrarCampanha} />
     </BrowserRouter>
   );
 }

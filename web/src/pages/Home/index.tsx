@@ -102,7 +102,7 @@ function UserAuth() {
         <div className="box-home">
           <div className="box-header">
             <h1>Necessidades cadastradas</h1>
-            <Link to="/home" className="nova-campanha">
+            <Link to="/cadastrocampanha" className="nova-campanha">
               Cadastrar Campanha
             </Link>
           </div>

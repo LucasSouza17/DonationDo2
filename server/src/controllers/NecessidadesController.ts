@@ -1,3 +1,4 @@
+import { date } from '@hapi/joi';
 import { Request, Response} from 'express';
 import knex from '../database/connection';
 
@@ -11,6 +12,7 @@ class NecessidadesController {
     const {Descricao, cod_Item, Data_Final} = request.body;
     
     const NomeItem = await knex('item').where('id_Item', cod_Item).select('Nome').first();
+
     
     const Titulo = "Precisamos de " + NomeItem.Nome; 
     const Status = "Em andamento";

@@ -140,7 +140,7 @@ function Perfil() {
                     <Marker icon={icon} position={[data.Latitude, data.Longitude]} />
                   </Map>
                 </div>
-                <button className="button-perfil">Atualizar perfil</button>
+                <Link to="atualizarperfil" className="button-perfil">Atualizar perfil</Link>
               </div>
             </div>
             ))}

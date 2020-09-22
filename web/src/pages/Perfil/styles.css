@@ -84,6 +84,8 @@
   border-radius: 0.4rem;
   margin-bottom: 4rem;
   transition: 0.2s;
+  color: white;
+  text-decoration: none;
 }
 
 .button-perfil:hover {

@@ -25,11 +25,11 @@ class ReceptoresController {
     const receptores = await knex('receptor').select('*');
 
     const serializeReceptor = receptores.map(receptor => {
-        return {
-          ...receptor,
-          //Img_Local: `http://donationdo-com.umbler.net/uploads/${receptor.Img_Local}`
-          Img_Local: `http://localhost:3333/uploads/${receptor.Img_Local}`
-        };
+      return {
+        ...receptor,
+        //Img_Local: `http://donationdo-com.umbler.net/uploads/${receptor.Img_Local}`
+        Img_Local: `http://localhost:3333/uploads/${receptor.Img_Local}`
+      };
     });
 
     return response.json(serializeReceptor);
@@ -50,6 +50,28 @@ class ReceptoresController {
     return response.json(serializeReceptor);
   }
 
+  async updateimg(request: Request, response: Response) {
+
+    const { id } = request.params;
+
+    const { Email, Senha } = await knex('receptor').where('id_Receptor', id).select('Email', 'Senha').first();
+
+    const { Nome, Whatsapp, Telefone,
+      DescricaoReceptor, Cidade, UF, Numero,
+      Rua, Bairro, CEP, Latitude, Longitude
+    } = request.body;
+
+      const receptor = {
+        Nome, Email, Senha, Whatsapp, Telefone,
+        DescricaoReceptor, Cidade, UF, Numero,
+        Rua, Bairro, CEP, Latitude, Longitude, Img_Local: request.file.filename
+      }
+
+      await knex('receptor').where('id_Receptor', id).update(receptor);
+
+      return response.json({ ...receptor })
+  }
+
   async update(request: Request, response: Response) {
 
     const { id } = request.params;
@@ -57,21 +79,19 @@ class ReceptoresController {
     const { Email, Senha } = await knex('receptor').where('id_Receptor', id).select('Email', 'Senha').first();
 
     const { Nome, Whatsapp, Telefone,
-      DescricaoReceptor, Tipo, Cidade, UF, Numero,
+      DescricaoReceptor, Cidade, UF, Numero,
       Rua, Bairro, CEP, Latitude, Longitude
     } = request.body;
 
-    const receptor = {
-      Nome, Email, Senha, Whatsapp, Telefone,
-      DescricaoReceptor, Tipo, Cidade, UF, Numero,
-      Rua, Bairro, CEP, Latitude, Longitude, Img_Local: request.file.filename
-    }
+      const receptor = {
+        Nome, Email, Senha, Whatsapp, Telefone,
+        DescricaoReceptor, Cidade, UF, Numero,
+        Rua, Bairro, CEP, Latitude, Longitude
+      }
 
-    await knex('receptor').where('id_Receptor', id).update(receptor);
+      await knex('receptor').where('id_Receptor', id).update(receptor);
 
-    console.log(receptor);
-
-    return response.json({ ...receptor });
+      return response.json({ ...receptor })
   }
 
 }

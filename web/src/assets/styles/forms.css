@@ -28,14 +28,20 @@
   font-size: 2.6rem;
   color: #74009e;
   font-family: Poiret One;
-  letter-spacing: 0.6rem;
+  letter-spacing: 0.1rem;
   margin-bottom: 1.2rem;
+}
+
+.box-form-container h3 {
+  color: #74009e;
+  font-size: 1.6rem;
+  text-decoration: none;
 }
 
 .box-form-container span {
   color: #000000;
-  letter-spacing: 0.3rem;
-  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  font-size: 1.4rem;
 }
 
 .box-form-container .field-group {
@@ -61,6 +67,7 @@
 
 .box-form-container .field input[type="text"],
 .box-form-container .field input[type="email"],
+.box-form-container .field input[type="date"],
 .box-form-container .field input[type="password"],
 .box-form-container .field select {
   width: 90%;
@@ -99,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20rem;
+  width: 50%;
   height: 3rem;
   background-color: var(--color-button);
   border: none;
@@ -107,6 +114,7 @@
   transition: all linear 0.1s;
   cursor: pointer;
   margin-bottom: 3rem;
+  margin-top: 3rem;
 }
 
 .box-form-container .button-submit button:hover {

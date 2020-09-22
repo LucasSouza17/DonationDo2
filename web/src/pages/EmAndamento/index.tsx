@@ -51,7 +51,7 @@ function EmAndamento() {
     <div id="page-home">
       <Header>
         <div className="button-container">
-          <Link to="/home" id="button-user">
+          <Link to="/perfil" id="button-user">
             <img src={User} alt="" />
             <p>PERFIL</p>
           </Link>
@@ -65,7 +65,7 @@ function EmAndamento() {
         <div className="box-home">
           <div className="box-header">
             <h1>Necessidades cadastradas</h1>
-            <Link to="/home" className="nova-campanha">
+            <Link to="/cadastrocampanha" className="nova-campanha">
               Cadastrar Campanha
             </Link>
           </div>

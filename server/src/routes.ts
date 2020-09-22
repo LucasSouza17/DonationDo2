@@ -42,7 +42,8 @@ routes.get('/itens', itemController.index);
 routes.get('/receptor', receptoresController.index);
 routes.post('/receptor', VerificacaoReceptor, receptoresController.create);
 routes.put('/receptor/ConcluirCadastro/:id', uploads.single("Img_Local"), VerificacaoReceptorConcluido, concluirReceptorController.update,);
-routes.put('/receptor/:id', uploads.single('Img_Local'), receptoresController.update);
+routes.put('/receptor/img/:id', uploads.single('Img_Local'), receptoresController.updateimg);
+routes.put('/receptor/:id', receptoresController.update);
 routes.get('/receptor/:id', receptoresController.show);
 
 //Rota de Login do Receptor

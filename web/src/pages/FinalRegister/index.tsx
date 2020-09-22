@@ -404,7 +404,7 @@ function FinalRegister() {
         </form>
         <ToastContainer
           position={"top-center"}
-          autoClose={2500}
+          autoClose={2200}
           transition={Bounce}
         />
       </div>
