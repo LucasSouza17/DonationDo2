@@ -29,7 +29,7 @@
   font-weight: 300;
   font-size: 1.4rem;
   margin-top: 0.6rem;
-  word-break: break-all;
+  word-wrap: normal;
 }
 
 .container-data-link {
