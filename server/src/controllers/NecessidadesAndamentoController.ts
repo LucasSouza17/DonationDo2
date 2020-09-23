@@ -35,8 +35,8 @@ class NecessidadesAndamentoController {
     const serializeNecessidade = necessidades_andamento.map(necessidade => {
       return {
         ...necessidade,
-        Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd/mm/yyyy"),
-        Data_Final: dateFormat(necessidade.Data_Final, "dd/mm/yyyy"),
+        Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd-mm-yyyy"),
+        Data_Final: dateFormat(necessidade.Data_Final, "dd-mm-yyyy"),
       }
     })
 
@@ -53,13 +53,35 @@ class NecessidadesAndamentoController {
       return response.status(400).json({ error: 'Necessidade não encontrado' });
     }
 
-    const { Descricao, cod_Item, Data_Final } = request.body;
+    const { Descricao, Data_Final } = request.body;
 
-    const NomeItem = await knex('item').where('id_Item', cod_Item).select('Nome').first();
 
-    const Titulo = "Precisamos de " + NomeItem.Nome;
+    await knex('necessidade').where('id_Necessidade', id).update({ Descricao, Data_Final });
 
-    await knex('necessidade').where('id_Necessidade', id).update({ cod_Item, Titulo, Descricao, Data_Final });
+    const necessidade_atualizada = await knex('necessidade').where('id_Necessidade', id).select('*').first();
+
+    const serializeNecessidade = {
+      ...necessidade_atualizada,
+      Data_Inicio: dateFormat(necessidade_atualizada.Data_Inicio, "dd/mm/yyyy"),
+      Data_Final: dateFormat(necessidade_atualizada.Data_Final, "dd/mm/yyyy")
+    };
+
+    return response.json(serializeNecessidade);
+  }
+
+  async updateif(request: Request, response: Response) {
+
+    const { id } = request.params;
+
+    const necessidade = await knex('necessidade').where('id_Necessidade', id).first();
+
+    if (!necessidade) {
+      return response.status(400).json({ error: 'Necessidade não encontrado' });
+    }
+
+    const {Descricao, Data_Final} = request.body;
+
+    await knex('necessidade').where('id_Necessidade', id).update({ Descricao, Data_Final });
 
     const necessidade_atualizada = await knex('necessidade').where('id_Necessidade', id).select('*').first();
 

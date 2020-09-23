@@ -54,10 +54,12 @@ routes.post('/sessionDoador', sessionControler.createDoador);
 
 //Rotas da Necessidade do Receptor
 routes.post('/receptor/:cod_Receptor/necessidade', VerificacaoNecessidade, necessidadesController.create);
+routes.post('/receptor/:cod_Receptor/necessidade/outros', VerificacaoNecessidade, necessidadesController.createif);
 
 //Rotas da Necessidade Em andamento
 routes.get('/receptor/:id/necessidade/EmAndamento', necessidadeAndamentoController.index);
 routes.put('/receptor/necessidade/EmAndamento/:id', necessidadeAndamentoController.update);
+routes.put('/receptor/necessidade/EmAndamento/:id/outros', necessidadeAndamentoController.updateif);
 
 //Rotas da Necessidade Canceladas
 routes.get('/receptor/:id/necessidade/Canceladas', necessidadesCanceladaController.index);
@@ -72,6 +74,9 @@ routes.post('/receptor/necessidade/:id', VerificacaoReaproveitarNecessidade, rea
 
 //Rotas da Necessidade Finalizadas pela Data
 routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.update);
+
+//Rota necessidade por id
+routes.get('/receptor/necessidade/:id', VerificacaoNecessidade, necessidadesController.index);
 
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);

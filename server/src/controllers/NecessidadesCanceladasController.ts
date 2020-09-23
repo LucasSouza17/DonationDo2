@@ -21,7 +21,7 @@ class NecessidadesCanceladaController {
      .where('necessidade.cod_Receptor', id).andWhere('status', 'Cancelada')
      .limit(5)
      .offset((Number(page) - 1) * 5)
-     .orderBy('necessidade.id_Necessidade', 'desc')
+     .orderBy('necessidade.updated_at', 'desc')
      .select('necessidade.*');
      
      const [count] = await knex('necessidade')

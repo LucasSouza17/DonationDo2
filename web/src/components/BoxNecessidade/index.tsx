@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 
 import "./styles.css";
@@ -12,9 +12,11 @@ interface ListaNecessidadeProps {
   colorStatus: string;
   toLink: string;
   link: string;
+  onClick?(e: MouseEvent<HTMLElement>): void;
 }
 
-const ListNecessidade: React.FC<ListaNecessidadeProps> = ({titulo, necessidade, dataInicio, dataFinal, status, colorStatus, link, toLink}) => {
+const ListNecessidade: React.FC<ListaNecessidadeProps> = ({onClick, titulo, necessidade, dataInicio, dataFinal, status, colorStatus, link, toLink}) => {
+
   return (
         <div className="container-lista">
           <div className="container-data">
@@ -43,7 +45,7 @@ const ListNecessidade: React.FC<ListaNecessidadeProps> = ({titulo, necessidade, 
           </div>
 
           <div className="container-data-link">
-            <Link to={toLink}>{link}</Link>
+            <Link onClick={onClick} to={toLink}>{link}</Link>
           </div>
         </div>
   );

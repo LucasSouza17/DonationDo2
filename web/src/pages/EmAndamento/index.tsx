@@ -14,12 +14,13 @@ interface NecessidadeI {
   Status: string;
   Data_Inicio: string;
   Data_Final: string;
-  id_Necessidade: string;
+  id_Necessidade: number;
 }
 
 function EmAndamento() {
   const id_Receptor = localStorage.getItem("id_Receptor");
 
+  let idnecessidade = "";
   const [necessidade, setNecessidade] = useState<NecessidadeI[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [pages, setPages] = useState<number[]>([]);
@@ -38,14 +39,18 @@ function EmAndamento() {
       for (let i = 1; i <= totalPages; i++) {
         arrayPages.push(i);
       }
-
+      
       setPages(arrayPages);
       setNecessidade(response.data);
-      console.log(total);
     }
 
     dataNecessidade();
   }, [currentPage, limit, total, id_Receptor]);
+
+  function handleClickEditar(id: number) {
+    idnecessidade = (id.toString());
+    localStorage.setItem("id_Necessidade", idnecessidade);
+  }
 
   return (
     <div id="page-home">
@@ -82,8 +87,9 @@ function EmAndamento() {
               dataFinal={data.Data_Final}
               status={data.Status}
               colorStatus="orange"
-              toLink="/home"
+              toLink="atualizarcampanha"
               link="Editar"
+              onClick={() => handleClickEditar(data.id_Necessidade)}
             />
           ))}
           <div className="pagination">
