@@ -41,7 +41,6 @@ function Finalizadas() {
 
       setPages(arrayPages);
       setNecessidade(response.data);
-      console.log(total);
     }
     dataNecessidade();
   }, [currentPage, limit, total, id_Receptor])

@@ -34,7 +34,7 @@ function FinalRegister() {
     iconSize: [38, 95],
   });
 
-  const text = "Nenhuma_Imagem_Selecionada"
+  const text = "NenhumaImagemSelecionada"
   const img = JSON.stringify(text);
   const imgFile = JSON.parse(img);
 
@@ -134,7 +134,6 @@ function FinalRegister() {
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   }
 
   function handleSelectTipo(event: ChangeEvent<HTMLSelectElement>) {

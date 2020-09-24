@@ -112,7 +112,7 @@ function AtualizarCampanha() {
                 id="Descricao"
                 inputMode="text"
                 onChange={(e) => setDescricao(e.target.value)}
-
+                defaultValue={descricao}
               />
             </div>
             <div className="field-group-row">

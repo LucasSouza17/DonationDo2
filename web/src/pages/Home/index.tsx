@@ -14,7 +14,6 @@ function UserNotAuth() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(localStorage);
     async function AuthExpires() {
       setTimeout(() => {
         localStorage.clear();
@@ -69,7 +68,6 @@ function UserAuth() {
   }, [id_Receptor]);
 
   useEffect(() => {
-    console.log(localStorage);
     function AuthExpires() {
       setTimeout(() => {
         localStorage.clear();

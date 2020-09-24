@@ -43,7 +43,6 @@ function Perfil() {
   useEffect(() => {
     api.get(`receptor/${id_Receptor}`).then((response) => {
       setUserData([response.data])
-      console.log([response.data]);
     });
   }, [id_Receptor]);
 
@@ -54,7 +53,7 @@ function Perfil() {
         <div id="box-home">
           <div className="box-header">
             <h1>Perfil</h1>
-            <Link to="home" style={{textDecoration: "none"}}>
+            <Link to="andamento" style={{textDecoration: "none"}}>
               <h3>Voltar para o menu</h3>
               </Link>
           </div>
