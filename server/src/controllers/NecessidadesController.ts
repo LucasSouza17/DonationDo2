@@ -21,6 +21,21 @@ class NecessidadesController {
     return response.json(serializeReceptor);
   }
 
+  async show(request: Request, response: Response) {
+
+    const { id } = request.params;
+
+    const necessidade = await knex('necessidade').where('id_Necessidade', id).select('*').first();
+
+    const serializeReceptor = {
+      ...necessidade,
+      Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd/mm/yyyy"),
+      Data_Final: dateFormat(necessidade.Data_Final, "dd/mm/yyyy")
+    };
+
+    return response.json(serializeReceptor);
+  }
+
   async create(request: Request, response: Response) {
 
     const { cod_Receptor } = request.params;

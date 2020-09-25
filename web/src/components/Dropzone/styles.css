@@ -2,7 +2,7 @@
   height: 300px;
   background: #65078db2;
   border-radius: 8px;
-
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

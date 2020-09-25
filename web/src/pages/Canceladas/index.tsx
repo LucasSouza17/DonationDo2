@@ -20,6 +20,8 @@ interface NecessidadeI {
 function Canceladas() {
   const id_Receptor = localStorage.getItem("id_Receptor");
 
+  
+  let idnecessidade = "";
   const [necessidade, setNecessidade] = useState<NecessidadeI[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [pages, setPages] = useState<number[]>([]);
@@ -43,6 +45,11 @@ function Canceladas() {
     }
     dataNecessidade();
   }, [currentPage, limit, total, id_Receptor])
+
+  function handleClickVisualizar(id: number) {
+    idnecessidade = (id.toString());
+    localStorage.setItem("id_Necessidade", idnecessidade);
+  }
 
   return (
     <div id="page-home">
@@ -79,8 +86,9 @@ function Canceladas() {
             dataFinal={data.Data_Final}
             status={data.Status}
             colorStatus="red"
-            toLink="/home"
-            link="Editar"
+            toLink="/visualizarcampanha"
+            link="Visualizar"
+            onClick={() => handleClickVisualizar(Number(data.id_Necessidade))}
           />
           ))}
           <div className="pagination">

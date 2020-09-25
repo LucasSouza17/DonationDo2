@@ -50,7 +50,7 @@ function Login() {
     <div id="page-login">
       <Header>
         <div className="container-buttons">
-          <Link to="/login">Página inicial</Link>
+          <Link to="/">Página inicial</Link>
           <Link to="/register" className="button-link">
             Cadastrar-se
           </Link>

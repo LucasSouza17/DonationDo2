@@ -77,6 +77,7 @@ routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.upda
 
 //Rota necessidade por id
 routes.get('/receptor/necessidade/:id', VerificacaoNecessidade, necessidadesController.index);
+routes.get('/receptor/necessidade/:id/visualizar', VerificacaoNecessidade, necessidadesController.show);
 
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);

@@ -13,6 +13,7 @@ import Perfil from './pages/Perfil';
 import AtualizarPerfil from './pages/AtualizarPerfil';
 import CadastrarCampanha from './pages/CadastroCampanha';
 import AtualizarCampanha from './pages/AtualizarCampanha';
+import VisualizarCampanha from './pages/VisualizarCampanha';
 
 const Routes: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
       <Route path="/atualizarperfil" component={AtualizarPerfil} />
       <Route path="/cadastrocampanha" component={CadastrarCampanha} />
       <Route path="/atualizarcampanha" component={AtualizarCampanha} />
+      <Route path="/visualizarcampanha" component={VisualizarCampanha} />
     </BrowserRouter>
   );
 }
