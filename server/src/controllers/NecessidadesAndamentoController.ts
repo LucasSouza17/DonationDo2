@@ -35,8 +35,8 @@ class NecessidadesAndamentoController {
     const serializeNecessidade = necessidades_andamento.map(necessidade => {
       return {
         ...necessidade,
-        Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd-mm-yyyy"),
-        Data_Final: dateFormat(necessidade.Data_Final, "dd-mm-yyyy"),
+        Data_Inicio: dateFormat(necessidade.Data_Inicio, "dd/mm/yyyy"),
+        Data_Final: dateFormat(necessidade.Data_Final, "dd/mm/yyyy"),
       }
     })
 
