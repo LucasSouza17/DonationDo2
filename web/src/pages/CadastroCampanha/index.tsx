@@ -137,7 +137,7 @@ function RegistroCampanha() {
               ))}
             </ul>
           </div>
-          {selectedItem === "12" ? (
+          {selectedItem === "8" ? (
             <div className="field" key={selectedItem}>
               <label className="label" htmlFor="Nome">
                 Nome da necessidade*
