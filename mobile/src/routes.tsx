@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import OnBoarding from './pages/OnBoarding';
 
 const AppStack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const Routes = () => {
             >
                 <AppStack.Screen name="Login" component={Login} />
                 <AppStack.Screen name="Register" component={Register} />
+                <AppStack.Screen name="OnBoarding" component={OnBoarding} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

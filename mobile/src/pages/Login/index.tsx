@@ -12,6 +12,10 @@ function Login() {
         navigation.navigate("Register");
     }
 
+    function handleNavigateToOnBoarding() {
+        navigation.navigate("OnBoarding");
+    }
+
     return (
         <ImageBackground source={require('../../assets/background/back.jpg')} style={styles.container}>
             <Image style={styles.imageLogo} source={require("../../assets/logoapp/logoapp.png")} />
@@ -21,7 +25,7 @@ function Login() {
                 <TextInput selectionColor="#390A5C" textContentType="password" secureTextEntry={true} placeholderTextColor="#4F0A83" style={styles.input} placeholder="Senha" />
             </View>
             <View style={styles.containerButtons}>
-                <RectButton style={styles.buttonSubmit}>
+                <RectButton style={styles.buttonSubmit} onPress={handleNavigateToOnBoarding}>
                     <Text style={styles.textSubmit}>Entrar</Text>
                 </RectButton>
                 <Text style={styles.textFinal}>Não tem conta? <Text onPress={handleNavigateToRegister} style={styles.textRegister}> Cadastre-se</Text></Text>
@@ -29,6 +33,7 @@ function Login() {
         </ImageBackground>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
