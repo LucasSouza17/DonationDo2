@@ -19,7 +19,7 @@ function OnBoarding() {
                 backgroundColor: "#F90CC5",
                 width: wp('25%'),
                 height: hp('5%'),
-                marginRight: wp('4%')
+                marginRight: wp('4%'),
             }}
             titleStyle={{fontSize:wp("3%")}}
             {...nextLabel}
@@ -59,7 +59,7 @@ function OnBoarding() {
                         title: "Ganhe pontos",
                         titleStyles: { color: "#000", fontWeight: "bold", fontSize: wp('7%') },
                         subtitle: `A cada doação realizada você ganha 10 pontos.`,
-                        subTitleStyles: { color: "#646464", fontWeight: "bold", fontSize: wp('5.5%'), padding: wp('3%') }
+                        subTitleStyles: { color: "#646464", fontWeight: "bold", fontSize: wp('5.5%'), paddingHorizontal: wp('3%') }
                     },
                     {
                         backgroundColor: "transparent",
@@ -67,11 +67,11 @@ function OnBoarding() {
                         title: "Convide Amigos",
                         titleStyles: { color: "#000", fontWeight: "bold", fontSize: wp('7%') },
                         subtitle: `Convide amigos para ganhar o bônus de 50 pontos`,
-                        subTitleStyles: { color: "#646464", fontWeight: "bold", fontSize: wp('5.5%'), padding: wp('3%') },
+                        subTitleStyles: { color: "#646464", fontWeight: "bold", fontSize: wp('5.5%'), paddingHorizontal: wp('3%') },
                     },
                 ]}
             />
-            <View style={{position: "absolute", marginTop: wp("20%"), marginLeft: wp("5%")}}>
+            <View style={{position: "absolute", marginTop: wp("15%"), marginLeft: wp("5%")}}>
                 <TouchableOpacity onPress={handleNavigateToRegister} style={{ backgroundColor: "transparent", borderWidth: wp("0.6%"), width: wp("25%"), height: hp("4%"), alignItems:"center", justifyContent: "center", borderRadius: 5, borderColor: "#F90CC5"}}>
                     <Text style={{color: "#F90CC5", fontWeight:"bold"}}>Pular</Text>
                 </TouchableOpacity>
@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
 
     imageBoard1: {
         resizeMode: "contain",
-        width: "90%",
+        width: wp("90%"),
         alignSelf: "center"
     },
 
     imageBoard2: {
         resizeMode: "contain",
-        width: "90%",
+        width: wp("90%"),
         alignSelf: "center"
     },
 
