@@ -17,10 +17,11 @@ function OnBoarding() {
             title={'Próximo'}
             buttonStyle={{
                 backgroundColor: "#F90CC5",
-                width: wp('30%'),
+                width: wp('25%'),
                 height: hp('5%'),
-                marginRight: wp('10%')
+                marginRight: wp('4%')
             }}
+            titleStyle={{fontSize:wp("3%")}}
             {...nextLabel}
         />
     );
@@ -30,10 +31,11 @@ function OnBoarding() {
             title={'Fim'}
             buttonStyle={{
                 backgroundColor: "#15C211",
-                width: wp('30%'),
+                width: wp('25%'),
                 height: hp('5%'),
-                marginRight: wp('10%')
+                marginRight: wp('4%')
             }}
+            titleStyle={{fontSize:wp("3%")}}
             {...props}
         />
     );
