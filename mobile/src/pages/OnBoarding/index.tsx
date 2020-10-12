@@ -65,7 +65,7 @@ function OnBoarding() {
                         backgroundColor: "transparent",
                         image: <Image style={styles.imageBoard2} source={require("../../assets/onboarding/board2.png")} />,
                         title: "Convide Amigos",
-                        titleStyles: { color: "#000", fontWeight: "bold", fontSize: wp('7%') },
+                        titleStyles: { color: "#000", fontWeight: "bold", fontSize: wp('7%')},
                         subtitle: `Convide amigos para ganhar o bônus de 50 pontos`,
                         subTitleStyles: { color: "#646464", fontWeight: "bold", fontSize: wp('5.5%'), paddingHorizontal: wp('3%') },
                     },
@@ -90,13 +90,15 @@ const styles = StyleSheet.create({
     imageBoard1: {
         resizeMode: "contain",
         width: wp("90%"),
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: wp("-12%")
     },
 
     imageBoard2: {
         resizeMode: "contain",
         width: wp("90%"),
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: wp("-12%")
     },
 
     nextButton: {
