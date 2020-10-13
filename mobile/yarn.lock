@@ -2213,6 +2213,14 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
+"@react-navigation/drawer@^5.9.3":
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.9.3.tgz#d8b9a6d46a7fe436fcc8d410a10017852e420042"
+  integrity sha512-bc9cyJGONvTf6tsdwjgyMV5VMVIgJc9URMGbiXzj68Vp94lsxi6YbsOW01ErLpD8ltyCBNEC+Ll/1vv6CZiJaQ==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@react-navigation/native@^5.7.2":
   version "5.7.6"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.7.6.tgz#47546c512488d0e9c343219af635e1a44881761d"
@@ -2420,14 +2428,6 @@
   integrity sha512-ykkPQ+5nFknnlU6lDd947WbQ6TE3NNzbQAkInC2EKY1qeYdTKp7onFusmYZb+ityzx2YviqT6BXSu+LyWWJwcA==
   dependencies:
     "@types/react" "*"
-
-"@types/react-native-onboarding-swiper@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.1.0.tgz#3765bdb7d437d59512c518c81b5eeded651fbd17"
-  integrity sha512-F6A5F4ZMuKMZ7nRau5YEaIlZ+1GsymDYellcyL3WSNr9QiLzQU0XTzTh335HVI9tCAi24CUNBr0JQq++Xzw+MA==
-  dependencies:
-    "@types/react" "*"
-    "@types/react-native" "*"
 
 "@types/react-native-vector-icons@^6.4.5":
   version "6.4.6"
@@ -11062,13 +11062,6 @@ react-native-maps@0.27.1:
   version "0.27.1"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
   integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
-
-react-native-onboarding-swiper@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.1.4.tgz#cb2d97c769542228d3904a9da13e02359ed6e3f5"
-  integrity sha512-dG2J6giQpt5kKlU+Xe68E9xy+OkmC9Yf5XD7S1mJQ5VvwySfCIXnPojai0PEQ9NmbbH06k9lqN5Ik1PGYnIdVA==
-  dependencies:
-    tinycolor2 "^1.4.1"
 
 react-native-paper@^4.0.1:
   version "4.2.0"

@@ -51,6 +51,10 @@ function Register() {
         navigation.navigate("Login");
     }
 
+    function handleNavigateToOnBoarding() {
+        navigation.navigate("OnBoarding1");
+    }
+
     return (
         <ImageBackground source={require('../../assets/background/back.jpg')} style={styles.container}>
             <Image style={styles.imageLogo} source={require("../../assets/logoapp/logoapp.png")} />
@@ -97,7 +101,7 @@ function Register() {
                 <TextInput selectionColor="#390A5C" textContentType="password" secureTextEntry={true} placeholderTextColor="#4F0A83" style={styles.input} placeholder="Confirmar senha" />
             </View>
             <View style={styles.containerButtons}>
-                <RectButton style={styles.buttonSubmit}>
+                <RectButton style={styles.buttonSubmit} onPress={handleNavigateToOnBoarding}>
                     <Text style={styles.textSubmit}>Finalizar cadastro</Text>
                 </RectButton>
                 <Text style={styles.textFinal}>Já tem uma conta?<Text onPress={handleNavigateToLogin} style={styles.textRegister}> Clique aqui!</Text></Text>

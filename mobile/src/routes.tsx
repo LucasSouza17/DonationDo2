@@ -1,12 +1,26 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
-import OnBoarding from './pages/OnBoarding';
+import OnBoarding1 from './pages/OnBoarding/board1';
+import OnBoarding2 from './pages/OnBoarding/board2';
+import Home from './pages/Home';
 
+import DrawerContent from './components/Drawer';
+
+const Drawer = createDrawerNavigator();
 const AppStack = createStackNavigator();
+
+const DrawerNavigation = () => {
+    return (
+            <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+                <Drawer.Screen name="Home" component={Home} />
+            </Drawer.Navigator>
+    )
+}
 
 const Routes = () => {
     return (
@@ -19,7 +33,9 @@ const Routes = () => {
             >
                 <AppStack.Screen name="Login" component={Login} />
                 <AppStack.Screen name="Register" component={Register} />
-                <AppStack.Screen name="OnBoarding" component={OnBoarding} />
+                <AppStack.Screen name="OnBoarding1" component={OnBoarding1} />
+                <AppStack.Screen name="OnBoarding2" component={OnBoarding2} />
+                <AppStack.Screen name="Home" component={DrawerNavigation} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

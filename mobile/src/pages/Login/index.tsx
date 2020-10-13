@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TextInput } from 'react-native';
-import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,9 +12,10 @@ function Login() {
         navigation.navigate("Register");
     }
 
-    function handleNavigateToOnBoarding() {
-        navigation.navigate("OnBoarding");
+    function handleNavigateToHome() {
+        navigation.navigate("Home");
     }
+
 
     return (
         <ImageBackground source={require('../../assets/background/back.jpg')} style={styles.container}>
@@ -25,7 +26,7 @@ function Login() {
                 <TextInput selectionColor="#390A5C" textContentType="password" secureTextEntry={true} placeholderTextColor="#4F0A83" style={styles.input} placeholder="Senha" />
             </View>
             <View style={styles.containerButtons}>
-                <RectButton style={styles.buttonSubmit} onPress={handleNavigateToOnBoarding}>
+                <RectButton style={styles.buttonSubmit} onPress={handleNavigateToHome} >
                     <Text style={styles.textSubmit}>Entrar</Text>
                 </RectButton>
                 <Text style={styles.textFinal}>Não tem conta? <Text onPress={handleNavigateToRegister} style={styles.textRegister}> Cadastre-se</Text></Text>
