@@ -15,7 +15,11 @@ function DrawerContent(props: any) {
     const navigation = useNavigation();
 
     function handleNavigateToHome() {
-        navigation.navigate("Home")
+        navigation.navigate("Home");
+    }
+
+    function handleNavigateToPerfil() {
+        navigation.navigate("Perfil");
     }
 
     function handleSignOut() {
@@ -58,7 +62,7 @@ function DrawerContent(props: any) {
                                 <IconAwesome name="user" color="#fff" size={24} />
                             )}
                             label="Meu Perfil"
-                            onPress={() => props.navigation.navigate('')}
+                            onPress={handleNavigateToPerfil}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
                         />

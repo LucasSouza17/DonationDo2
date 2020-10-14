@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import OnBoarding1 from './pages/OnBoarding/board1';
 import OnBoarding2 from './pages/OnBoarding/board2';
 import Home from './pages/Home';
+import Perfil from './pages/Perfil';
 
 import DrawerContent from './components/Drawer';
 
@@ -18,6 +19,7 @@ const DrawerNavigation = () => {
     return (
             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
                 <Drawer.Screen name="Home" component={Home} />
+                <Drawer.Screen name="Perfil" component={Perfil} />
             </Drawer.Navigator>
     )
 }
