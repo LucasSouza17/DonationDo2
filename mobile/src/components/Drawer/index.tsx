@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
@@ -13,19 +14,25 @@ function DrawerContent(props: any) {
 
     const navigation = useNavigation();
 
-    function handleNavigateToHome () {
+    function handleNavigateToHome() {
         navigation.navigate("Home")
     }
 
-    function handleSignOut () {
+    function handleSignOut() {
         navigation.navigate("Login");
+    }
+
+    function handleCloseMenu() {
+        navigation.dispatch(DrawerActions.closeDrawer());
     }
 
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
-                    <Icon name="arrow-left" color="#fff" size={28} style={styles.arrowIcon} />
+                    <TouchableOpacity onPress={handleCloseMenu}>
+                        <Icon name="arrow-left" color="#fff" size={28} style={styles.arrowIcon} />
+                    </TouchableOpacity>
                     <View style={styles.perfilContainer}>
                         <View style={styles.perfil}>
                             {/* <Image source="" /> */}
@@ -36,7 +43,7 @@ function DrawerContent(props: any) {
                         </View>
                     </View>
                     <View style={styles.drawerSection}>
-                    <DrawerItem
+                        <DrawerItem
                             icon={() => (
                                 <IconAwesome name="map-marked-alt" color="#fff" size={24} />
                             )}
@@ -44,6 +51,7 @@ function DrawerContent(props: any) {
                             onPress={handleNavigateToHome}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
+
                         />
                         <DrawerItem
                             icon={() => (
@@ -61,6 +69,7 @@ function DrawerContent(props: any) {
                             label="Histórico de doações"
                             onPress={() => props.navigation.navigate('')}
                             labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
                         />
                         <DrawerItem
                             icon={() => (
@@ -69,6 +78,7 @@ function DrawerContent(props: any) {
                             label="Instituições acessadas"
                             onPress={() => props.navigation.navigate('')}
                             labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
                         />
                         <DrawerItem
                             icon={() => (
@@ -77,6 +87,7 @@ function DrawerContent(props: any) {
                             label="Meus pontos"
                             onPress={() => props.navigation.navigate('')}
                             labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
                         />
                         <DrawerItem
                             icon={() => (
@@ -85,6 +96,16 @@ function DrawerContent(props: any) {
                             label="Ranking"
                             onPress={() => props.navigation.navigate('')}
                             labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
+                        />
+                        <DrawerItem
+                            icon={() => (
+                                <IconAwesome name="user-plus" color="#fff" size={24} />
+                            )}
+                            label="Convide amigos"
+                            onPress={() => props.navigation.navigate('')}
+                            labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
                         />
                         <DrawerItem
                             icon={() => (
@@ -93,6 +114,7 @@ function DrawerContent(props: any) {
                             label="Sair"
                             onPress={handleSignOut}
                             labelStyle={styles.drawerLabel}
+                            style={styles.drawerItem}
                         />
                     </View>
                 </View>
@@ -143,11 +165,12 @@ const styles = StyleSheet.create({
     },
 
     drawerSection: {
-        marginTop: wp('8%'),
+        marginTop: wp('5%'),
     },
 
     drawerItem: {
-        marginRight: 12
+        marginRight: wp('3%'),
+        marginTop: wp('3%')
     },
 
     drawerLabel: {
