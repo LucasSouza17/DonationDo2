@@ -17,6 +17,10 @@ function Perfil() {
         navigation.dispatch(DrawerActions.openDrawer());
     }
 
+    function handleNavigateToUpdatePerfil () {
+        navigation.navigate("UpdatePerfil");
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -35,7 +39,7 @@ function Perfil() {
                 </View>
                 <Text style={styles.name}>Luan Vinícius Simão</Text>
                 <Text style={styles.adress}>São José do Rio Preto - SP</Text>
-                <TouchableOpacity style={styles.updateButton}>
+                <TouchableOpacity style={styles.updateButton} onPress={handleNavigateToUpdatePerfil}>
                     <Text style={styles.textButton}>Alterar dados</Text>
                 </TouchableOpacity>
             </View>

@@ -71,7 +71,7 @@ function Register() {
                             setSelectedUf(itemValue.toString())
                         }
                     >
-                        <Picker.Item label="UF" value="0" color="#D6CCCA" />
+                        <Picker.Item label="Estado" value="0" color="#D6CCCA" />
                         {ufs.map((uf) => (
                             <Picker.Item label={uf} value={uf} key={uf} color="#000" />
                         ))}
