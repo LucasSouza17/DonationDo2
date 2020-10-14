@@ -10,6 +10,7 @@ import OnBoarding2 from './pages/OnBoarding/board2';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import UpdatePerfil from './pages/UpdatePerfil';
+import InviteFriends from './pages/InviteFriends';
 
 import DrawerContent from './components/Drawer';
 
@@ -21,6 +22,7 @@ const DrawerNavigation = () => {
             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
                 <Drawer.Screen name="Home" component={Home} />
                 <Drawer.Screen name="Perfil" component={Perfil} />
+                <Drawer.Screen name="InviteFriends" component={InviteFriends} />
             </Drawer.Navigator>
     )
 }

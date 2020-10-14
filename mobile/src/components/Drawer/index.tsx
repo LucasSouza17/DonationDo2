@@ -22,6 +22,10 @@ function DrawerContent(props: any) {
         navigation.navigate("Perfil");
     }
 
+    function handleNavigateToInviteFriends() {
+        navigation.navigate("InviteFriends");
+    }
+
     function handleSignOut() {
         navigation.navigate("Login");
     }
@@ -107,7 +111,7 @@ function DrawerContent(props: any) {
                                 <IconAwesome name="user-plus" color="#fff" size={24} />
                             )}
                             label="Convide amigos"
-                            onPress={() => props.navigation.navigate('')}
+                            onPress={handleNavigateToInviteFriends}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
                         />
