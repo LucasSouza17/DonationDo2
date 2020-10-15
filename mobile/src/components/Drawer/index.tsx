@@ -26,6 +26,10 @@ function DrawerContent(props: any) {
         navigation.navigate("HistoryReceivers");
     }
 
+    function handleNavigateToHistoryDonation() {
+        navigation.navigate("HistoryDonation");
+    }
+
     function handleNavigateToInviteFriends() {
         navigation.navigate("InviteFriends");
     }
@@ -79,7 +83,7 @@ function DrawerContent(props: any) {
                                 <IconAwesome name="history" color="#fff" size={24} />
                             )}
                             label="Histórico de doações"
-                            onPress={() => props.navigation.navigate('')}
+                            onPress={handleNavigateToHistoryDonation}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
                         />

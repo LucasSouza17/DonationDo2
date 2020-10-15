@@ -12,6 +12,7 @@ import Perfil from './pages/Perfil';
 import UpdatePerfil from './pages/UpdatePerfil';
 import InviteFriends from './pages/InviteFriends';
 import HistoryReceivers from './pages/HistoryReceivers';
+import HistoryDonation from './pages/HistoryDonation';
 
 import DrawerContent from './components/Drawer';
 
@@ -44,6 +45,7 @@ const Routes = () => {
                 <AppStack.Screen name="Home" component={DrawerNavigation} />
                 <AppStack.Screen name="UpdatePerfil" component={UpdatePerfil} />
                 <AppStack.Screen name="HistoryReceivers" component={HistoryReceivers} />
+                <AppStack.Screen name="HistoryDonation" component={HistoryDonation} />
             </AppStack.Navigator>
         </NavigationContainer>
     );
