@@ -22,6 +22,10 @@ function DrawerContent(props: any) {
         navigation.navigate("Perfil");
     }
 
+    function handleNavigateToHistoryReceivers() {
+        navigation.navigate("HistoryReceivers");
+    }
+
     function handleNavigateToInviteFriends() {
         navigation.navigate("InviteFriends");
     }
@@ -84,7 +88,7 @@ function DrawerContent(props: any) {
                                 <IconAwesome name="hand-holding-heart" color="#fff" size={24} />
                             )}
                             label="Instituições acessadas"
-                            onPress={() => props.navigation.navigate('')}
+                            onPress={handleNavigateToHistoryReceivers}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
                         />
