@@ -25,6 +25,10 @@ function DescriptionNeed() {
         navigation.goBack();
     }
 
+    function handleNavigateToConfirmDonation() {
+        navigation.navigate("ConfirmDonation");
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -90,7 +94,7 @@ function DescriptionNeed() {
                     </View>
                 </ScrollView>
                 <View style={styles.containerButton}>
-                    <RectButton style={styles.button}>
+                    <RectButton style={styles.button} onPress={handleNavigateToConfirmDonation}>
                         <Text style={styles.textButton}>Doar</Text>
                     </RectButton>
                 </View>
