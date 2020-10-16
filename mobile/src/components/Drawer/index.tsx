@@ -15,7 +15,7 @@ function DrawerContent(props: any) {
     const navigation = useNavigation();
 
     function handleNavigateToHome() {
-        navigation.navigate("Home");
+        navigation.navigate("HomeStack");
     }
 
     function handleNavigateToPerfil() {

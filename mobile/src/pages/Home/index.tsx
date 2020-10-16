@@ -15,6 +15,10 @@ function Home() {
         navigation.dispatch(DrawerActions.openDrawer());
     }
 
+    function handleNavigateToDescriptionNeed() {
+        navigation.navigate("DescriptionNeed");
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -55,6 +59,7 @@ function Home() {
                                 longitude: -49.4363367
                             }}
                             style={styles.mapMarker}
+                            onPress={handleNavigateToDescriptionNeed}
                         >
                             <View style={styles.mapMarkerContainer}>
                                 <Image style={styles.mapMarkerImage} source={require("../../assets/doacao1.png")} />

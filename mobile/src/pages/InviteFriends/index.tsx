@@ -57,27 +57,27 @@ function InviteFriends() {
                         <Text style={styles.titleShare}>Ou compartilhe pelas redes</Text>
                         <View style={styles.containerButtonsShare}>
                             <View style={styles.sectionButtons}>
-                                <View style={styles.containerZap}>
+                                <TouchableOpacity style={styles.containerZap}>
                                     <IconAwesome name="whatsapp" color="#fff" size={24} />
-                                </View>
+                                </TouchableOpacity>
                                 <Text style={styles.appName}>Whatsapp</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <View style={styles.containerFace}>
+                                <TouchableOpacity style={styles.containerFace}>
                                     <IconAwesome name="facebook-f" color="#fff" size={24} />
-                                </View>
+                                </TouchableOpacity>
                                 <Text style={styles.appName}>Facebook</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <View style={styles.containerMail}>
+                                <TouchableOpacity style={styles.containerMail}>
                                     <IconAwesome name="envelope" color="#fff" size={24} />
-                                </View>
+                                </TouchableOpacity>
                                 <Text style={styles.appName}>E-mail</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <View style={styles.containerPlus}>
+                                <TouchableOpacity style={styles.containerPlus}>
                                     <IconAwesome name="ellipsis-h" color="#fff" size={24} />
-                                </View>
+                                </TouchableOpacity>
                                 <Text style={styles.appName}>Mais</Text>
                             </View>
                         </View>

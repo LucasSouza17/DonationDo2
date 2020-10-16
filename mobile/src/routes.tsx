@@ -14,6 +14,7 @@ import InviteFriends from './pages/InviteFriends';
 import HistoryReceivers from './pages/HistoryReceivers';
 import HistoryDonation from './pages/HistoryDonation';
 import Ranking from './pages/Ranking';
+import DescriptionNeed from './pages/DescriptionNeed';
 
 import DrawerContent from './components/Drawer';
 
@@ -48,6 +49,7 @@ const Routes = () => {
                 <AppStack.Screen name="HistoryReceivers" component={HistoryReceivers} />
                 <AppStack.Screen name="HistoryDonation" component={HistoryDonation} />
                 <AppStack.Screen name="Ranking" component={Ranking} />
+                <AppStack.Screen name="DescriptionNeed" component={DescriptionNeed} />
             </AppStack.Navigator>
         </NavigationContainer>
     );
