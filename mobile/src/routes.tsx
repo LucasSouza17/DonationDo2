@@ -16,6 +16,7 @@ import HistoryDonation from './pages/HistoryDonation';
 import Ranking from './pages/Ranking';
 import DescriptionNeed from './pages/DescriptionNeed';
 import ConfirmDonation from './pages/ConfirmDonation';
+import AnnotatedDonation from './pages/AnnotatedDonation';
 
 import DrawerContent from './components/Drawer';
 
@@ -52,6 +53,7 @@ const Routes = () => {
                 <AppStack.Screen name="Ranking" component={Ranking} />
                 <AppStack.Screen name="DescriptionNeed" component={DescriptionNeed} />
                 <AppStack.Screen name="ConfirmDonation" component={ConfirmDonation} />
+                <AppStack.Screen name="AnnotatedDonation" component={AnnotatedDonation} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

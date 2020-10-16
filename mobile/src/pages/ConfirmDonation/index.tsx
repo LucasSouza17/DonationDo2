@@ -16,6 +16,10 @@ function ConfirmDonation() {
         navigation.goBack();
     }
 
+    function handleNavigateToSuccesfull() {
+        navigation.navigate("AnnotatedDonation")
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -42,7 +46,7 @@ function ConfirmDonation() {
                     </View>
                 </View>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={handleNavigateToSuccesfull}>
                 <Text style={styles.textButton}>Confirmar doação</Text>
             </TouchableOpacity>
         </View>
