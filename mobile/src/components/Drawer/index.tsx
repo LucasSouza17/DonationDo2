@@ -30,6 +30,10 @@ function DrawerContent(props: any) {
         navigation.navigate("HistoryDonation");
     }
 
+    function handleNavigateToRanking() {
+        navigation.navigate("Ranking");
+    }
+
     function handleNavigateToInviteFriends() {
         navigation.navigate("InviteFriends");
     }
@@ -110,7 +114,7 @@ function DrawerContent(props: any) {
                                 <IconAwesome name="trophy" color="#fff" size={24} />
                             )}
                             label="Ranking"
-                            onPress={() => props.navigation.navigate('')}
+                            onPress={handleNavigateToRanking}
                             labelStyle={styles.drawerLabel}
                             style={styles.drawerItem}
                         />
