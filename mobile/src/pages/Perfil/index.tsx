@@ -13,10 +13,6 @@ function Perfil() {
         navigation.goBack();
     }
 
-    function handleOpenMenu () {
-        navigation.dispatch(DrawerActions.openDrawer());
-    }
-
     function handleNavigateToUpdatePerfil () {
         navigation.navigate("UpdatePerfil");
     }
@@ -26,9 +22,6 @@ function Perfil() {
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleGoBack}>
                     <Icon name="arrow-left" color="#fff" size={28} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleOpenMenu}>
-                    <Icon name="menu" color="#fff" size={28} />
                 </TouchableOpacity>
             </View>
             <View style={styles.main}>

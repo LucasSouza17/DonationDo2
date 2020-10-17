@@ -14,19 +14,12 @@ function InviteFriends() {
     function handleGoBack() {
         navigation.goBack();
     }
-
-    function handleOpenMenu() {
-        navigation.dispatch(DrawerActions.openDrawer());
-    }
-
+    
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleGoBack}>
                     <Icon name="arrow-left" color="#36004A" size={28} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleOpenMenu}>
-                    <Icon name="menu" color="#36004A" size={28} />
                 </TouchableOpacity>
             </View>
 
