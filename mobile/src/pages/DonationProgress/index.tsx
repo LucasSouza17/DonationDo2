@@ -42,10 +42,6 @@ function DonationProgress() {
         }
     }, [])
 
-
-
-
-
     function handleNavigateGoBack() {
         navigation.goBack();
     }
