@@ -17,6 +17,7 @@ import Ranking from './pages/Ranking';
 import DescriptionNeed from './pages/DescriptionNeed';
 import ConfirmDonation from './pages/ConfirmDonation';
 import AnnotatedDonation from './pages/AnnotatedDonation';
+import DonationProgress from './pages/DonationProgress';
 
 import DrawerContent from './components/Drawer';
 
@@ -54,6 +55,7 @@ const Routes = () => {
                 <AppStack.Screen name="DescriptionNeed" component={DescriptionNeed} />
                 <AppStack.Screen name="ConfirmDonation" component={ConfirmDonation} />
                 <AppStack.Screen name="AnnotatedDonation" component={AnnotatedDonation} />
+                <AppStack.Screen name="DonationProgress" component={DonationProgress} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

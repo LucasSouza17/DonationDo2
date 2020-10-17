@@ -13,6 +13,10 @@ function HistoryDonation() {
         navigation.goBack();
     }
 
+    function handleNavigateDonationProgress() {
+        navigation.navigate("DonationProgress")
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -30,7 +34,7 @@ function HistoryDonation() {
                             showsVerticalScrollIndicator={false}
                         >
                             <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button}>
+                                <TouchableOpacity style={styles.button} onPress={handleNavigateDonationProgress}>
                                     <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
                                     <Icon name="chevron-right" color="#74009E" size={24} />
                                 </TouchableOpacity>
