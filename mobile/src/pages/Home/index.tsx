@@ -100,7 +100,8 @@ function Home() {
                 >
                     <TouchableOpacity style={styles.List}>
                         <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
+                        <Text style={styles.namePoint}>Assis Social
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.List}>
                         <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
