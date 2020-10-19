@@ -1,7 +1,7 @@
 import { celebrate, Joi } from 'celebrate';
 
 const VerificacaoReceptorConcluido = celebrate({
-  body: Joi.object().keys({
+    body: Joi.object().keys({
     Nome: Joi.string().required(),
     Whatsapp: Joi.string().allow(),
     Telefone: Joi.string().required(),
@@ -12,10 +12,9 @@ const VerificacaoReceptorConcluido = celebrate({
     Numero: Joi.string().required(),
     Rua: Joi.string().required(),
     Bairro: Joi.string().required(),
-    CEP: Joi.string().allow(),
+    CEP: Joi.string().required(),
     Latitude: Joi.number().required(),
     Longitude: Joi.number().required(),
-    Img_Local: Joi.string().allow()
   })
 }, 
 {abortEarly: false});
