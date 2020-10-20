@@ -54,7 +54,7 @@ function Login() {
                 visibilityTime: 5000,
                 topOffset: 50
             })
-        } 
+        }
         else {
             try {
                 const response = await api.post("SessionDoador", data);
@@ -73,7 +73,7 @@ function Login() {
                 );
 
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
-                
+
                 setTimeout(() => {
                     navigation.navigate("Home");
                 }, 1000)
@@ -89,30 +89,6 @@ function Login() {
                 })
             }
         }
-
-        // if (Email == "" || Senha == "") {
-        //     Alert.alert("Oooops...", "Um ou ambos os campos não foram preenchidos.");
-        //     console.log(data);
-        // } else {
-        //     try {
-        //         const response = await api.post("sessionDoador", data);
-
-        //         await AsyncStorage.setItem(
-        //             "isLoggedId",
-        //             JSON.stringify(Number(response.data.id_Doador))
-        //         );
-
-        //         await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
-
-        //         navigation.navigate("Home");
-        //         clearInput();
-
-        //     }
-        //     catch (err) {
-        //         Alert.alert("Oooops...", "Dados inválidos");
-        //         clearInput();
-        //     }
-        // }
     }
 
     function handleNavigateToRegister() {
