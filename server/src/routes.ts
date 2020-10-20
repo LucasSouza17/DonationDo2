@@ -39,6 +39,7 @@ import DoacaoDoadorController from './controllers/Doacao/DoacaoDoadorController'
 import CodigoConviteController from './controllers/Doador/CodigoConviteController';
 import PontuacaoController from './controllers/Doador/PontuacaoController';
 import HistoricoDoacoesController from './controllers/Doador/HistoricoDoacoesController';
+import NecessidadeDoadorController from './controllers/Doador/NecessidadeDoadorController';
 
 //Controller Medalha
 import MedalhaController from './controllers/Medalha/MedalhaController';
@@ -83,6 +84,7 @@ const doacaoDoadorController = new DoacaoDoadorController();
 const codigoConviteController = new CodigoConviteController();
 const pontuacaoController = new PontuacaoController();
 const historicoDoacoesController = new HistoricoDoacoesController();
+const necessidadeDoadorController = new NecessidadeDoadorController();
 
 const medalhaController = new MedalhaController();
 
@@ -111,10 +113,14 @@ const medalhaController = new MedalhaController();
 
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);
-routes.get('/doador/necessidades/', doadorController.index);
-routes.get('/doador/necessidade/:id/receptor', doadorController.show);
+routes.get('/doador/:id', doadorController.show);
 routes.put('/doador/:id', uploadsDoador.single('Avatar'), doadorController.update);
    
+   //Rota de acesso as necessidade com os filtros
+   routes.get('/doador/necessidades/', necessidadeDoadorController.index);
+   //Rota de acesso ao Receptor de acordo com a necessidade
+   routes.get('/doador/necessidade/:id/receptor', necessidadeDoadorController.show);
+
    //Rota historico de ongs acessadas
    routes.get('/doador/:id_doador/historico', historicoController.index);
    //Rota historico das necessidades da ong acessada
