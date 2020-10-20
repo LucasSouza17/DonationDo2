@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, Image, TextInput, Alert } from
 import { RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api';
 
@@ -12,7 +13,6 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const [frango, setFrango] = useState("");
 
     function clearInput() {
         setEmail("");
@@ -28,12 +28,34 @@ function Login() {
             Senha
         };
 
-        if (Email == "" || Senha == "") {
-            Alert.alert("Oooops...", "Um ou ambos os campos não foram preenchidos.");
-            console.log(data);
+        if (Email === "" && Senha === "") {
+            Toast.show({
+                type: 'error',
+                text1: 'Ooopss...',
+                text2: 'Você precisa preencher os campos para entrar.',
+                visibilityTime: 3000,
+                topOffset: 60
+            })
+        } else if (Email !== "" && Senha === "") {
+            Toast.show({
+                color: 'red',
+                type: 'error',
+                text1: 'Quase lá...',
+                text2: 'Só falta preencher a senha, vamos lá!',
+                visibilityTime: 3000,
+                topOffset: 60
+            })
         } else {
             try {
-                const response = await api.post("sessionDoador", data);
+                const response = await api.post("SessionDoador", data);
+
+                Toast.show({
+                    type: 'success',
+                    text1: 'Showwwww!!',
+                    text2: 'Bem vindo ao DonationDo, bora doar!!',
+                    visibilityTime: 3000,
+                    topOffset: 60
+                })
 
                 await AsyncStorage.setItem(
                     "isLoggedId",
@@ -41,16 +63,46 @@ function Login() {
                 );
 
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
-
-                navigation.navigate("Home");
+                
+                setTimeout(() => {
+                    navigation.navigate("Home");
+                }, 3100)
                 clearInput();
-
             }
             catch (err) {
-                Alert.alert("Oooops...", "Dados inválidos");
-                clearInput();
+                Toast.show({
+                    type: 'error',
+                    text1: 'Confere ai',
+                    text2: 'Da uma olhadinha se você digitou tudo certinho e tente novamente.',
+                    visibilityTime: 3000,
+                    topOffset: 60
+                })
             }
         }
+
+        // if (Email == "" || Senha == "") {
+        //     Alert.alert("Oooops...", "Um ou ambos os campos não foram preenchidos.");
+        //     console.log(data);
+        // } else {
+        //     try {
+        //         const response = await api.post("sessionDoador", data);
+
+        //         await AsyncStorage.setItem(
+        //             "isLoggedId",
+        //             JSON.stringify(Number(response.data.id_Doador))
+        //         );
+
+        //         await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
+
+        //         navigation.navigate("Home");
+        //         clearInput();
+
+        //     }
+        //     catch (err) {
+        //         Alert.alert("Oooops...", "Dados inválidos");
+        //         clearInput();
+        //     }
+        // }
     }
 
     function handleNavigateToRegister() {
@@ -60,6 +112,7 @@ function Login() {
     return (
         <ImageBackground source={require('../../assets/background/back.jpg')} style={styles.container}>
             <Image style={styles.imageLogo} source={require("../../assets/logoapp/logoapp.png")} />
+            <Toast ref={(ref: any) => Toast.setRef(ref)} />
             <View style={styles.inputContainer}>
                 <Text style={styles.title}>Faça login com sua conta</Text>
                 <TextInput
@@ -70,16 +123,16 @@ function Login() {
                     value={email}
                     placeholder="E-mail"
                     autoCapitalize="none"
-                    />
+                />
                 <TextInput
                     onChangeText={(text) => setSenha(text)}
                     selectionColor="#390A5C"
                     secureTextEntry={true}
                     placeholderTextColor="#4F0A83"
                     style={styles.input}
-                    placeholder="Senha" 
+                    placeholder="Senha"
                     value={senha}
-                    />
+                />
             </View>
             <View style={styles.containerButtons}>
                 <RectButton style={styles.buttonSubmit} onPress={handleSession} >
