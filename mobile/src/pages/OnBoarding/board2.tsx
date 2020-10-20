@@ -7,7 +7,7 @@ function OnBoarding2() {
     const navigation = useNavigation();
 
     function handleEndBoard () {
-        navigation.navigate("OnBoarding2");
+        navigation.navigate("Home");
     }
 
     return (
@@ -15,7 +15,7 @@ function OnBoarding2() {
             <Image style={styles.board1} source={require("../../assets/onboarding/board2.png")} />
             <Text style={styles.title}>Convide Amigos</Text>
             <Text style={styles.description}>Convide amigos para ganhar o bonûs de<Text style={styles.destaque}> 50 pontos.</Text></Text>
-            <TouchableOpacity style={styles.nextButton}>
+            <TouchableOpacity style={styles.nextButton} onPress={handleEndBoard}>
                 <Text style={styles.textButton}>Pronto</Text>
             </TouchableOpacity>
         </ImageBackground>

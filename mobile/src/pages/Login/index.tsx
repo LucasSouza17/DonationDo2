@@ -20,6 +20,7 @@ function Login() {
     }
 
     async function handleSession() {
+        const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
         const Email = email;
         const Senha = senha;
 
@@ -45,7 +46,16 @@ function Login() {
                 visibilityTime: 3000,
                 topOffset: 60
             })
-        } else {
+        } else if (!expression.test(String(Email).toLowerCase())) {
+            Toast.show({
+                type: 'error',
+                text1: 'Seu email está correto?',
+                text2: 'exemplo@exemplo.com - Seu email está seguindo essas normas, verifique por favor.',
+                visibilityTime: 5000,
+                topOffset: 50
+            })
+        } 
+        else {
             try {
                 const response = await api.post("SessionDoador", data);
 
@@ -53,7 +63,7 @@ function Login() {
                     type: 'success',
                     text1: 'Showwwww!!',
                     text2: 'Bem vindo ao DonationDo, bora doar!!',
-                    visibilityTime: 3000,
+                    visibilityTime: 1000,
                     topOffset: 60
                 })
 
@@ -66,7 +76,7 @@ function Login() {
                 
                 setTimeout(() => {
                     navigation.navigate("Home");
-                }, 3100)
+                }, 1000)
                 clearInput();
             }
             catch (err) {
