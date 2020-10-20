@@ -28,7 +28,7 @@ class SessionController {
         Status = "Cadastro concluido";
       }
    
-      return response.json([{receptor}, {Status}]);
+      return response.json(receptor);
     }
     catch(erro){
       return response.status(500).json({erro});

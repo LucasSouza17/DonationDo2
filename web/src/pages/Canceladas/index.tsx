@@ -30,7 +30,7 @@ function Canceladas() {
 
   useEffect(() => {
     async function dataNecessidade() {
-      const response = await api.get(`receptor/${id_Receptor}/necessidade/canceladas?page=${currentPage}`);
+      const response = await api.get(`receptor/${id_Receptor}/necessidade/Canceladas?page=${currentPage}`);
       
       setTotal(response.headers["x-total-count"]);
       const totalPages = Math.ceil(total / limit);

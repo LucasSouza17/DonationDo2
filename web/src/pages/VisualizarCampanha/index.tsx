@@ -19,7 +19,7 @@ interface Necessidade {
   cod_Item: number;
   Titulo: string;
   Descricao: string;
-  Data_Final: string;
+  Data_Final: Date;
 }
 
 function VisualizarCampanha() {
@@ -32,7 +32,7 @@ function VisualizarCampanha() {
   const [descricao, setDescricao] = useState("");
   const [data, setData] = useState("");
   const [reaproveitar, setReaproveitar] = useState("1");
-  const [datafinal, setDataFinal] = useState("");
+  const [datafinal, setDataFinal] = useState("")
 
   useEffect(() => {
     api.get("itens").then((response) => {
@@ -45,7 +45,7 @@ function VisualizarCampanha() {
       .get<Necessidade>(`receptor/necessidade/${id_Necessidade}/visualizar`)
       .then((response) => {
         setDescricao(response.data.Descricao);
-        setData(response.data.Data_Final);
+        setData(response.data.Data_Final.toString());
         setSelectedItem(response.data.cod_Item.toString());
       });
   }, [id_Necessidade]);
@@ -60,12 +60,16 @@ function VisualizarCampanha() {
   async function handleReaproveitar(event: FormEvent) {
     event.preventDefault();
 
-    const Data_Final = datafinal;
+    const Data_Final = datafinal.replace('-', '/');
+
+    const data = {
+      Data_Final,
+    }
 
     if(Data_Final === "") {
       toast.warning("Preencha a data de encerramento");
     }else{
-      await api.post(`receptor/necessidade/${id_Necessidade}`, Data_Final);
+      await api.post(`receptor/necessidade/${id_Necessidade}`, data);
       toast.success("Necessidade reaproveitada com sucesso");
       console.log(Data_Final)
       setTimeout(() => {

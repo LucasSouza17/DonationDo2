@@ -40,7 +40,7 @@ function RegistroCampanha() {
     event.preventDefault();
 
     const Descricao = descricao;
-    const Data_Final = data;
+    const Data_Final = data.replace('-', '/');
     const cod_Item = selectedItem;
     const NomeItem = nomeItem;
 
@@ -57,7 +57,7 @@ function RegistroCampanha() {
       NomeItem,
     };
 
-    if (cod_Item !== "12") {
+    if (cod_Item !== "8") {
       if (cod_Item === "") {
         toast.warning("Selecione um item");
         document.getElementById("list")?.focus();

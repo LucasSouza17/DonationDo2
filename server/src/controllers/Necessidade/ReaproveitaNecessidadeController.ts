@@ -19,7 +19,7 @@ class ReaproveitaNecessidadeController {
       const now = new Date
       const Data_Inicio = now.getFullYear() +"-"+ (now.getMonth() + 1) + "-" +now.getDate ();
 
-      const necessidade_reaproveitada = {cod_Receptor, cod_Item, Titulo, Descricao, Status, 
+      const necessidade_reaproveitada = {cod_Receptor, cod_Item, Titulo, Descricao, Status: "Em andamento", 
         Data_Inicio, Data_Final}
 
       await knex('necessidade').insert(necessidade_reaproveitada);

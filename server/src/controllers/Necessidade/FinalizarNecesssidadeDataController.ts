@@ -15,19 +15,20 @@ class FinalizarNecessidadeDataController {
       }
 
       const now = new Date
-      const Data_Atual = now.getFullYear() +"/0"+ (now.getMonth() + 1) + "/" +now.getDate ();       
+      const DataAtual = now.getFullYear() +"/"+ (now.getMonth() + 1) + "/" +now.getDate ();
+      const Data_Atual = DataAtual.replace(/\//g, '-');    
 
       const necessidades_Finalizadas = await knex('receptor')
         .join('necessidade', 'id_Receptor', '=', 'cod_Receptor')
         .where('necessidade.cod_Receptor', id)
-        .andWhere('Data_Final', '<', Data_Atual)
+        .andWhere('Data_Final', '<=', Data_Atual)
         .andWhere('status', 'Em andamento')
         .select('necessidade.*');
 
       const quantidade_Finalizada = await knex('receptor')
         .join('necessidade', 'id_Receptor', '=', 'cod_Receptor')
         .where('necessidade.cod_Receptor', id)
-        .andWhere('Data_Final', '<', Data_Atual)
+        .andWhere('Data_Final', '<=', Data_Atual)
         .andWhere('status', 'Em andamento')
         .update('status', 'Finalizada')
         .select('necessidades.id_Necessidade')
@@ -40,7 +41,7 @@ class FinalizarNecessidadeDataController {
       else{ 
         response.header('X-Total-Count', quantidade_Finalizada);
        
-        return response.status(404).json("Nenhuma Necessidade finalizada");
+        return response.status(404).json(Data_Atual);
       } 
     }
     catch(erro){
