@@ -13,7 +13,7 @@ class DoadorController{
       
       const Codigo_Convite = crypto.randomBytes(4).toString('hex');
       
-      const doador = {Nome, Email, Senha, Cidade, UF, Pontuacao, Codigo_Convite };    
+      const doador = { Nome, Email, Senha, Cidade, UF, Pontuacao, Codigo_Convite };    
       
       const doador_verificado = await knex('doador').where({Email, Nome}).select('*').first();
       

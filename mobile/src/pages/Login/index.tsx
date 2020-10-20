@@ -1,32 +1,88 @@
-import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ImageBackground, Image, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage'
+import api from '../../services/api';
 
 function Login() {
 
     const navigation = useNavigation();
 
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [frango, setFrango] = useState("");
+
+    function clearInput() {
+        setEmail("");
+        setSenha("");
+    }
+
+    async function handleSession() {
+        const Email = email;
+        const Senha = senha;
+
+        const data = {
+            Email,
+            Senha
+        };
+
+        if (Email == "" || Senha == "") {
+            Alert.alert("Oooops...", "Um ou ambos os campos não foram preenchidos.");
+            console.log(data);
+        } else {
+            try {
+                const response = await api.post("sessionDoador", data);
+
+                await AsyncStorage.setItem(
+                    "isLoggedId",
+                    JSON.stringify(Number(response.data.id_Doador))
+                );
+
+                await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
+
+                navigation.navigate("Home");
+                clearInput();
+
+            }
+            catch (err) {
+                Alert.alert("Oooops...", "Dados inválidos");
+                clearInput();
+            }
+        }
+    }
+
     function handleNavigateToRegister() {
         navigation.navigate("Register");
     }
-
-    function handleNavigateToHome() {
-        navigation.navigate("Home");
-    }
-
 
     return (
         <ImageBackground source={require('../../assets/background/back.jpg')} style={styles.container}>
             <Image style={styles.imageLogo} source={require("../../assets/logoapp/logoapp.png")} />
             <View style={styles.inputContainer}>
                 <Text style={styles.title}>Faça login com sua conta</Text>
-                <TextInput selectionColor="#390A5C" textContentType="emailAddress" placeholderTextColor="#4F0A83" style={styles.input} placeholder="E-mail" />
-                <TextInput selectionColor="#390A5C" textContentType="password" secureTextEntry={true} placeholderTextColor="#4F0A83" style={styles.input} placeholder="Senha" />
+                <TextInput
+                    onChangeText={(text) => setEmail(text)}
+                    selectionColor="#390A5C"
+                    placeholderTextColor="#4F0A83"
+                    style={styles.input}
+                    value={email}
+                    placeholder="E-mail"
+                    autoCapitalize="none"
+                    />
+                <TextInput
+                    onChangeText={(text) => setSenha(text)}
+                    selectionColor="#390A5C"
+                    secureTextEntry={true}
+                    placeholderTextColor="#4F0A83"
+                    style={styles.input}
+                    placeholder="Senha" 
+                    value={senha}
+                    />
             </View>
             <View style={styles.containerButtons}>
-                <RectButton style={styles.buttonSubmit} onPress={handleNavigateToHome} >
+                <RectButton style={styles.buttonSubmit} onPress={handleSession} >
                     <Text style={styles.textSubmit}>Entrar</Text>
                 </RectButton>
                 <Text style={styles.textFinal}>Não tem conta? <Text onPress={handleNavigateToRegister} style={styles.textRegister}> Cadastre-se</Text></Text>
@@ -55,7 +111,7 @@ const styles = StyleSheet.create({
         marginTop: wp('17%'),
     },
 
-    title:{
+    title: {
         color: "#fff",
         fontSize: wp('4%'),
         marginBottom: wp('2%')
@@ -72,13 +128,13 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
 
-    containerButtons:{
+    containerButtons: {
         marginTop: wp('6%'),
-        alignItems:"center",
+        alignItems: "center",
     },
 
-    buttonSubmit:{
-        justifyContent:"center",
+    buttonSubmit: {
+        justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#F90CC5",
         width: wp('78%'),
@@ -87,18 +143,18 @@ const styles = StyleSheet.create({
         marginBottom: wp('4%')
     },
 
-    textSubmit:{
+    textSubmit: {
         color: "#fff",
         fontSize: wp('4.20%')
     },
 
-    textFinal:{
+    textFinal: {
         color: "#fff",
         fontSize: wp('3.5%')
     },
 
-    textRegister:{
-        color:"#FF54D9",
+    textRegister: {
+        color: "#FF54D9",
     }
 
 })
