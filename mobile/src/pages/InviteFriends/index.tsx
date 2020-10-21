@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform } from 'react-native';
 import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-x/clipboard';
+import * as MailComposer from "expo-mail-composer";
 
 
 function InviteFriends() {
@@ -16,6 +17,12 @@ function InviteFriends() {
     const navigation = useNavigation();
 
     const [code, setCode] = useState("");
+
+    const shareLinkContent = {
+        contentType: 'link',
+        contentUrl: "https://facebook.com",
+        contentDescription: 'Facebook sharing is easy!',
+    };
 
     useEffect(() => {
         async function GetCode() {
@@ -25,7 +32,7 @@ function InviteFriends() {
                     setCode(response.data.Codigo_Convite);
                 })
             }
-            catch(err) {
+            catch (err) {
                 console.log(err);
             }
         }
@@ -48,6 +55,27 @@ function InviteFriends() {
         })
     }
 
+    function shareToWhatsAppp() {
+        Linking.openURL(`whatsapp://send?text=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`);
+    }
+
+    function sharePlus() {
+        Share.share({
+            title: 'Convide amigos para o DonationDo',
+            message: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`,
+        })
+    }
+
+    function shareEmail() {
+        MailComposer.composeAsync({
+            subject: "Você recebeu um convite DonationDo",
+            body: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`
+          });
+    }
+
+    function shareSMS() {
+        Linking.openURL(`sms:${Platform.OS === "ios" ? "&" : "?"}body=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`)
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -84,25 +112,25 @@ function InviteFriends() {
                         <Text style={styles.titleShare}>Ou compartilhe pelas redes</Text>
                         <View style={styles.containerButtonsShare}>
                             <View style={styles.sectionButtons}>
-                                <TouchableOpacity style={styles.containerZap}>
+                                <TouchableOpacity style={styles.containerZap} onPress={shareToWhatsAppp}>
                                     <IconAwesome name="whatsapp" color="#fff" size={24} />
                                 </TouchableOpacity>
                                 <Text style={styles.appName}>Whatsapp</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <TouchableOpacity style={styles.containerFace}>
-                                    <IconAwesome name="facebook-f" color="#fff" size={24} />
+                                <TouchableOpacity style={styles.containerFace} onPress={shareSMS} >
+                                    <Icon name="phone" color="#fff" size={24} />
                                 </TouchableOpacity>
-                                <Text style={styles.appName}>Facebook</Text>
+                                <Text style={styles.appName}>SMS</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <TouchableOpacity style={styles.containerMail}>
+                                <TouchableOpacity style={styles.containerMail} onPress={shareEmail}>
                                     <IconAwesome name="envelope" color="#fff" size={24} />
                                 </TouchableOpacity>
                                 <Text style={styles.appName}>E-mail</Text>
                             </View>
                             <View style={styles.sectionButtons}>
-                                <TouchableOpacity style={styles.containerPlus}>
+                                <TouchableOpacity style={styles.containerPlus} onPress={sharePlus}>
                                     <IconAwesome name="ellipsis-h" color="#fff" size={24} />
                                 </TouchableOpacity>
                                 <Text style={styles.appName}>Mais</Text>
@@ -114,7 +142,7 @@ function InviteFriends() {
                     <View style={styles.content}>
                         <Text style={styles.titleInput}>Insira o código abaixo:</Text>
                         <TextInput style={styles.inputCode} />
-                        <View  style={styles.buttonSubmitCode}>
+                        <View style={styles.buttonSubmitCode}>
                             <RectButton>
                                 <Text style={styles.textButton}>Resgatar código</Text>
                             </RectButton>
@@ -258,7 +286,7 @@ const styles = StyleSheet.create({
     },
 
     containerFace: {
-        backgroundColor: "#335FCC",
+        backgroundColor: "#74009E",
         width: 42,
         height: 42,
         alignItems: "center",
@@ -318,7 +346,7 @@ const styles = StyleSheet.create({
     },
 
     buttonSubmitCode: {
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "center",
         alignSelf: "center",
         marginTop: wp("7%"),

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/react-native-toast-message
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-social-share @types/react-native-social-share
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Users\lucas\AppData\Local\Microsoft\WindowsApps;C:\Users\lucas\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lucas\AppData\Roaming\npm;C:\Users\lucas\AppData\Local\Yarn\bin;C:\Users\lucas\AppData\Local\GitHubDesktop\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-native-toast-message: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-native-social-share: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66097:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140749:22)
       at Request.emit (events.js:315:20)
@@ -45,6 +45,7 @@ npm manifest:
       "@react-navigation/drawer": "^5.9.3",
       "@react-navigation/native": "^5.7.2",
       "@react-navigation/stack": "^5.8.0",
+      "@react-x/clipboard": "^3.4.1",
       "axios": "^0.19.2",
       "expo": "^39.0.0",
       "expo-cli": "^3.23.1",
@@ -58,6 +59,7 @@ npm manifest:
       "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
       "react-native-elements": "^2.3.2",
       "react-native-gesture-handler": "~1.7.0",
+      "react-native-keyboard-aware-scroll-view": "^0.9.3",
       "react-native-maps": "0.27.1",
       "react-native-paper": "^4.0.1",
       "react-native-reanimated": "~1.13.0",
@@ -2328,6 +2330,13 @@ Lockfile:
       color "^3.1.2"
       react-native-iphone-x-helper "^1.2.1"
   
+  "@react-x/clipboard@^3.4.1":
+    version "3.4.1"
+    resolved "https://registry.yarnpkg.com/@react-x/clipboard/-/clipboard-3.4.1.tgz#fb1f970f6aa22a9e1ddea5705b9b66ff73132aaa"
+    integrity sha512-/C/awByXM5uQwTKgISLSQQTg7No8XL9vAxtO0w1P+V7ngXrc3fAM7eLprBi70PbMUOyLj+wHPPVTqzZlakKVKA==
+    dependencies:
+      copy-to-clipboard "^3.0.8"
+  
   "@segment/loosely-validate-event@^2.0.0":
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz#87dfc979e5b4e7b82c5f1d8b722dfd5d77644681"
@@ -2512,6 +2521,14 @@ Lockfile:
     integrity sha512-ykkPQ+5nFknnlU6lDd947WbQ6TE3NNzbQAkInC2EKY1qeYdTKp7onFusmYZb+ityzx2YviqT6BXSu+LyWWJwcA==
     dependencies:
       "@types/react" "*"
+  
+  "@types/react-native-share@^3.3.0":
+    version "3.3.0"
+    resolved "https://registry.yarnpkg.com/@types/react-native-share/-/react-native-share-3.3.0.tgz#dc264315c28177e0262a13d5b957e0940cf715c4"
+    integrity sha512-qcmtUNOhIO0tlz7RVQR2FtWzFlblge8gsJED6dT16HdaHq+8ssm+onTVup7UYcE5DEvlmGXBuW2kZU41H+d3FA==
+    dependencies:
+      "@types/react" "*"
+      "@types/react-native" "*"
   
   "@types/react-native-vector-icons@^6.4.5":
     version "6.4.6"
@@ -4542,6 +4559,13 @@ Lockfile:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
     integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+  
+  copy-to-clipboard@^3.0.8:
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz#115aa1a9998ffab6196f93076ad6da3b913662ae"
+    integrity sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
+    dependencies:
+      toggle-selection "^1.0.6"
   
   copy-webpack-plugin@~6.0.3:
     version "6.0.4"
@@ -11145,10 +11169,23 @@ Lockfile:
       invariant "^2.2.4"
       prop-types "^15.7.2"
   
+  react-native-iphone-x-helper@^1.0.3:
+    version "1.3.0"
+    resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.0.tgz#84fd13e6b89cc3aa4daa80ec514bf15cb724d86d"
+    integrity sha512-+/bcZWFeZt0xSS/+3CHM5K7qPL4vDO/3ARLIowzFpUPGZiPsv9+NET+XNqqseRYwFJwYMmtX+Q4TZKxAVy09ew==
+  
   react-native-iphone-x-helper@^1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
     integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+  
+  react-native-keyboard-aware-scroll-view@^0.9.3:
+    version "0.9.3"
+    resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.3.tgz#65ab4cab1a987b486d97924602756fa88b7fbfcc"
+    integrity sha512-EDyFp8wAJoKvi1T2pzoPRn8R0Inp3G+575jPAWEFTlXq26URMmk8760rzde2XLW+v/1+QwDyBg6d/5mz63/ZRA==
+    dependencies:
+      prop-types "^15.6.2"
+      react-native-iphone-x-helper "^1.0.3"
   
   react-native-maps@0.27.1:
     version "0.27.1"
@@ -11200,6 +11237,11 @@ Lockfile:
     version "2.10.1"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.10.1.tgz#06d22fae87ef0ce51c616c34a199726db1403b95"
     integrity sha512-Z2kKSk4AwWRQNCBmTjViuBQK0/Lx0jc25TZptn/2gKYUCOuVRvCekoA26u0Tsb3BIQ8tWDsZW14OwDlFUXW1aw==
+  
+  react-native-share@^4.0.2:
+    version "4.0.2"
+    resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-4.0.2.tgz#1a2287748083e08247e951d9ef8c7a100d39cc1c"
+    integrity sha512-2dbeyBx8bQoOu0V2fsj3xNv3Mta9KwGRUT/Yvb+SBRtwX3YSwYC65DqRPk1L1CeO7ABxiXZaEaL1MM7LIDuGSA==
   
   react-native-status-bar-height@^2.5.0:
     version "2.5.0"
@@ -12911,6 +12953,11 @@ Lockfile:
       extend-shallow "^3.0.2"
       regex-not "^1.0.2"
       safe-regex "^1.1.0"
+  
+  toggle-selection@^1.0.6:
+    version "1.0.6"
+    resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
+    integrity sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
   
   toidentifier@1.0.0:
     version "1.0.0"
