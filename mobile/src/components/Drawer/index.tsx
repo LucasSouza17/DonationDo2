@@ -9,13 +9,14 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
+import AsyncStorage from '@react-native-community/async-storage';
 
 function DrawerContent(props: any) {
 
     const navigation = useNavigation();
 
     function handleNavigateToHome() {
-        navigation.navigate("HomeStack");
+        navigation.navigate("Home");
     }
 
     function handleNavigateToPerfil() {
@@ -38,8 +39,9 @@ function DrawerContent(props: any) {
         navigation.navigate("InviteFriends");
     }
 
-    function handleSignOut() {
-        navigation.navigate("Login");
+    async function handleSignOut() {
+        await AsyncStorage.clear();
+        navigation.navigate("UserNotAuth");
     }
 
     function handleCloseMenu() {

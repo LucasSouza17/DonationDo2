@@ -75,7 +75,7 @@ function Login() {
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
 
                 setTimeout(() => {
-                    navigation.navigate("Home");
+                    navigation.navigate("UserAuth");
                 }, 1000)
                 clearInput();
             }
@@ -129,7 +129,6 @@ function Login() {
         </ImageBackground>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
