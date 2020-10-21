@@ -75,7 +75,7 @@ function Login() {
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
 
                 setTimeout(() => {
-                    navigation.dispatch(StackActions.replace("UserAuth"));
+                    navigation.navigate("UserAuth");
                 }, 1000)
                 clearInput();
             }

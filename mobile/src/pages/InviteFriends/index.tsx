@@ -4,7 +4,7 @@ import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
 import Icon from "@expo/vector-icons/build/Feather";
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 import Toast from 'react-native-toast-message';
@@ -23,7 +23,7 @@ function InviteFriends() {
         async function GetCode() {
             const id_Doador = await AsyncStorage.getItem("isLoggedId");
             try {
-                api.get(`doador/${id_Doador}`).then(response => {
+                api.get(`doador/${Number(id_Doador)}`).then(response => {
                     setCode(response.data.Codigo_Convite);
                 })
             }
@@ -33,10 +33,10 @@ function InviteFriends() {
         }
 
         GetCode();
-    }, [])
+    }, [inputCode])
 
     function handleGoBack() {
-        navigation.navigate("Home");
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     function copyText() {

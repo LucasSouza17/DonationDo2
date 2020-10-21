@@ -20,23 +20,23 @@ function DrawerContent(props: any) {
     }
 
     function handleNavigateToPerfil() {
-        navigation.dispatch(StackActions.replace("Perfil"));
+        navigation.navigate("Perfil")
     }
 
     function handleNavigateToHistoryReceivers() {
-        navigation.dispatch(StackActions.replace("HistoryReceivers"));
+        navigation.navigate("HistoryReceivers")
     }
 
     function handleNavigateToHistoryDonation() {
-        navigation.dispatch(StackActions.replace("HistoryDonation"));
+        navigation.navigate("HistoryDonation");
     }
 
     function handleNavigateToRanking() {
-        navigation.dispatch(StackActions.replace("Ranking"));
+        navigation.navigate("Ranking");
     }
 
     function handleNavigateToInviteFriends() {
-        navigation.dispatch(StackActions.replace("InviteFriends"));
+        navigation.navigate("InviteFriends");
     }
 
     async function handleSignOut() {

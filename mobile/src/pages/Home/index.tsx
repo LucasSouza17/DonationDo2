@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, StatusBar, ScrollView } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -6,10 +6,33 @@ import Icon from "@expo/vector-icons/build/Feather";
 import MapView, { Marker } from "react-native-maps";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
 import { DrawerActions, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
 
 function Home() {
 
     const navigation = useNavigation();
+
+    const [nomeUser, setNomeUser] = useState<string | null>("");
+    const [idUser, setIdUser] = useState<string | null>("");
+    const [pointsUser, setPointsUser] = useState("");
+
+    useEffect(() => {
+        async function getDataUser() {
+            const Id = await AsyncStorage.getItem("isLoggedId");
+            setIdUser(Id);
+            try{
+                await api.get(`doador/${Number(idUser)}`).then(response => {
+                    setPointsUser(response.data.Pontuacao);
+                    setNomeUser(response.data.Nome);
+                })
+            }catch(err) {
+                console.log(err);
+            }
+        }
+
+        getDataUser();
+    }, [Number(idUser), nomeUser, pointsUser])
 
     function handleDrawerOpen() {
         navigation.dispatch(DrawerActions.openDrawer());
@@ -27,8 +50,8 @@ function Home() {
                         {/* <Image source="" /> */}
                     </View>
                     <View style={styles.userData}>
-                        <Text style={styles.name}>Luan Vinicius Simão</Text>
-                        <Text style={styles.points}>25 pontos</Text>
+                        <Text style={styles.name}>{nomeUser}</Text>
+                        <Text style={styles.points}>{pointsUser} pontos</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={handleDrawerOpen}>
