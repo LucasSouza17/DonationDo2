@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform, RefreshControl } from 'react-native';
 import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
@@ -18,7 +18,7 @@ function InviteFriends() {
 
     const [code, setCode] = useState("");
     const [inputCode, setInputCode] = useState("");
-
+    
     useEffect(() => {
         async function GetCode() {
             const id_Doador = await AsyncStorage.getItem("isLoggedId");
@@ -36,7 +36,7 @@ function InviteFriends() {
     }, [])
 
     function handleGoBack() {
-        navigation.goBack();
+        navigation.navigate("Home");
     }
 
     function copyText() {

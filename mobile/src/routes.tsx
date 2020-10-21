@@ -30,8 +30,6 @@ const DrawerNavigation = () => {
     return (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Home" component={Home} />
-            <AppStack.Screen name="InviteFriends" component={InviteFriends} />
-            <AppStack.Screen name="Perfil" component={Perfil} />
         </Drawer.Navigator>
     )
 }
@@ -46,6 +44,8 @@ const UserAuthRoutes = () => {
             },
         }}
         >
+            <AppStack.Screen name="InviteFriends" component={InviteFriends} />
+            <AppStack.Screen name="Perfil" component={Perfil} />
             <AppStack.Screen name="Home" component={DrawerNavigation} />
             <AppStack.Screen name="OnBoarding1" component={OnBoarding1} />
             <AppStack.Screen name="OnBoarding2" component={OnBoarding2} />

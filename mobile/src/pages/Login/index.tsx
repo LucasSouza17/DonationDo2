@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TextInput, DevSettings } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api';
@@ -75,7 +75,7 @@ function Login() {
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
 
                 setTimeout(() => {
-                    navigation.navigate("UserAuth");
+                    navigation.dispatch(StackActions.replace("UserAuth"));
                 }, 1000)
                 clearInput();
             }
@@ -93,7 +93,6 @@ function Login() {
 
     function handleNavigateToRegister() {
         navigation.navigate("Register");
-        DevSettings.reload();
     }
 
     return (

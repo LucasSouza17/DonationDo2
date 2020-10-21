@@ -10,7 +10,7 @@ function Perfil() {
     const navigation = useNavigation();
 
     function handleGoBack () {
-        navigation.goBack();
+        navigation.navigate("Home");
     }
 
     function handleNavigateToUpdatePerfil () {

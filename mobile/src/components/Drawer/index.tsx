@@ -5,7 +5,7 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { DrawerActions, StackActions, useNavigation } from '@react-navigation/native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
@@ -16,32 +16,31 @@ function DrawerContent(props: any) {
     const navigation = useNavigation();
 
     function handleNavigateToHome() {
-        navigation.navigate("Home");
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     function handleNavigateToPerfil() {
-        navigation.navigate("Perfil");
+        navigation.dispatch(StackActions.replace("Perfil"));
     }
 
     function handleNavigateToHistoryReceivers() {
-        navigation.navigate("HistoryReceivers");
+        navigation.dispatch(StackActions.replace("HistoryReceivers"));
     }
 
     function handleNavigateToHistoryDonation() {
-        navigation.navigate("HistoryDonation");
+        navigation.dispatch(StackActions.replace("HistoryDonation"));
     }
 
     function handleNavigateToRanking() {
-        navigation.navigate("Ranking");
+        navigation.dispatch(StackActions.replace("Ranking"));
     }
 
     function handleNavigateToInviteFriends() {
-        navigation.navigate("InviteFriends");
+        navigation.dispatch(StackActions.replace("InviteFriends"));
     }
 
     async function handleSignOut() {
         await AsyncStorage.clear();
-        DevSettings.reload();
         navigation.navigate("UserNotAuth");
     }
 
