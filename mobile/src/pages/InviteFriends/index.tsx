@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform } from 'react-native';
 import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -17,12 +17,7 @@ function InviteFriends() {
     const navigation = useNavigation();
 
     const [code, setCode] = useState("");
-
-    const shareLinkContent = {
-        contentType: 'link',
-        contentUrl: "https://facebook.com",
-        contentDescription: 'Facebook sharing is easy!',
-    };
+    const [inputCode, setInputCode] = useState("");
 
     useEffect(() => {
         async function GetCode() {
@@ -70,11 +65,51 @@ function InviteFriends() {
         MailComposer.composeAsync({
             subject: "Você recebeu um convite DonationDo",
             body: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`
-          });
+        });
     }
 
     function shareSMS() {
         Linking.openURL(`sms:${Platform.OS === "ios" ? "&" : "?"}body=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`)
+    }
+
+    async function handleSubmitCode() {
+        const Codigo_Convite = inputCode.toLowerCase();
+        const id_Doador = await AsyncStorage.getItem("isLoggedId")
+
+        const data = {
+            Codigo_Convite
+        }
+
+        if(Codigo_Convite === "") {
+            Toast.show({
+                type: 'error',
+                text1: 'Digite o cupom',
+                text2: 'Para poder ganhar os pontos, digite um cupom válido.',
+                visibilityTime: 3000,
+                topOffset: 20
+            })
+        }else{
+            try {
+                await api.put(`doador/${id_Doador}/CodigoConvite`, data);
+                Toast.show({
+                    type: 'success',
+                    text1: 'Você acaba de receber 15 pontos',
+                    text2: 'Parabéns, agora vamos ganhar pontos na prática? Bora doar!!',
+                    visibilityTime: 3000,
+                    topOffset: 20
+                })
+            }
+            catch(err) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Seu cupom é válido?',
+                    text2: 'Verifique se você digitou um cupom válido.',
+                    visibilityTime: 3000,
+                    topOffset: 20
+                })
+            }
+        }
+
     }
 
     return (
@@ -141,9 +176,9 @@ function InviteFriends() {
                 <View style={styles.containerPostCode}>
                     <View style={styles.content}>
                         <Text style={styles.titleInput}>Insira o código abaixo:</Text>
-                        <TextInput style={styles.inputCode} />
+                        <TextInput onChangeText={(text) => setInputCode(text)} style={styles.inputCode} />
                         <View style={styles.buttonSubmitCode}>
-                            <RectButton>
+                            <RectButton onPress={handleSubmitCode}>
                                 <Text style={styles.textButton}>Resgatar código</Text>
                             </RectButton>
                         </View>

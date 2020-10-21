@@ -7,12 +7,13 @@ const medalhasDoadorController = new MedalhasDoadorController();
 
 class CodigoConviteController{
   
-  async show (request: Request, response:Response){
+  async update (request: Request, response:Response){
     
     try{
-      const id = request.headers.authorization;
+      const {id} = request.params;
       
       const {Codigo_Convite} = request.body;
+      
       const Doador_Convidante = await knex('doador')
         .where('Codigo_Convite', Codigo_Convite)
         .select('*')
@@ -22,18 +23,22 @@ class CodigoConviteController{
         .where('id_Doador', Number(id)).andWhere('Cupom', "")
         .select('*')
         .first();
-
+        
       if(!Doador_Convidante){
         return response.status(400).json({error: 'Código inválido'});
+      }
+
+      if(Doador_Convidado.Codigo_Convite === Codigo_Convite) {
+        return response.status(400).json({error: 'Você não pode aplicar seu próprio código'});
       }
 
       if(!Doador_Convidado){
         return response.status(400).json({error: 'Cupom já utilizado'});
       }
 
-      const PontuacaoDoador_Convidante = Doador_Convidante.Pontuacao + 50;
+      const PontuacaoDoador_Convidante = Doador_Convidante.Pontuacao + 25;
 
-      const PontuacaoDoador_Convidado =Doador_Convidado.Pontuacao + 25;
+      const PontuacaoDoador_Convidado =Doador_Convidado.Pontuacao + 15;
 
       const id_Convidante = Number(Doador_Convidante.id_Doador);
       const id_Convidado = Number(Doador_Convidado.id_Doador);

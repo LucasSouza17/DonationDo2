@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, DevSettings } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItem
@@ -41,6 +41,7 @@ function DrawerContent(props: any) {
 
     async function handleSignOut() {
         await AsyncStorage.clear();
+        DevSettings.reload();
         navigation.navigate("UserNotAuth");
     }
 

@@ -89,93 +89,93 @@ const necessidadeDoadorController = new NecessidadeDoadorController();
 const medalhaController = new MedalhaController();
 
 //Rota dos Itens
- routes.get('/itens', itemController.index);
+routes.get('/itens', itemController.index);
 
 //Rotas dos Receptores
- routes.get('/receptor', receptoresController.index);
- routes.post('/receptor', VerificacaoReceptor, receptoresController.create);
- routes.put('/receptor/ConcluirCadastro/:id', uploadsReceptor.single('Img_Local'), VerificacaoReceptorConcluido, concluirReceptorController.update);
- routes.put('/receptor/:id', receptoresController.update);
- routes.put('/receptor/img/:id', uploadsReceptor.single('Img_Local'), receptorUpdateImgController.update);
- routes.get('/receptor/:id', receptoresController.show);
- 
+routes.get('/receptor', receptoresController.index);
+routes.post('/receptor', VerificacaoReceptor, receptoresController.create);
+routes.put('/receptor/ConcluirCadastro/:id', uploadsReceptor.single('Img_Local'), VerificacaoReceptorConcluido, concluirReceptorController.update);
+routes.put('/receptor/:id', receptoresController.update);
+routes.put('/receptor/img/:id', uploadsReceptor.single('Img_Local'), receptorUpdateImgController.update);
+routes.get('/receptor/:id', receptoresController.show);
+
 //Rota de recebimento de Doações
- routes.get('/receptor/:id/doacoes', doacaoReceptorController.index);
- 
-   //Confirmar Doação
-    routes.put('/receptor/doacao/:id/confirmar', doacaoConfirmadaController.update);
-   
-   //Recusar Doação
-   routes.put('/receptor/doacao/:id/recusar', doacaoRecusadaController.update);
-   
-   //Historico de Doações
-   routes.get('/receptor/:id/historico/doacoes', historicorDoacoesReceptoController.index);
+routes.get('/receptor/:id/doacoes', doacaoReceptorController.index);
+
+//Confirmar Doação
+routes.put('/receptor/doacao/:id/confirmar', doacaoConfirmadaController.update);
+
+//Recusar Doação
+routes.put('/receptor/doacao/:id/recusar', doacaoRecusadaController.update);
+
+//Historico de Doações
+routes.get('/receptor/:id/historico/doacoes', historicorDoacoesReceptoController.index);
 
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);
 routes.get('/doador/:id', doadorController.show);
 routes.put('/doador/:id', uploadsDoador.single('Avatar'), doadorController.update);
-   
-   //Rota de acesso as necessidade com os filtros
-   routes.get('/doador/necessidades/', necessidadeDoadorController.index);
-   //Rota de acesso ao Receptor de acordo com a necessidade
-   routes.get('/doador/necessidade/:id/receptor', necessidadeDoadorController.show);
 
-   //Rota historico de ongs acessadas
-   routes.get('/doador/:id_doador/historico', historicoController.index);
-   //Rota historico das necessidades da ong acessada
-   routes.get('/doador/historico/:cod_Receptor/necessidades', historicoController.show);
-   
-   //Rota de Ranking
-   routes.get('/doador/ranking', rankingController.index);
-   
-   //Rota de Doação do Doador
-   routes.post('/doador/necessidade/:id/doar', doacaoDoadorController.create);
-   
-   //Rota de Historico de doações
-   routes.get('/doador/:id/doacoes/', historicoDoacoesController.index);
-   
-   //Rota de recebimento do codigo do Doador
-   routes.get('/doador/CodigoConvite/', codigoConviteController.show);
-   
-   //Rota de Pontuação do Doador
-   routes.get('/doador/pontuacao/', pontuacaoController.index);
-   
+//Rota de acesso as necessidade com os filtros
+routes.get('/doador/necessidades/', necessidadeDoadorController.index);
+//Rota de acesso ao Receptor de acordo com a necessidade
+routes.get('/doador/necessidade/:id/receptor', necessidadeDoadorController.show);
+
+//Rota historico de ongs acessadas
+routes.get('/doador/:id_doador/historico', historicoController.index);
+//Rota historico das necessidades da ong acessada
+routes.get('/doador/historico/:cod_Receptor/necessidades', historicoController.show);
+
+//Rota de Ranking
+routes.get('/doador/ranking', rankingController.index);
+
+//Rota de Doação do Doador
+routes.post('/doador/necessidade/:id/doar', doacaoDoadorController.create);
+
+//Rota de Historico de doações
+routes.get('/doador/:id/doacoes/', historicoDoacoesController.index);
+
+//Rota de recebimento do codigo do Doador
+routes.put('/doador/:id/CodigoConvite/', codigoConviteController.update);
+
+//Rota de Pontuação do Doador
+routes.get('/doador/pontuacao/', pontuacaoController.index);
+
 //Rota de criação de medalhas
- routes.post('/medalha', medalhaController.create);
+routes.post('/medalha', medalhaController.create);
 
 //Rota de Login do Receptor
- routes.post('/sessionReceptor', sessionReceptorControler.create);
+routes.post('/sessionReceptor', sessionReceptorControler.create);
 
 //Rota de Login do Doador
- routes.post('/sessionDoador', sessionDoadorControler.create);
+routes.post('/sessionDoador', sessionDoadorControler.create);
 
 //Rotas da Necessidade do Receptor
- routes.post('/receptor/:cod_Receptor/necessidade', VerificacaoNecessidade, necessidadesController.create);
- //Necessidade do Item outros
- routes.post('/receptor/:cod_Receptor/necessidade/outros', VerificacaoNecessidade, necessidadeOutrosController.create);
-  
-  //Rotas da Necessidade Em andamento
-   routes.get('/receptor/:id/necessidade/EmAndamento', necessidadeAndamentoController.index);
-   routes.put('/receptor/necessidade/EmAndamento/:id', necessidadeAndamentoController.update);
-  
-  //Rotas da Necessidade Canceladas
-   routes.get('/receptor/:id/necessidade/Canceladas', necessidadesCanceladaController.index);
-   routes.put('/receptor/necessidade/:id/Cancelar', necessidadesCanceladaController.update);
-   
-  //Rotas da Necessidade Finalizadas
-   routes.get('/receptor/:id/necessidade/Finalizadas', necessidadesFinalizadaController.index);
-   routes.put('/receptor/necessidade/:id/Finalizar', necessidadesFinalizadaController.update);
-  
-  //Rotas para Reaproveitar Necessidade
-   routes.post('/receptor/necessidade/:id', VerificacaoReaproveitarNecessidade, reaproveitaNecessidadeController.create);
-  
-  //Rota necessidade por id
-   routes.get('/receptor/necessidade/:id', necessidadesController.index);
-   routes.get('/receptor/necessidade/:id/visualizar', necessidadesController.show);
+routes.post('/receptor/:cod_Receptor/necessidade', VerificacaoNecessidade, necessidadesController.create);
+//Necessidade do Item outros
+routes.post('/receptor/:cod_Receptor/necessidade/outros', VerificacaoNecessidade, necessidadeOutrosController.create);
 
-  //Rotas da Necessidade Finalizadas pela Data
-   routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.update);
+//Rotas da Necessidade Em andamento
+routes.get('/receptor/:id/necessidade/EmAndamento', necessidadeAndamentoController.index);
+routes.put('/receptor/necessidade/EmAndamento/:id', necessidadeAndamentoController.update);
+
+//Rotas da Necessidade Canceladas
+routes.get('/receptor/:id/necessidade/Canceladas', necessidadesCanceladaController.index);
+routes.put('/receptor/necessidade/:id/Cancelar', necessidadesCanceladaController.update);
+
+//Rotas da Necessidade Finalizadas
+routes.get('/receptor/:id/necessidade/Finalizadas', necessidadesFinalizadaController.index);
+routes.put('/receptor/necessidade/:id/Finalizar', necessidadesFinalizadaController.update);
+
+//Rotas para Reaproveitar Necessidade
+routes.post('/receptor/necessidade/:id', VerificacaoReaproveitarNecessidade, reaproveitaNecessidadeController.create);
+
+//Rota necessidade por id
+routes.get('/receptor/necessidade/:id', necessidadesController.index);
+routes.get('/receptor/necessidade/:id/visualizar', necessidadesController.show);
+
+//Rotas da Necessidade Finalizadas pela Data
+routes.put('/receptor/:id/necessidade', finalizarNecesssidadeDataController.update);
 
 
 export default routes;
