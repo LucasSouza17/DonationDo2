@@ -30,6 +30,8 @@ const DrawerNavigation = () => {
     return (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Home" component={Home} />
+            <AppStack.Screen name="InviteFriends" component={InviteFriends} />
+            <AppStack.Screen name="Perfil" component={Perfil} />
         </Drawer.Navigator>
     )
 }

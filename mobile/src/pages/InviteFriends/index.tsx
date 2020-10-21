@@ -1,20 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
 import Icon from "@expo/vector-icons/build/Feather";
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
+import Toast from 'react-native-toast-message';
+import Clipboard from '@react-x/clipboard';
 
 
 function InviteFriends() {
 
     const navigation = useNavigation();
 
+    const [code, setCode] = useState("");
+
+    useEffect(() => {
+        async function GetCode() {
+            const id_Doador = await AsyncStorage.getItem("isLoggedId");
+            try {
+                api.get(`doador/${id_Doador}`).then(response => {
+                    setCode(response.data.Codigo_Convite);
+                })
+            }
+            catch(err) {
+                console.log(err);
+            }
+        }
+
+        GetCode();
+    }, [])
+
     function handleGoBack() {
         navigation.goBack();
     }
-    
+
+    function copyText() {
+        Clipboard.setString(code);
+        Toast.show({
+            type: 'info',
+            text1: 'Copiado',
+            text2: 'Agora é só compartilhar!',
+            visibilityTime: 3000,
+            topOffset: 20
+        })
+    }
+
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
@@ -41,8 +75,8 @@ function InviteFriends() {
 
                 <View style={styles.containerShare}>
                     <View style={styles.containerCode}>
-                        <Text style={styles.code}>G34H42DG</Text>
-                        <TouchableOpacity style={styles.copyButton}>
+                        <Text style={styles.code}>{code.toUpperCase()}</Text>
+                        <TouchableOpacity style={styles.copyButton} onPress={copyText}>
                             <Text style={styles.copyText}>Copiar</Text>
                         </TouchableOpacity>
                     </View>
@@ -88,6 +122,7 @@ function InviteFriends() {
                     </View>
                 </View>
             </View>
+            <Toast ref={(ref: any) => Toast.setRef(ref)} />
         </ScrollView>
     );
 }
