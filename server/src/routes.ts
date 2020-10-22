@@ -117,7 +117,7 @@ routes.get('/doador/:id', doadorController.show);
 routes.put('/doador/:id', uploadsDoador.single('Avatar'), doadorController.update);
 
 //Rota de acesso as necessidade com os filtros
-routes.get('/doador/necessidades/', necessidadeDoadorController.index);
+routes.get('/filternecessidades/', necessidadeDoadorController.index);
 //Rota de acesso ao Receptor de acordo com a necessidade
 routes.get('/doador/necessidade/:id/receptor', necessidadeDoadorController.show);
 

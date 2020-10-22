@@ -10,7 +10,7 @@ class HistoricoController{
       const historico_receptores = await knex('historico')
         .where('cod_Doador', id_doador )
         .join('receptor', 'id_Receptor', '=', 'cod_Receptor')
-        .select('receptor.*', 'Data').count('id_Receptor as Acesso')
+        .select('receptor.*', 'DataTime').count('id_Receptor as Acesso')
         .groupBy('id_Receptor')
         .orderBy('Acesso', "desc");
       

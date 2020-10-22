@@ -8,6 +8,22 @@ import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
+import * as Location from 'expo-location'
+import Toast from 'react-native-toast-message';
+
+interface Point {
+    id_Receptor: string;
+    Nome: string;
+    image_url: string;
+    Latitude: number;
+    Longitude: number;
+    Img_Local: string;
+    NomeItem: string;
+    DescricaoItem: string;
+    Telefone: string;
+    Email: string;
+    Whatsapp: string;
+  }
 
 function Home() {
 
@@ -16,6 +32,12 @@ function Home() {
     const [nomeUser, setNomeUser] = useState<string | null>("");
     const [idUser, setIdUser] = useState<string | null>("");
     const [pointsUser, setPointsUser] = useState("");
+
+    const [points, setPoints] = useState<Point[]>([]);
+    const [initialPosition, setInitialPosition] = useState<[number, number]>([
+        0,
+        0,
+      ]);
 
     useEffect(() => {
         async function getDataUser() {
@@ -33,6 +55,43 @@ function Home() {
 
         getDataUser();
     }, [Number(idUser), nomeUser, pointsUser])
+
+    useEffect(() => {
+        async function loadPosition() {
+          const { status } = await Location.requestPermissionsAsync();
+    
+          if (status !== "granted") {
+            Toast.show({
+                type: 'error',
+                text1: 'Ooopss...',
+                text2: 'Você precisa preencher os campos para entrar.',
+                visibilityTime: 3000,
+                topOffset: 60
+            })
+            return;
+          }
+    
+          const location = await Location.getCurrentPositionAsync();
+    
+          const { latitude, longitude } = location.coords;
+    
+          setInitialPosition([latitude, longitude]);
+        }
+        loadPosition();
+      }, []);
+    
+    useEffect(() => {
+        api.get("doador/necessidade", {
+            params: {
+                UF: 'SP',
+                Cidade: 'São José Do Rio Preto',
+                id_Item: 8
+            }
+        }).then(response => {
+            console.log(response.data)
+            console.log("frango")
+        })
+    }, [])
 
     function handleDrawerOpen() {
         navigation.dispatch(DrawerActions.openDrawer());
@@ -58,6 +117,7 @@ function Home() {
                     <Icon name="menu" size={28} color="#fff" style={styles.menuIcon} />
                 </TouchableOpacity>
             </View>
+            <Toast ref={(ref: any) => Toast.setRef(ref)} />
             <View style={styles.mainContainer}>
                 <View style={styles.headerMain}>
                     <Text style={styles.title}>Filtre sua busca para doar</Text>
@@ -67,11 +127,13 @@ function Home() {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.mapContainer}>
+                    {initialPosition[0] !== 0 && (
                     <MapView
                         style={styles.map}
+                        loadingEnabled={initialPosition[0] === 0}
                         initialRegion={{
-                            latitude: -20.805321,
-                            longitude: -49.4363367,
+                            latitude: initialPosition[0],
+                            longitude: initialPosition[1],
                             latitudeDelta: 0.014,
                             longitudeDelta: 0.014,
                         }}
@@ -112,6 +174,7 @@ function Home() {
                             />
                         </Marker>
                     </MapView>
+                    )}
                 </View>
             </View>
             <View style={styles.containerList}>
