@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, DevSettings } from 'react-native';
 import {
     DrawerContentScrollView,
@@ -10,10 +10,32 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
 import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
 
 function DrawerContent(props: any) {
 
     const navigation = useNavigation();
+
+    const [nomeUser, setNomeUser] = useState<string | null>("");
+    const [pointsUser, setPointsUser] = useState("");
+    const [idUser, setIdUser] = useState<string | null>("");
+
+    useEffect(() => {
+        async function getDataUser() {
+            const Id = await AsyncStorage.getItem("isLoggedId");
+            setIdUser(Id);
+            try {
+                await api.get(`doador/${Number(idUser)}`).then(response => {
+                    setPointsUser(response.data.Pontuacao);
+                    setNomeUser(response.data.Nome);
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        getDataUser();
+    }, [Number(idUser), nomeUser, pointsUser])
 
     function handleNavigateToHome() {
         navigation.dispatch(StackActions.replace("Home"));
@@ -60,8 +82,8 @@ function DrawerContent(props: any) {
                             {/* <Image source="" /> */}
                         </View>
                         <View style={styles.userData}>
-                            <Text style={styles.name}>Luan Vinicius Simão</Text>
-                            <Text style={styles.points}>25 pontos</Text>
+                            <Text style={styles.name}>{nomeUser}</Text>
+                            <Text style={styles.points}>{pointsUser} pontos</Text>
                         </View>
                     </View>
                     <View style={styles.drawerSection}>
