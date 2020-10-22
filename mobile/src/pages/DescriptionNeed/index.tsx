@@ -6,6 +6,7 @@ import {
     StyleSheet,
     StatusBar,
     ScrollView,
+    Linking
 } from "react-native";
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome";
@@ -14,12 +15,36 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import * as MailComposer from 'expo-mail-composer'
 
+
+interface Params {
+    id_Necessidade: string,
+    Nome: string,
+    Latitude: number,
+    Longitude: number,
+    Titulo: string,
+    Descricao: string,
+    Img_Local: string,
+    Tipo: string,
+    Cidade: string,
+    UF: string,
+    Rua: string,
+    Bairro: string,
+    CEP: string,
+    Numero: string,
+    Telefone: string,
+    Whatsapp: string,
+    Email: string
+}
 
 function DescriptionNeed() {
 
     const navigation = useNavigation();
+
+    const route = useRoute();
+    const routeParams = route.params as Params;
 
     function handleNavigateGoBack() {
         navigation.goBack();
@@ -28,6 +53,30 @@ function DescriptionNeed() {
     function handleNavigateToConfirmDonation() {
         navigation.navigate("ConfirmDonation");
     }
+
+    function handleWhatsapp() {
+        Linking.openURL(
+          `whatsapp://send?phone=55${routeParams.Whatsapp}&text=Olá vim por meio do DonationDo e estou interessado em fazer uma doação!`
+        );
+      }
+    
+      function handleEmail() {
+        MailComposer.composeAsync({
+          subject: "Olá vim por meio do DonationDo e estou interessado em fazer uma doação!",
+          recipients: [routeParams.Email],
+        });
+      }
+    
+      function handlePhone() {
+        Linking.openURL(`tel:${routeParams.Telefone}`);
+      }
+    
+      function handleMap() {
+        Linking.openURL(
+          `google.navigation:q=${routeParams.Latitude}+${routeParams.Longitude}`
+        );
+      }
+
 
     return (
         <View style={styles.container}>
@@ -38,52 +87,51 @@ function DescriptionNeed() {
             </View>
             <View style={styles.main}>
                 <View style={styles.containerImage}>
-                    <Image style={styles.image} source={require('../../assets/us.png')} />
+                    <Image style={styles.image} source={{ uri: routeParams.Img_Local }} />
                 </View>
 
                 <View style={styles.receptorData}>
-                    <Text style={styles.nomeReceptor}>Assistência Social Gonzaga</Text>
-                    <Text style={styles.tipoReceptor}>ONG</Text>
+                    <Text style={styles.nomeReceptor}>{routeParams.Nome}</Text>
+                    <Text style={styles.tipoReceptor}>{routeParams.Tipo}</Text>
                 </View>
 
                 <ScrollView contentContainerStyle={{ paddingBottom: wp("5%") }}>
                     <View style={styles.dataNeed}>
-                        <Text style={styles.titleNeed}>Roupas</Text>
+                        <Text style={styles.titleNeed}>{routeParams.Titulo}</Text>
                         <View style={styles.descriptionData}>
                             <Text style={styles.titleText}>Descrição da necessidade</Text>
-                            <Text style={styles.descriptionText}>Precisamos de roupas para a Casa de Idosos
-                            da cidade
+                            <Text style={styles.descriptionText}>{routeParams.Descricao}
                             </Text>
                         </View>
                         <View style={styles.addressData}>
                             <Text style={styles.titleText}>Endereço</Text>
-                            <Text style={styles.descriptionText}>São José do Rio Preto - SP</Text>
-                            <Text style={styles.descriptionText}>Rua Raul de Carvalho</Text>
-                            <Text style={styles.descriptionText}>Nº 210</Text>
+                            <Text style={styles.descriptionText}>{routeParams.Cidade} - {routeParams.UF}</Text>
+                            <Text style={styles.descriptionText}>{routeParams.Rua}</Text>
+                            <Text style={styles.descriptionText}>Nº {routeParams.Numero}</Text>
 
                             <View style={styles.contact}>
                                 <Text style={{ padding: wp("2%"), marginTop: wp("2%"), fontWeight: "bold" }}>Navegação rápida</Text>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={styles.containerButtonAddress}>
-                                        <TouchableOpacity style={styles.buttonMap}>
+                                        <TouchableOpacity style={styles.buttonMap} onPress={handleMap}>
                                             <Icon name="map" size={20} color="#fff" />
                                         </TouchableOpacity>
                                         <Text style={styles.titleButton}>GoogleMaps</Text>
                                     </View>
                                     <View style={styles.containerButtonAddress}>
-                                        <TouchableOpacity style={styles.buttonZap}>
+                                        <TouchableOpacity style={styles.buttonZap} onPress={handleWhatsapp}>
                                             <IconAwesome name="whatsapp" color="#fff" size={20} />
                                         </TouchableOpacity>
                                         <Text style={styles.titleButton}>Whatsapp</Text>
                                     </View>
                                     <View style={styles.containerButtonAddress}>
-                                        <TouchableOpacity style={styles.buttonPhone}>
+                                        <TouchableOpacity style={styles.buttonPhone} onPress={handlePhone}>
                                             <Icon name="phone" size={20} color="#fff" />
                                         </TouchableOpacity>
                                         <Text style={styles.titleButton}>Telefone</Text>
                                     </View>
                                     <View style={styles.containerButtonAddress}>
-                                        <TouchableOpacity style={styles.buttonMail}>
+                                        <TouchableOpacity style={styles.buttonMail} onPress={handleEmail}>
                                             <Icon name="mail" size={20} color="#fff" />
                                         </TouchableOpacity>
                                         <Text style={styles.titleButton}>E-mail</Text>
@@ -256,7 +304,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    
+
     textButton: {
         color: "#fff",
         fontSize: wp("5%"),

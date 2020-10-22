@@ -13,11 +13,23 @@ import Toast from 'react-native-toast-message';
 
 interface PointI {
     id_Necessidade: string;
+    Titulo: string;
+    Descricao: string;
+    Tipo: string;
+
     Nome: string;
-    image_url: string;
     Latitude: number;
     Longitude: number;
     Img_Local: string;
+    Cidade: string;
+    UF: string;
+    Rua: string;
+    Bairro: string;
+    CEP: string;
+    Numero: string;
+    Telefone: string;
+    Whatsapp: string;
+    Email: string;
 }
 
 function Home() {
@@ -91,8 +103,7 @@ function Home() {
                         id_Item: 1
                     },
                 }).then(response => {
-                    setPoints([response.data]);
-                    console.log(response.data);
+                    setPoints(response.data);
                 })
             } catch (err) {
                 console.log(err);
@@ -106,8 +117,44 @@ function Home() {
         navigation.dispatch(DrawerActions.openDrawer());
     }
 
-    function handleNavigateToDescriptionNeed() {
-        navigation.navigate("DescriptionNeed");
+    function handleNavigateToDescriptionNeed(
+        id_Necessidade: string,
+        Nome: string,
+        Latitude: number,
+        Longitude: number,
+        Titulo: string,
+        Descricao: string,
+        Img_Local: string,
+        Tipo: string,
+        Cidade: string,
+        UF: string,
+        Rua: string,
+        Bairro: string,
+        CEP: string,
+        Numero: string,
+        Telefone: string,
+        Whatsapp: string,
+        Email: string
+    ) {
+        navigation.navigate("DescriptionNeed", {
+            id_Necessidade: id_Necessidade,
+            Nome: Nome,
+            Latitude: Latitude,
+            Longitude: Longitude,
+            Titulo: Titulo,
+            Descricao: Descricao,
+            Img_Local: Img_Local,
+            Tipo: Tipo,
+            Cidade: Cidade,
+            UF: UF,
+            Rua: Rua,
+            Bairro: Bairro,
+            CEP: CEP,
+            Numero: Numero,
+            Telefone: Telefone,
+            Whatsapp: Whatsapp,
+            Email: Email
+        });
     }
 
     return (
@@ -155,6 +202,25 @@ function Home() {
                                         longitude: point.Longitude
                                     }}
                                     style={styles.mapMarker}
+                                    onPress={() => handleNavigateToDescriptionNeed(
+                                        point.id_Necessidade,
+                                        point.Nome,
+                                        point.Latitude,
+                                        point.Longitude,
+                                        point.Titulo,
+                                        point.Descricao,
+                                        point.Img_Local,
+                                        point.Tipo,
+                                        point.Cidade,
+                                        point.UF,
+                                        point.Rua,
+                                        point.Bairro,
+                                        point.CEP,
+                                        point.Numero,
+                                        point.Telefone,
+                                        point.Whatsapp,
+                                        point.Email
+                                    )}
                                 >
                                     <View style={styles.mapMarkerContainer}>
                                         <Image style={styles.mapMarkerImage} source={{ uri: point.Img_Local }} />
@@ -179,14 +245,33 @@ function Home() {
                     contentContainerStyle={{ paddingHorizontal: wp('2%') }}
                 >
                     {points.map((point) => (
-                        <TouchableOpacity style={styles.List} key={point.id_Necessidade}>
+                        <TouchableOpacity style={styles.List} key={point.id_Necessidade}
+                            onPress={() => handleNavigateToDescriptionNeed(
+                                point.id_Necessidade,
+                                point.Nome,
+                                point.Latitude,
+                                point.Longitude,
+                                point.Titulo,
+                                point.Descricao,
+                                point.Img_Local,
+                                point.Tipo,
+                                point.Cidade,
+                                point.UF,
+                                point.Rua,
+                                point.Bairro,
+                                point.CEP,
+                                point.Numero,
+                                point.Telefone,
+                                point.Whatsapp,
+                                point.Email
+                            )}>
                             <Image style={styles.imageList} source={{ uri: point.Img_Local }} />
                             <Text style={styles.namePoint}>{point.Nome}</Text>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
-        </View>
+        </View >
     )
 }
 
