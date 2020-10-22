@@ -120,7 +120,7 @@ const Routes = () => {
         }
 
         Authentication();
-    }, [])
+    }, [token])
 
     return (
         <>

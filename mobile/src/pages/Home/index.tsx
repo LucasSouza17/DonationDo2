@@ -11,19 +11,14 @@ import api from '../../services/api';
 import * as Location from 'expo-location'
 import Toast from 'react-native-toast-message';
 
-interface Point {
-    id_Receptor: string;
+interface PointI {
+    id_Necessidade: string;
     Nome: string;
     image_url: string;
     Latitude: number;
     Longitude: number;
     Img_Local: string;
-    NomeItem: string;
-    DescricaoItem: string;
-    Telefone: string;
-    Email: string;
-    Whatsapp: string;
-  }
+}
 
 function Home() {
 
@@ -31,66 +26,80 @@ function Home() {
 
     const [nomeUser, setNomeUser] = useState<string | null>("");
     const [idUser, setIdUser] = useState<string | null>("");
+    const [ufUser, setUfUser] = useState<string | null>("");
+    const [cityUser, setCityUser] = useState<string | null>("");
     const [pointsUser, setPointsUser] = useState("");
 
-    const [points, setPoints] = useState<Point[]>([]);
+    const [points, setPoints] = useState<PointI[]>([]);
     const [initialPosition, setInitialPosition] = useState<[number, number]>([
         0,
         0,
-      ]);
+    ]);
 
     useEffect(() => {
         async function getDataUser() {
             const Id = await AsyncStorage.getItem("isLoggedId");
+            const UF = await AsyncStorage.getItem("isLoggedUF");
+            const Cidade = await AsyncStorage.getItem("isLoggedCity");
             setIdUser(Id);
-            try{
+            setUfUser(UF);
+            setCityUser(Cidade);
+            try {
                 await api.get(`doador/${Number(idUser)}`).then(response => {
                     setPointsUser(response.data.Pontuacao);
                     setNomeUser(response.data.Nome);
                 })
-            }catch(err) {
+            } catch (err) {
                 console.log(err);
             }
         }
 
         getDataUser();
-    }, [Number(idUser), nomeUser, pointsUser])
+    }, [Number(idUser), nomeUser, pointsUser, cityUser, ufUser])
 
     useEffect(() => {
         async function loadPosition() {
-          const { status } = await Location.requestPermissionsAsync();
-    
-          if (status !== "granted") {
-            Toast.show({
-                type: 'error',
-                text1: 'Ooopss...',
-                text2: 'Você precisa preencher os campos para entrar.',
-                visibilityTime: 3000,
-                topOffset: 60
-            })
-            return;
-          }
-    
-          const location = await Location.getCurrentPositionAsync();
-    
-          const { latitude, longitude } = location.coords;
-    
-          setInitialPosition([latitude, longitude]);
+            const { status } = await Location.requestPermissionsAsync();
+
+            if (status !== "granted") {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Ooopss...',
+                    text2: 'Você precisa preencher os campos para entrar.',
+                    visibilityTime: 3000,
+                    topOffset: 60
+                })
+                return;
+            }
+
+            const location = await Location.getCurrentPositionAsync();
+
+            const { latitude, longitude } = location.coords;
+
+            setInitialPosition([latitude, longitude]);
         }
         loadPosition();
-      }, []);
-    
+    }, []);
+
     useEffect(() => {
-        api.get("doador/necessidade", {
-            params: {
-                UF: 'SP',
-                Cidade: 'São José Do Rio Preto',
-                id_Item: 8
+        async function getNecessidade() {
+            try {
+                await api.get("filternecessidades", {
+                    params: {
+                        UF: 'SP',
+                        Cidade: 'São José do Rio Preto',
+                        id_Item: 1
+                    },
+                }).then(response => {
+                    setPoints([response.data]);
+                    console.log(response.data);
+                })
+            } catch (err) {
+                console.log(err);
             }
-        }).then(response => {
-            console.log(response.data)
-            console.log("frango")
-        })
+        }
+
+        getNecessidade();
     }, [])
 
     function handleDrawerOpen() {
@@ -128,52 +137,37 @@ function Home() {
                 </View>
                 <View style={styles.mapContainer}>
                     {initialPosition[0] !== 0 && (
-                    <MapView
-                        style={styles.map}
-                        loadingEnabled={initialPosition[0] === 0}
-                        initialRegion={{
-                            latitude: initialPosition[0],
-                            longitude: initialPosition[1],
-                            latitudeDelta: 0.014,
-                            longitudeDelta: 0.014,
-                        }}
-                    >
-                        <Marker
-                            coordinate={{
-                                latitude: -20.805321,
-                                longitude: -49.4363367
+                        <MapView
+                            style={styles.map}
+                            loadingEnabled={initialPosition[0] === 0}
+                            initialRegion={{
+                                latitude: initialPosition[0],
+                                longitude: initialPosition[1],
+                                latitudeDelta: 0.014,
+                                longitudeDelta: 0.014,
                             }}
-                            style={styles.mapMarker}
-                            onPress={handleNavigateToDescriptionNeed}
                         >
-                            <View style={styles.mapMarkerContainer}>
-                                <Image style={styles.mapMarkerImage} source={require("../../assets/doacao1.png")} />
-                                <Text style={styles.mapMarkerTitle}>Assis Social</Text>
-                            </View>
-                            <IconAwesome
-                                style={styles.sortDown}
-                                name="sort-down"
-                                size={18}
-                            />
-                        </Marker>
-                        <Marker
-                            coordinate={{
-                                latitude: -20.8105527,
-                                longitude: -49.4266407
-                            }}
-                            style={styles.mapMarker}
-                        >
-                            <View style={styles.mapMarkerContainer}>
-                                <Image style={styles.mapMarkerImage} source={require("../../assets/doacao1.png")} />
-                                <Text style={styles.mapMarkerTitle}>Assis Social</Text>
-                            </View>
-                            <IconAwesome
-                                style={styles.sortDown}
-                                name="sort-down"
-                                size={18}
-                            />
-                        </Marker>
-                    </MapView>
+                            {points.map((point) => (
+                                <Marker
+                                    key={point.id_Necessidade}
+                                    coordinate={{
+                                        latitude: point.Latitude,
+                                        longitude: point.Longitude
+                                    }}
+                                    style={styles.mapMarker}
+                                >
+                                    <View style={styles.mapMarkerContainer}>
+                                        <Image style={styles.mapMarkerImage} source={{ uri: point.Img_Local }} />
+                                        <Text style={styles.mapMarkerTitle}>{point.Nome}</Text>
+                                    </View>
+                                    <IconAwesome
+                                        style={styles.sortDown}
+                                        name="sort-down"
+                                        size={18}
+                                    />
+                                </Marker>
+                            ))}
+                        </MapView>
                     )}
                 </View>
             </View>
@@ -184,31 +178,12 @@ function Home() {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: wp('2%') }}
                 >
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.List}>
-                        <Image style={styles.imageList} source={require("../../assets/doacao1.png")} />
-                        <Text style={styles.namePoint}>Assis Social</Text>
-                    </TouchableOpacity>
+                    {points.map((point) => (
+                        <TouchableOpacity style={styles.List} key={point.id_Necessidade}>
+                            <Image style={styles.imageList} source={{ uri: point.Img_Local }} />
+                            <Text style={styles.namePoint}>{point.Nome}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </ScrollView>
             </View>
         </View>
@@ -327,8 +302,11 @@ const styles = StyleSheet.create({
     },
 
     imageList: {
+        width: wp("35%"),
+        height: hp("15%"),
+        borderRadius: 8,
         flex: 1,
-        resizeMode: "contain",
+        resizeMode: "cover",
         alignSelf: "center",
     },
 
@@ -349,7 +327,7 @@ const styles = StyleSheet.create({
     mapMarkerContainer: {
         width: 90,
         height: 70,
-        backgroundColor: "#300C4B",
+        backgroundColor: "#F90CC5",
         flexDirection: "column",
         borderRadius: 8,
         overflow: "hidden",
@@ -357,8 +335,9 @@ const styles = StyleSheet.create({
     },
 
     mapMarkerImage: {
-        width: wp('9%'),
-        resizeMode: "contain",
+        width: 90,
+        height: 52,
+        resizeMode: "cover",
     },
 
     mapMarkerTitle: {
@@ -368,7 +347,7 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 8,
         fontWeight: "bold",
-        lineHeight: 23,
+        lineHeight: 17,
         backgroundColor: "#F90CC5"
     },
 

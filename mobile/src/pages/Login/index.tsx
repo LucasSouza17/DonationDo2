@@ -73,6 +73,8 @@ function Login() {
                 );
 
                 await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
+                await AsyncStorage.setItem("isLoggedUF", response.data.UF);
+                await AsyncStorage.setItem("isLoggedCity", response.data.Cidade);
 
                 setTimeout(() => {
                     navigation.navigate("UserAuth");

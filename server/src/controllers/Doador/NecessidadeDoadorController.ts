@@ -14,12 +14,12 @@ class necessidadeDoadorController{
         .where('Cidade', String(Cidade))
         .where('UF', String(UF))
         .distinct()
-        .select('necessidade.*', 'receptor.Img_Local', 'receptor.Nome')
+        .select('necessidade.*', 'receptor.Img_Local', 'receptor.Nome', 'receptor.Latitude', 'receptor.Longitude')
         .first();
 
         const serializeNecessidades = {
           ...necessidades,
-           Img_Local: `http://192.168.1.106:3333/uploads/${necessidades.Img_Local}`
+           Img_Local: `http://192.168.1.106:3333/uploads/receptor/${necessidades.Img_Local}`
          };
       
       return response.json(serializeNecessidades);
