@@ -51,15 +51,13 @@ function Home() {
     useEffect(() => {
         async function getDataUser() {
             const Id = await AsyncStorage.getItem("isLoggedId");
-            const UF = await AsyncStorage.getItem("isLoggedUF");
-            const Cidade = await AsyncStorage.getItem("isLoggedCity");
             setIdUser(Id);
-            setUfUser(UF);
-            setCityUser(Cidade);
             try {
                 await api.get(`doador/${Number(idUser)}`).then(response => {
                     setPointsUser(response.data.Pontuacao);
                     setNomeUser(response.data.Nome);
+                    setUfUser(response.data.UF);
+                    setCityUser(response.data.Cidade);
                 })
             } catch (err) {
                 console.log(err);
@@ -238,41 +236,41 @@ function Home() {
                 </View>
             </View>
             {initialPosition[0] !== 0 && (
-            <View style={styles.containerList}>
-                <ScrollView
-                    style={styles.listPoints}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: wp('2%') }}
-                >
-                    {points.map((point) => (
-                        <TouchableOpacity style={styles.List} key={point.id_Necessidade}
-                            onPress={() => handleNavigateToDescriptionNeed(
-                                point.id_Necessidade,
-                                point.Nome,
-                                point.Latitude,
-                                point.Longitude,
-                                point.Titulo,
-                                point.Descricao,
-                                point.Img_Local,
-                                point.Tipo,
-                                point.Cidade,
-                                point.UF,
-                                point.Rua,
-                                point.Bairro,
-                                point.CEP,
-                                point.Numero,
-                                point.Telefone,
-                                point.Whatsapp,
-                                point.Email
-                            )}>
-                            <Image style={styles.imageList} source={{ uri: point.Img_Local }} />
-                            <Text style={styles.namePoint}>{point.Nome}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
+                <View style={styles.containerList}>
+                    <ScrollView
+                        style={styles.listPoints}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ paddingHorizontal: wp('2%') }}
+                    >
+                        {points.map((point) => (
+                            <TouchableOpacity style={styles.List} key={point.id_Necessidade}
+                                onPress={() => handleNavigateToDescriptionNeed(
+                                    point.id_Necessidade,
+                                    point.Nome,
+                                    point.Latitude,
+                                    point.Longitude,
+                                    point.Titulo,
+                                    point.Descricao,
+                                    point.Img_Local,
+                                    point.Tipo,
+                                    point.Cidade,
+                                    point.UF,
+                                    point.Rua,
+                                    point.Bairro,
+                                    point.CEP,
+                                    point.Numero,
+                                    point.Telefone,
+                                    point.Whatsapp,
+                                    point.Email
+                                )}>
+                                <Image style={styles.imageList} source={{ uri: point.Img_Local }} />
+                                <Text style={styles.namePoint}>{point.Nome}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
                 </View>
-                )}
+            )}
         </View >
     )
 }

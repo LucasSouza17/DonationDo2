@@ -1,13 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import Icon from "@expo/vector-icons/build/Feather";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
 
 function Perfil() {
 
     const navigation = useNavigation();
+
+    const [nomeUser, setNomeUser] = useState<string | null>("");
+    const [idUser, setIdUser] = useState<string | null>("");
+    const [ufUser, setUfUser] = useState<string | null>("");
+    const [cityUser, setCityUser] = useState<string | null>("");
+
+    useEffect(() => {
+        async function getDataUser() {
+            const Id = await AsyncStorage.getItem("isLoggedId");
+            setIdUser(Id);
+            try {
+                await api.get(`doador/${Number(idUser)}`).then(response => {
+                    setNomeUser(response.data.Nome);
+                    setUfUser(response.data.UF);
+                    setCityUser(response.data.Cidade);
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        getDataUser();
+    }, [Number(idUser), nomeUser, cityUser, ufUser])
 
     function handleGoBack () {
         navigation.navigate("Home");
@@ -30,8 +55,8 @@ function Perfil() {
                 <View style={styles.avatar}>
                     {/* <Image /> */}
                 </View>
-                <Text style={styles.name}>Luan Vinícius Simão</Text>
-                <Text style={styles.adress}>São José do Rio Preto - SP</Text>
+                <Text style={styles.name}>{nomeUser}</Text>
+                <Text style={styles.adress}>{cityUser} - {ufUser}</Text>
                 <TouchableOpacity style={styles.updateButton} onPress={handleNavigateToUpdatePerfil}>
                     <Text style={styles.textButton}>Alterar dados</Text>
                 </TouchableOpacity>

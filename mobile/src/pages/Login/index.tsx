@@ -72,10 +72,6 @@ function Login() {
                     JSON.stringify(Number(response.data.id_Doador))
                 );
 
-                await AsyncStorage.setItem("isLoggedNome", response.data.Nome);
-                await AsyncStorage.setItem("isLoggedUF", response.data.UF);
-                await AsyncStorage.setItem("isLoggedCity", response.data.Cidade);
-
                 setTimeout(() => {
                     navigation.navigate("UserAuth");
                 }, 1000)
