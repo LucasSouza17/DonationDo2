@@ -109,29 +109,21 @@ const UserNotAuth = () => {
 };
 
 const Routes = () => {
-    const [token, setToken] = useState<string | null>("");
+    const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
-        async function Authentication() {
-            const getId = await AsyncStorage.getItem("isLoggedId");
-
-            setToken(getId);
-            console.log(getId)
+        async function getId() {
+            const id = await AsyncStorage.getItem("isLoggedId");
+            setToken(id);
         }
-
-        Authentication();
+        getId()
     }, [token])
 
-    return (
-        <>
-            {token !== null ? (
-                <UserAuth />
-            ) : (
-                    <UserNotAuth />
-                )
-            }
-        </>
-    )
+    if (token === null) {
+        return <UserNotAuth />
+    } else {
+        return <UserAuth />
+    } 
 }
 
 export default Routes;

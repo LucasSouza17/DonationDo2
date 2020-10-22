@@ -237,6 +237,7 @@ function Home() {
                     )}
                 </View>
             </View>
+            {initialPosition[0] !== 0 && (
             <View style={styles.containerList}>
                 <ScrollView
                     style={styles.listPoints}
@@ -270,7 +271,8 @@ function Home() {
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
-            </View>
+                </View>
+                )}
         </View >
     )
 }
