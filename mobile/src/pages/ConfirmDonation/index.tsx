@@ -1,23 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from '@expo/vector-icons/build/Feather';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
+
+
+
+
+interface Params {
+    id_Necessidade: number;
+}
 
 function ConfirmDonation() {
 
     const navigation = useNavigation();
 
+    const route = useRoute();
+    const routeParams = route.params as Params;
+
+    const [idDoador, setIdDoador] = useState<string | null>("");
+
+    useEffect(() => {
+        async function getIdDoador() {
+            const id = await AsyncStorage.getItem("isLoggedId")
+            setIdDoador(id);
+        }
+
+        getIdDoador();
+    }, [idDoador])
+
     function handleNavigateGoBack() {
         navigation.goBack();
     }
 
-    function handleNavigateToSuccesfull() {
-        navigation.navigate("AnnotatedDonation")
+    async function handleSubmitDonation() {
+        try {
+            await api.post(`doador/necessidade/${routeParams.id_Necessidade}/doar`, {}, {
+                headers: {
+                    authorization: idDoador
+                }
+            })
+            navigation.navigate("AnnotatedDonation")
+            console.log("Deu bom!")
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -46,7 +79,7 @@ function ConfirmDonation() {
                     </View>
                 </View>
             </View>
-            <TouchableOpacity style={styles.button} onPress={handleNavigateToSuccesfull}>
+            <TouchableOpacity style={styles.button} onPress={handleSubmitDonation}>
                 <Text style={styles.textButton}>Confirmar doação</Text>
             </TouchableOpacity>
         </View>

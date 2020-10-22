@@ -50,8 +50,10 @@ function DescriptionNeed() {
         navigation.goBack();
     }
 
-    function handleNavigateToConfirmDonation() {
-        navigation.navigate("ConfirmDonation");
+    function handleNavigateToConfirmDonation(id_Necessidade: number) {
+        navigation.navigate("ConfirmDonation", {
+            id_Necessidade: id_Necessidade
+        });
     }
 
     function handleWhatsapp() {
@@ -142,7 +144,7 @@ function DescriptionNeed() {
                     </View>
                 </ScrollView>
                 <View style={styles.containerButton}>
-                    <RectButton style={styles.button} onPress={handleNavigateToConfirmDonation}>
+                    <RectButton style={styles.button} onPress={() => handleNavigateToConfirmDonation(Number(routeParams.id_Necessidade))}>
                         <Text style={styles.textButton}>Doar</Text>
                     </RectButton>
                 </View>
