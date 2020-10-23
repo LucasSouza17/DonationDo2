@@ -1,20 +1,98 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "@expo/vector-icons/build/Feather";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
+
+interface historyI {
+    id_Doacao: string,
+    NomeReceptor: string,
+    Titulo: string,
+    DescricaoNecessidade: string,
+    image_url: string,
+    Tipo: string,
+    Cidade: string,
+    UF: string,
+    Rua: string,
+    Bairro: string,
+    CEP: string,
+    Numero: string,
+    Status: string,
+    Telefone: string,
+    Whatsapp: string,
+    Email: string,
+    Latitude: number,
+    Longitude: number,
+}
 
 function HistoryDonation() {
 
     const navigation = useNavigation();
 
+    const [history, setHistory] = useState<historyI[]>([]);
+
+    useEffect(() => {
+        async function getHistory() {
+            const id = await AsyncStorage.getItem("isLoggedId");
+            try {
+                api.get(`doador/${Number(id)}/doacoes/`).then((response) => {
+                    setHistory(response.data);
+                    console.log(response.data);
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getHistory();
+    }, [])
+
     function handleNavigateGoBack() {
         navigation.goBack();
     }
 
-    function handleNavigateDonationProgress() {
-        navigation.navigate("DonationProgress")
+    function handleNavigateDonationProgress(
+        id_Doacao: string,
+        NomeReceptor: string,
+        Titulo: string,
+        DescricaoNecessidade: string,
+        image_url: string,
+        Tipo: string,
+        Cidade: string,
+        UF: string,
+        Rua: string,
+        Bairro: string,
+        CEP: string,
+        Numero: string,
+        Status: string,
+        Telefone: string,
+        Whatsapp: string,
+        Email: string,
+        Latitude: number,
+        Longitude: number,
+    ) {
+        navigation.navigate("DonationProgress", {
+            id_Doacao: id_Doacao,
+            NomeReceptor: NomeReceptor,
+            Titulo: Titulo,
+            DescricaoNecessidade: DescricaoNecessidade,
+            image_url: image_url,
+            Tipo: Tipo,
+            Cidade: Cidade,
+            UF: UF,
+            Rua: Rua,
+            Bairro: Bairro,
+            CEP: CEP,
+            Numero: Numero,
+            Status: Status,
+            Telefone: Telefone,
+            Whatsapp: Whatsapp,
+            Email: Email,
+            Latitude: Latitude,
+            Longitude: Longitude,
+        })
     }
 
     return (
@@ -30,31 +108,43 @@ function HistoryDonation() {
                 <View style={styles.containerHistory}>
                     <Text style={styles.textHistory}>Doações Recentes</Text>
 
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button} onPress={handleNavigateDonationProgress}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {history.map((data) => (
+                            <View style={styles.containerList} key={data.id_Doacao}>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => handleNavigateDonationProgress(
+                                        data.id_Doacao,
+                                        data.NomeReceptor,
+                                        data.Titulo,
+                                        data.DescricaoNecessidade,
+                                        data.image_url,
+                                        data.Tipo,
+                                        data.Cidade,
+                                        data.UF,
+                                        data.Rua,
+                                        data.Bairro,
+                                        data.CEP,
+                                        data.Numero,
+                                        data.Status,
+                                        data.Telefone,
+                                        data.Whatsapp,
+                                        data.Email,
+                                        data.Latitude,
+                                        data.Longitude
+                                    )}
+                                >
+                                    <Text style={styles.textButton}>{data.NomeReceptor}</Text>
                                     <Icon name="chevron-right" color="#74009E" size={24} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
-                                    <Icon name="chevron-right" color="#74009E" size={24} />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
-                                    <Icon name="chevron-right" color="#74009E" size={24} />
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    </View>
+                        ))}
+                    </ScrollView>
                 </View>
             </View>
+        </View >
     );
 }
 

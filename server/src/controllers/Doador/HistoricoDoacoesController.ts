@@ -14,12 +14,11 @@ class HistoricoDoacoesController{
         .where('cod_Doador', Number(id))
         .join('necessidade', 'id_Necessidade', '=', 'cod_Necessidade')
         .join('receptor', 'id_Receptor', '=', 'cod_Receptor')
-        .join('item', 'id_Item', '=', 'cod_Item')
-        .select('receptor.Nome as Nome do Receptor', 'receptor.Tipo',
-           'item.Nome as Nome do Item', 
-           'necessidade.Descricao as Descrição da Necessidade',
+        .select('doacao.id_Doacao','receptor.Nome as NomeReceptor', 'receptor.Tipo',
+           'necessidade.Titulo', 
+           'necessidade.Descricao as DescricaoNecessidade',
            'receptor.Cidade', 'receptor.UF', 'receptor.Rua',
-           'receptor.Numero', 'receptor.Bairro', 'doacao.Data', 
+           'receptor.Numero', 'receptor.Bairro', 'receptor.Img_Local', 'receptor.Email', 'receptor.Whatsapp', 'receptor.Telefone', 'receptor.Latitude', 'receptor.Longitude', 'doacao.Data', 
            'doacao.Status')
         .orderBy('doacao.Data', 'desc');
     
@@ -27,6 +26,7 @@ class HistoricoDoacoesController{
         return {      
           ...doacao,
          Data: dateFormat(doacao.Data, "dd/mm/yyyy"),
+         image_url: `http://192.168.1.106:3333/uploads/Receptor/${doacao.Img_Local}`
       }});
       
       return response.json(serializeDoacoes);
