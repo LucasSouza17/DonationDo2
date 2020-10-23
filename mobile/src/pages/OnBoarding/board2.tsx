@@ -7,7 +7,7 @@ function OnBoarding2() {
     const navigation = useNavigation();
 
     function handleEndBoard () {
-        navigation.navigate("Home");
+        navigation.navigate("UserAuth");
     }
 
     return (

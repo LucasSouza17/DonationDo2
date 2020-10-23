@@ -160,6 +160,8 @@ function AtualizarPerfil() {
       data.append("Img_Local", selectedFile);
     }
 
+    console.log(selectedFile);
+
     try {
       if(selectedFile === undefined){
       if (UF === "0") {

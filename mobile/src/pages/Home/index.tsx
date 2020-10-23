@@ -20,7 +20,7 @@ interface PointI {
     Nome: string;
     Latitude: number;
     Longitude: number;
-    Img_Local: string;
+    image_url: string;
     Cidade: string;
     UF: string;
     Rua: string;
@@ -32,15 +32,28 @@ interface PointI {
     Email: string;
 }
 
+interface DoadorI {
+    Avatar: string,
+    Cidade: string,
+    UF: string,
+    Nome: string,
+    id_Doador: number,
+    Pontuacao: number,
+}
+
+
 function Home() {
 
     const navigation = useNavigation();
 
-    const [nomeUser, setNomeUser] = useState<string | null>("");
+    const [nomeUser, setNomeUser] = useState("");
     const [idUser, setIdUser] = useState<string | null>("");
-    const [ufUser, setUfUser] = useState<string | null>("");
-    const [cityUser, setCityUser] = useState<string | null>("");
+    const [ufUser, setUfUser] = useState("");
+    const [cityUser, setCityUser] = useState("");
+    const [avatar, setAvatar] = useState("");
     const [pointsUser, setPointsUser] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     const [points, setPoints] = useState<PointI[]>([]);
     const [initialPosition, setInitialPosition] = useState<[number, number]>([
@@ -53,19 +66,23 @@ function Home() {
             const Id = await AsyncStorage.getItem("isLoggedId");
             setIdUser(Id);
             try {
-                await api.get(`doador/${Number(idUser)}`).then(response => {
+                setLoading(true);
+                await api.get(`doador/${Number(idUser)}`).then((response) => {
                     setPointsUser(response.data.Pontuacao);
                     setNomeUser(response.data.Nome);
                     setUfUser(response.data.UF);
                     setCityUser(response.data.Cidade);
+                    setAvatar(response.data.avatar_url)
+                }).catch(error => {
+                    console.log(error)
                 })
-            } catch (err) {
+            }catch(err) {
                 console.log(err);
             }
         }
-
         getDataUser();
-    }, [Number(idUser), nomeUser, pointsUser, cityUser, ufUser])
+    }, [loading])
+
 
     useEffect(() => {
         async function loadPosition() {
@@ -98,10 +115,12 @@ function Home() {
                     params: {
                         UF: 'SP',
                         Cidade: 'São José do Rio Preto',
-                        id_Item: 1
+                        id_Item: 8
                     },
                 }).then(response => {
                     setPoints(response.data);
+                }).catch(error => {
+                    console.log(error)
                 })
             } catch (err) {
                 console.log(err);
@@ -122,7 +141,7 @@ function Home() {
         Longitude: number,
         Titulo: string,
         Descricao: string,
-        Img_Local: string,
+        image_url: string,
         Tipo: string,
         Cidade: string,
         UF: string,
@@ -141,7 +160,7 @@ function Home() {
             Longitude: Longitude,
             Titulo: Titulo,
             Descricao: Descricao,
-            Img_Local: Img_Local,
+            image_url: image_url,
             Tipo: Tipo,
             Cidade: Cidade,
             UF: UF,
@@ -155,51 +174,111 @@ function Home() {
         });
     }
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <View style={styles.perfilContainer}>
-                    <View style={styles.perfil}>
-                        {/* <Image source="" /> */}
-                    </View>
-                    <View style={styles.userData}>
-                        <Text style={styles.name}>{nomeUser}</Text>
-                        <Text style={styles.points}>{pointsUser} pontos</Text>
-                    </View>
-                </View>
-                <TouchableOpacity onPress={handleDrawerOpen}>
-                    <Icon name="menu" size={28} color="#fff" style={styles.menuIcon} />
-                </TouchableOpacity>
+    if (points.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text>Carregando</Text>
             </View>
-            <Toast ref={(ref: any) => Toast.setRef(ref)} />
-            <View style={styles.mainContainer}>
-                <View style={styles.headerMain}>
-                    <Text style={styles.title}>Filtre sua busca para doar</Text>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text style={styles.textButton}>Filtrar</Text>
-                        <Icon name="filter" color="#fff" />
+        )
+    } else {
+        return (
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    {/* {doador.map(data => ( */}
+                    <View style={styles.perfilContainer}>
+                        <View style={styles.perfil}>
+                            <Image
+                                source={{
+                                    uri: avatar
+                                        ? avatar
+                                        : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
+                                }}
+                                style={styles.perfil}
+                            />
+                        </View>
+                        <View style={styles.userData}>
+                            <Text style={styles.name}>{nomeUser}</Text>
+                            <Text style={styles.points}>{pointsUser} pontos</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity onPress={handleDrawerOpen}>
+                        <Icon name="menu" size={28} color="#fff" style={styles.menuIcon} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.mapContainer}>
-                    {initialPosition[0] !== 0 && (
-                        <MapView
-                            style={styles.map}
-                            loadingEnabled={initialPosition[0] === 0}
-                            initialRegion={{
-                                latitude: initialPosition[0],
-                                longitude: initialPosition[1],
-                                latitudeDelta: 0.014,
-                                longitudeDelta: 0.014,
-                            }}
+                <Toast ref={(ref: any) => Toast.setRef(ref)} />
+                <View style={styles.mainContainer}>
+                    <View style={styles.headerMain}>
+                        <Text style={styles.title}>Filtre sua busca para doar</Text>
+                        <TouchableOpacity style={styles.filterButton}>
+                            <Text style={styles.textButton}>Filtrar</Text>
+                            <Icon name="filter" color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.mapContainer}>
+                        {initialPosition[0] !== 0 && (
+                            <MapView
+                                style={styles.map}
+                                loadingEnabled={initialPosition[0] === 0}
+                                initialRegion={{
+                                    latitude: initialPosition[0],
+                                    longitude: initialPosition[1],
+                                    latitudeDelta: 0.014,
+                                    longitudeDelta: 0.014,
+                                }}
+                            >
+                                {points.map((point) => (
+                                    <Marker
+                                        key={point.id_Necessidade}
+                                        coordinate={{
+                                            latitude: point.Latitude,
+                                            longitude: point.Longitude
+                                        }}
+                                        style={styles.mapMarker}
+                                        onPress={() => handleNavigateToDescriptionNeed(
+                                            point.id_Necessidade,
+                                            point.Nome,
+                                            point.Latitude,
+                                            point.Longitude,
+                                            point.Titulo,
+                                            point.Descricao,
+                                            point.image_url,
+                                            point.Tipo,
+                                            point.Cidade,
+                                            point.UF,
+                                            point.Rua,
+                                            point.Bairro,
+                                            point.CEP,
+                                            point.Numero,
+                                            point.Telefone,
+                                            point.Whatsapp,
+                                            point.Email
+                                        )}
+                                    >
+                                        <View style={styles.mapMarkerContainer}>
+                                            <Image style={styles.mapMarkerImage} source={{ uri: point.image_url }} />
+                                            <Text style={styles.mapMarkerTitle}>{point.Nome}</Text>
+                                        </View>
+                                        <IconAwesome
+                                            style={styles.sortDown}
+                                            name="sort-down"
+                                            size={18}
+                                        />
+                                    </Marker>
+                                ))}
+                            </MapView>
+                        )}
+                    </View>
+                </View>
+                {initialPosition[0] !== 0 && (
+                    <View style={styles.containerList}>
+                        <ScrollView
+                            style={styles.listPoints}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ paddingHorizontal: wp('2%') }}
                         >
                             {points.map((point) => (
-                                <Marker
-                                    key={point.id_Necessidade}
-                                    coordinate={{
-                                        latitude: point.Latitude,
-                                        longitude: point.Longitude
-                                    }}
-                                    style={styles.mapMarker}
+                                <TouchableOpacity style={styles.List} key={point.id_Necessidade}
                                     onPress={() => handleNavigateToDescriptionNeed(
                                         point.id_Necessidade,
                                         point.Nome,
@@ -207,7 +286,7 @@ function Home() {
                                         point.Longitude,
                                         point.Titulo,
                                         point.Descricao,
-                                        point.Img_Local,
+                                        point.image_url,
                                         point.Tipo,
                                         point.Cidade,
                                         point.UF,
@@ -218,61 +297,17 @@ function Home() {
                                         point.Telefone,
                                         point.Whatsapp,
                                         point.Email
-                                    )}
-                                >
-                                    <View style={styles.mapMarkerContainer}>
-                                        <Image style={styles.mapMarkerImage} source={{ uri: point.Img_Local }} />
-                                        <Text style={styles.mapMarkerTitle}>{point.Nome}</Text>
-                                    </View>
-                                    <IconAwesome
-                                        style={styles.sortDown}
-                                        name="sort-down"
-                                        size={18}
-                                    />
-                                </Marker>
+                                    )}>
+                                    <Image style={styles.imageList} source={{ uri: point.image_url }} />
+                                    <Text style={styles.namePoint}>{point.Nome}</Text>
+                                </TouchableOpacity>
                             ))}
-                        </MapView>
-                    )}
-                </View>
-            </View>
-            {initialPosition[0] !== 0 && (
-                <View style={styles.containerList}>
-                    <ScrollView
-                        style={styles.listPoints}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingHorizontal: wp('2%') }}
-                    >
-                        {points.map((point) => (
-                            <TouchableOpacity style={styles.List} key={point.id_Necessidade}
-                                onPress={() => handleNavigateToDescriptionNeed(
-                                    point.id_Necessidade,
-                                    point.Nome,
-                                    point.Latitude,
-                                    point.Longitude,
-                                    point.Titulo,
-                                    point.Descricao,
-                                    point.Img_Local,
-                                    point.Tipo,
-                                    point.Cidade,
-                                    point.UF,
-                                    point.Rua,
-                                    point.Bairro,
-                                    point.CEP,
-                                    point.Numero,
-                                    point.Telefone,
-                                    point.Whatsapp,
-                                    point.Email
-                                )}>
-                                <Image style={styles.imageList} source={{ uri: point.Img_Local }} />
-                                <Text style={styles.namePoint}>{point.Nome}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
-                </View>
-            )}
-        </View >
-    )
+                        </ScrollView>
+                    </View>
+                )}
+            </View >
+        )
+    }
 }
 
 const styles = StyleSheet.create({

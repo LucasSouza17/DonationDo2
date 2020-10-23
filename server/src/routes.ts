@@ -33,6 +33,7 @@ import ItemController from './controllers/Item/ItemController';
 
 //Controller Doador
 import DoadorController from './controllers/Doador/DoadorController';
+import DoadorOutrosController from './controllers/Doador/DoadorOutrosController';
 import HistoricoController from './controllers/Doador/HistoricoController';
 import RankingController from './controllers/Doador/RankingController';
 import DoacaoDoadorController from './controllers/Doacao/DoacaoDoadorController';
@@ -78,6 +79,7 @@ const historicorDoacoesReceptoController = new HistoricorDoacoesReceptoControlle
 const itemController = new ItemController();
 
 const doadorController = new DoadorController();
+const doadorOutrosController = new DoadorOutrosController();
 const historicoController = new HistoricoController();
 const rankingController = new RankingController();
 const doacaoDoadorController = new DoacaoDoadorController();
@@ -113,8 +115,9 @@ routes.get('/receptor/:id/historico/doacoes', historicorDoacoesReceptoController
 
 //Rotas dos Doadores
 routes.post('/doador', VerificacaoDoador, doadorController.create);
-routes.get('/doador/:id', doadorController.show);
+routes.get('/doador/:id_Doador', doadorController.show);
 routes.put('/doador/:id', uploadsDoador.single('Avatar'), doadorController.update);
+routes.put('/doador/noimage/:id', doadorOutrosController.update);
 
 //Rota de acesso as necessidade com os filtros
 routes.get('/filternecessidades/', necessidadeDoadorController.index);

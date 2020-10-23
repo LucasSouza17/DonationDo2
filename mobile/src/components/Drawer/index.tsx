@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, DevSettings } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItem
@@ -19,15 +19,20 @@ function DrawerContent(props: any) {
     const [nomeUser, setNomeUser] = useState<string | null>("");
     const [pointsUser, setPointsUser] = useState("");
     const [idUser, setIdUser] = useState<string | null>("");
+    const [avatar, setAvatar] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function getDataUser() {
             const Id = await AsyncStorage.getItem("isLoggedId");
             setIdUser(Id);
             try {
+                setLoading(true)
                 await api.get(`doador/${Number(idUser)}`).then(response => {
                     setPointsUser(response.data.Pontuacao);
                     setNomeUser(response.data.Nome);
+                    setAvatar(response.data.avatar_url);
                 })
             } catch (err) {
                 console.log(err);
@@ -35,14 +40,14 @@ function DrawerContent(props: any) {
         }
 
         getDataUser();
-    }, [Number(idUser), nomeUser, pointsUser])
+    }, [loading])
 
     function handleNavigateToHome() {
-        navigation.dispatch(StackActions.replace("Home"));
+        navigation.dispatch(StackActions.push("Home"));
     }
 
     function handleNavigateToPerfil() {
-        navigation.navigate("Perfil")
+        navigation.dispatch(StackActions.push("Perfil"));
     }
 
     function handleNavigateToHistoryReceivers() {
@@ -79,7 +84,14 @@ function DrawerContent(props: any) {
                     </TouchableOpacity>
                     <View style={styles.perfilContainer}>
                         <View style={styles.perfil}>
-                            {/* <Image source="" /> */}
+                        <Image
+                            source={{
+                                uri: avatar
+                                    ? avatar
+                                    : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
+                            }}
+                            style={styles.perfil}
+                        />
                         </View>
                         <View style={styles.userData}>
                             <Text style={styles.name}>{nomeUser}</Text>

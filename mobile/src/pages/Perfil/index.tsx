@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import Icon from "@expo/vector-icons/build/Feather";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 
@@ -11,35 +11,40 @@ function Perfil() {
 
     const navigation = useNavigation();
 
-    const [nomeUser, setNomeUser] = useState<string | null>("");
+    const [nome, setNomeUser] = useState<string | null>("");
     const [idUser, setIdUser] = useState<string | null>("");
-    const [ufUser, setUfUser] = useState<string | null>("");
-    const [cityUser, setCityUser] = useState<string | null>("");
+    const [uf, setUfUser] = useState<string | null>("");
+    const [city, setCityUser] = useState<string | null>("");
+    const [avatar, setAvatar] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         async function getDataUser() {
             const Id = await AsyncStorage.getItem("isLoggedId");
             setIdUser(Id);
             try {
-                await api.get(`doador/${Number(idUser)}`).then(response => {
+                setLoading(true);
+                await api.get(`doador/${Number(idUser)}`).then((response) => {
                     setNomeUser(response.data.Nome);
                     setUfUser(response.data.UF);
                     setCityUser(response.data.Cidade);
+                    setAvatar(response.data.avatar_url);
                 })
             } catch (err) {
-                console.log(err);
+                console.log(err)
             }
         }
-
         getDataUser();
-    }, [Number(idUser), nomeUser, cityUser, ufUser])
+    }, [loading])
 
-    function handleGoBack () {
-        navigation.navigate("Home");
+    function handleGoBack() {
+        navigation.dispatch(StackActions.push("Home"));
     }
 
-    function handleNavigateToUpdatePerfil () {
-        navigation.navigate("UpdatePerfil");
+    function handleNavigateToUpdatePerfil() {
+        navigation.navigate("PerfilUpdate")
     }
 
     return (
@@ -49,14 +54,22 @@ function Perfil() {
                     <Icon name="arrow-left" color="#fff" size={28} />
                 </TouchableOpacity>
             </View>
-            <View style={styles.main}>
+            <View style={styles.main} >
                 <Text style={styles.title}>Meu Perfil</Text>
-
-                <View style={styles.avatar}>
-                    {/* <Image /> */}
+                <View style={styles.containerAvatar}>
+                    <View style={styles.avatar}>
+                        <Image
+                            source={{
+                                uri: avatar
+                                    ? avatar
+                                    : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
+                            }}
+                            style={styles.avatar}
+                        />
+                    </View>
                 </View>
-                <Text style={styles.name}>{nomeUser}</Text>
-                <Text style={styles.adress}>{cityUser} - {ufUser}</Text>
+                <Text style={styles.name}>{nome}</Text>
+                <Text style={styles.adress}>{city} - {uf}</Text>
                 <TouchableOpacity style={styles.updateButton} onPress={handleNavigateToUpdatePerfil}>
                     <Text style={styles.textButton}>Alterar dados</Text>
                 </TouchableOpacity>
@@ -93,8 +106,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
+    containerAvatar: {
+        marginTop: wp("15%")
+    },
+
     avatar: {
-        marginTop: wp('15%'),
         backgroundColor: "#B1A0F4",
         width: 110,
         height: 110,

@@ -21,7 +21,7 @@ class necessidadeDoadorController {
       const serializedNecessidades = necessidades.map(necessidade => {
         return {
           ...necessidade,
-          Img_Local: `http://192.168.1.106:3333/uploads/Receptor/${necessidade.Img_Local}`
+          image_url: `http://192.168.1.106:3333/uploads/Receptor/${necessidade.Img_Local}`
         }
       })
 

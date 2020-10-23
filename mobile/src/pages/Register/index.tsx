@@ -156,7 +156,6 @@ function Register() {
                         "isLoggedId",
                         JSON.stringify(Number(response.data.id_Doador))
                     );
-                    AsyncStorage.setItem("isLoggedNome", response.data.Nome);
                     
                     Toast.show({
                         type: 'success',

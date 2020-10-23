@@ -1,6 +1,7 @@
 import { Request, Response} from 'express';
 import knex from '../../database/connection';
 import crypto from 'crypto';
+import { any } from '@hapi/joi';
 
 class DoadorController{
   
@@ -27,10 +28,12 @@ class DoadorController{
 
       const id_doador = await knex('doador').insert(doador);
 
+      const doadorData = await knex('doador').where('id_Doador', '=', id_doador).first();
+
       await knex('medalha_doador')
         .insert({'cod_Doador': id_doador, 'cod_Medalha': 1});
 
-      return response.json({...doador});
+      return response.json(doadorData);
     }
     catch(erro){
       return response.status(500).json({erro});
@@ -40,16 +43,22 @@ class DoadorController{
   async show (request: Request, response:Response){
     
     try{
-      const {id} = request.params;
+      const { id_Doador } = request.params;
       
       const doador =  await knex('doador')
-        .where('id_Doador', id )
-        .select('*').first();
+        .where('id_Doador', id_Doador )
+        .select('*')
+        .first();
+        
+        const serializeDoador = {
+            ...doador,
+            avatar_url: `http://192.168.1.106:3333/uploads/Doador/${doador.Avatar}`
+        };
      
-      return response.json(doador);
+      return response.json(serializeDoador);
     }
     catch(erro){
-      return response.status(500).json({erro});
+      return response.json(erro);
     } 
   }
   

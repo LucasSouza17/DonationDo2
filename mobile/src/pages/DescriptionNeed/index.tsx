@@ -26,7 +26,7 @@ interface Params {
     Longitude: number,
     Titulo: string,
     Descricao: string,
-    Img_Local: string,
+    image_url: string,
     Tipo: string,
     Cidade: string,
     UF: string,
@@ -89,7 +89,7 @@ function DescriptionNeed() {
             </View>
             <View style={styles.main}>
                 <View style={styles.containerImage}>
-                    <Image style={styles.image} source={{ uri: routeParams.Img_Local }} />
+                    <Image style={styles.image} source={{ uri: routeParams.image_url }} />
                 </View>
 
                 <View style={styles.receptorData}>
