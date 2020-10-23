@@ -32,16 +32,6 @@ interface PointI {
     Email: string;
 }
 
-interface DoadorI {
-    Avatar: string,
-    Cidade: string,
-    UF: string,
-    Nome: string,
-    id_Doador: number,
-    Pontuacao: number,
-}
-
-
 function Home() {
 
     const navigation = useNavigation();
@@ -81,7 +71,7 @@ function Home() {
             }
         }
         getDataUser();
-    }, [loading])
+    }, [nomeUser, loading, ufUser, cityUser, avatar])
 
 
     useEffect(() => {

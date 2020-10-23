@@ -43,11 +43,11 @@ function DrawerContent(props: any) {
     }, [loading])
 
     function handleNavigateToHome() {
-        navigation.dispatch(StackActions.push("Home"));
+        navigation.navigate("Home");
     }
 
     function handleNavigateToPerfil() {
-        navigation.dispatch(StackActions.push("Perfil"));
+        navigation.navigate("Perfil");
     }
 
     function handleNavigateToHistoryReceivers() {

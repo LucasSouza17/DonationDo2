@@ -37,10 +37,10 @@ function Perfil() {
             }
         }
         getDataUser();
-    }, [loading])
+    }, [nome, uf, city, avatar, loading])
 
     function handleGoBack() {
-        navigation.dispatch(StackActions.push("Home"));
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     function handleNavigateToUpdatePerfil() {
