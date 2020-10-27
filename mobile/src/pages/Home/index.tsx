@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, StatusBar, ScrollView, FlatList, LogBox } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from "@expo/vector-icons/build/Feather";
@@ -13,6 +13,11 @@ import { Modalize } from 'react-native-modalize';
 import { Picker } from '@react-native-community/picker'
 import axios from 'axios';
 import { SvgCssUri } from "react-native-svg";
+
+
+LogBox.ignoreLogs([
+	'VirtualizedLists should never be nested', // TODO: Remove when fixed
+])
 
 interface PointI {
     id_Necessidade: string;
@@ -57,7 +62,7 @@ function Home() {
 
     const [nomeUser, setNomeUser] = useState(null);
     const [idUser, setIdUser] = useState<string | null>(null);
-    const [avatar, setAvatar] = useState(null);
+    const [avatar, setAvatar] = useState<string | null>(null);
     const [pointsUser, setPointsUser] = useState(null);
 
     const [ufs, setUfs] = useState<string[]>([]);
@@ -71,8 +76,6 @@ function Home() {
     const [itens, setItens] = useState<Item[]>([]);
     const [selectedItems, setSelectedItems] = useState<number[]>([1]);
     const [filterItem, setFilterItem] = useState<number>(0);
-
-    const [loading, setLoading] = useState(false);
 
     const [points, setPoints] = useState<PointI[]>([]);
     const [initialPosition, setInitialPosition] = useState<[number, number]>([
@@ -110,7 +113,6 @@ function Home() {
             setIdUser(id)
         });
         try {
-            setLoading(true);
             api.get(`doador/${Number(idUser)}`).then((response) => {
                 if (isSubscribed) {
                     setSelectedUf(response.data.UF);
@@ -120,7 +122,14 @@ function Home() {
                     setAvatar(response.data.avatar_url);
                 }
             }).catch(error => {
-                console.log(error)
+                if (isSubscribed) {
+                    console.log(error)
+                    setSelectedUf(null);
+                    setSelectedCity(null);
+                    setPointsUser(null);
+                    setNomeUser(null);
+                    setAvatar(null);
+                }
             })
         } catch (err) {
             console.log(err);
@@ -131,7 +140,6 @@ function Home() {
         }
 
     }, [avatar, pointsUser, selectedUf, selectedCity])
-
 
     useEffect(() => {
         async function loadPosition() {
@@ -173,7 +181,10 @@ function Home() {
                         setPoints(response.data);
                     }
                 }).catch(error => {
-                    console.log(error)
+                    if (isSubscribed) {
+                        console.log(error)
+                        setPoints([]);
+                    }
                 })
             } else if (filterItem !== 0 && filterUf !== null && filterCity !== null) {
                 api.get("filternecessidades", {
@@ -187,7 +198,10 @@ function Home() {
                         setPoints(response.data);
                     }
                 }).catch(error => {
-                    console.log(error)
+                    if (isSubscribed) {
+                        console.log(error)
+                        setPoints([]);
+                    }
                 })
             }
         } catch (err) {
