@@ -13,6 +13,7 @@ class ItemController {
           id: item.id_Item,
           Nome: item.Nome,
           image_url: `http://localhost:3333/uploads/${item.Icone}`,
+          image_mob: `http://192.168.1.106:3333/uploads/${item.Icone}`,
         };
       });
     

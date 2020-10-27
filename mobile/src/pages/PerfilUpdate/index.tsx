@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, Image, Platform } from 'react-native
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "@expo/vector-icons/build/Feather";
-import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { Picker } from '@react-native-community/picker'
