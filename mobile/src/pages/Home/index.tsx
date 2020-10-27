@@ -16,7 +16,7 @@ import { SvgCssUri } from "react-native-svg";
 
 
 LogBox.ignoreLogs([
-	'VirtualizedLists should never be nested', // TODO: Remove when fixed
+    'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ])
 
 interface PointI {
@@ -64,6 +64,8 @@ function Home() {
     const [idUser, setIdUser] = useState<string | null>(null);
     const [avatar, setAvatar] = useState<string | null>(null);
     const [pointsUser, setPointsUser] = useState(null);
+    const [userUf, setUserUf] = useState<string | number | null>(null);
+    const [userCity, setUserCity] = useState<string | number | null>(null);
 
     const [ufs, setUfs] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
@@ -114,13 +116,17 @@ function Home() {
         });
         try {
             api.get(`doador/${Number(idUser)}`).then((response) => {
-                if (isSubscribed) {
-                    setSelectedUf(response.data.UF);
-                    setSelectedCity(response.data.Cidade);
-                    setPointsUser(response.data.Pontuacao);
-                    setNomeUser(response.data.Nome);
-                    setAvatar(response.data.avatar_url);
-                }
+                setTimeout(() => {
+                    if (isSubscribed) {
+                        setSelectedUf(response.data.UF);
+                        setSelectedCity(response.data.Cidade);
+                        setUserUf(response.data.UF);
+                        setUserCity(response.data.Cidade);
+                        setPointsUser(response.data.Pontuacao);
+                        setNomeUser(response.data.Nome);
+                        setAvatar(response.data.avatar_url);
+                    }
+                }, 200);
             }).catch(error => {
                 if (isSubscribed) {
                     console.log(error)
@@ -139,7 +145,7 @@ function Home() {
             isSubscribed = false;
         }
 
-    }, [avatar, pointsUser, selectedUf, selectedCity])
+    }, [avatar, pointsUser, userUf, userCity, selectedUf, selectedCity])
 
     useEffect(() => {
         async function loadPosition() {
@@ -172,14 +178,16 @@ function Home() {
             if (filterItem === 0 && filterUf === null && filterCity === null) {
                 api.get("filternecessidades", {
                     params: {
-                        UF: selectedUf,
-                        Cidade: selectedCity,
+                        UF: userUf,
+                        Cidade: userCity,
                         id_Item: 1
                     },
                 }).then(response => {
-                    if (isSubscribed) {
-                        setPoints(response.data);
-                    }
+                    setTimeout(() => {
+                        if (isSubscribed) {
+                            setPoints(response.data);
+                        }
+                    }, 1000)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
@@ -194,9 +202,11 @@ function Home() {
                         id_Item: filterItem
                     },
                 }).then(response => {
-                    if (isSubscribed) {
-                        setPoints(response.data);
-                    }
+                    setTimeout(() => {
+                        if (isSubscribed) {
+                            setPoints(response.data);
+                        }
+                    }, 1000)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
@@ -212,7 +222,7 @@ function Home() {
             isSubscribed = false;
         }
 
-    }, [filterItem, filterUf, filterCity, selectedCity, selectedUf])
+    }, [filterItem, filterUf, filterCity, selectedCity, selectedUf, userCity, userUf])
 
     useEffect(() => {
         api.get("itens").then((response) => {
