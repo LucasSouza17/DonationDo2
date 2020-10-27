@@ -130,7 +130,7 @@ function AtualizarPerfil() {
     event.preventDefault();
 
     const Nome = nome;
-    const Descricao = descricao;
+    const DescricaoReceptor = descricao;
     const Telefone = telefone;
     const Whatsapp = whatsapp;
     const Bairro = bairro;
@@ -141,10 +141,25 @@ function AtualizarPerfil() {
     const Cidade = selectedCity;
     const [Latitude, Longitude] = selectedPosition;
 
+    const noImageData = {
+      Nome, 
+      DescricaoReceptor, 
+      Telefone,
+      Whatsapp,
+      Bairro,
+      Rua,
+      Numero,
+      CEP,
+      UF,
+      Cidade,
+      Latitude,
+      Longitude
+    }
+
     const data = new FormData();
 
     data.append("Nome", Nome);
-    data.append("DescricaoReceptor", Descricao);
+    data.append("DescricaoReceptor", DescricaoReceptor);
     data.append("Telefone", Telefone);
     data.append("Whatsapp", Whatsapp);
     data.append("UF", UF);
@@ -175,7 +190,7 @@ function AtualizarPerfil() {
       } else {
         const response = await api.put(
           `receptor/${id_Receptor}`,
-          data
+          noImageData
         );
         toast.success("Cadastro realizado com sucesso");
         setTimeout(() => {
@@ -197,6 +212,9 @@ function AtualizarPerfil() {
           `receptor/img/${id_Receptor}`,
           data
         );
+
+        console.log(data);
+
         toast.success("Cadastro realizado com sucesso");
         setTimeout(() => {
           history.push("perfil");

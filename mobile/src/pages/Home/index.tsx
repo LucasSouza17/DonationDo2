@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, ScrollView } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, StyleSheet, Image, StatusBar, ScrollView, ImageBackground } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from "@expo/vector-icons/build/Feather";
-import MapView, { Marker } from "react-native-maps";
-import IconAwesome from "@expo/vector-icons/build/FontAwesome5";
+import MapView, { Callout, Marker } from "react-native-maps";
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 import * as Location from 'expo-location'
 import Toast from 'react-native-toast-message';
+import { Modalize } from 'react-native-modalize';
 
 interface PointI {
     id_Necessidade: string;
@@ -33,6 +33,8 @@ interface PointI {
 }
 
 function Home() {
+
+    const modalizeRef = useRef<Modalize>(null);
 
     const navigation = useNavigation();
 
@@ -66,7 +68,7 @@ function Home() {
                 }).catch(error => {
                     console.log(error)
                 })
-            }catch(err) {
+            } catch (err) {
                 console.log(err);
             }
         }
@@ -105,7 +107,7 @@ function Home() {
                     params: {
                         UF: 'SP',
                         Cidade: 'São José do Rio Preto',
-                        id_Item: 8
+                        id_Item: 1
                     },
                 }).then(response => {
                     setPoints(response.data);
@@ -164,6 +166,10 @@ function Home() {
         });
     }
 
+    function onOpenModalize() {
+        modalizeRef.current?.open();
+    };
+
     if (points.length === 0) {
         return (
             <View style={styles.container}>
@@ -199,7 +205,7 @@ function Home() {
                 <View style={styles.mainContainer}>
                     <View style={styles.headerMain}>
                         <Text style={styles.title}>Filtre sua busca para doar</Text>
-                        <TouchableOpacity style={styles.filterButton}>
+                        <TouchableOpacity style={styles.filterButton} onPress={onOpenModalize}>
                             <Text style={styles.textButton}>Filtrar</Text>
                             <Icon name="filter" color="#fff" />
                         </TouchableOpacity>
@@ -223,36 +229,57 @@ function Home() {
                                             latitude: point.Latitude,
                                             longitude: point.Longitude
                                         }}
-                                        style={styles.mapMarker}
-                                        onPress={() => handleNavigateToDescriptionNeed(
-                                            point.id_Necessidade,
-                                            point.Nome,
-                                            point.Latitude,
-                                            point.Longitude,
-                                            point.Titulo,
-                                            point.Descricao,
-                                            point.image_url,
-                                            point.Tipo,
-                                            point.Cidade,
-                                            point.UF,
-                                            point.Rua,
-                                            point.Bairro,
-                                            point.CEP,
-                                            point.Numero,
-                                            point.Telefone,
-                                            point.Whatsapp,
-                                            point.Email
-                                        )}
+                                        image={require('../../assets/icons/Location.png')}
                                     >
-                                        <View style={styles.mapMarkerContainer}>
-                                            <Image style={styles.mapMarkerImage} source={{ uri: point.image_url }} />
-                                            <Text style={styles.mapMarkerTitle}>{point.Nome}</Text>
-                                        </View>
-                                        <IconAwesome
-                                            style={styles.sortDown}
-                                            name="sort-down"
-                                            size={18}
-                                        />
+                                        <Callout
+                                            tooltip
+                                            onPress={() => handleNavigateToDescriptionNeed(
+                                                point.id_Necessidade,
+                                                point.Nome,
+                                                point.Latitude,
+                                                point.Longitude,
+                                                point.Titulo,
+                                                point.Descricao,
+                                                point.image_url,
+                                                point.Tipo,
+                                                point.Cidade,
+                                                point.UF,
+                                                point.Rua,
+                                                point.Bairro,
+                                                point.CEP,
+                                                point.Numero,
+                                                point.Telefone,
+                                                point.Whatsapp,
+                                                point.Email
+                                            )}
+                                        >
+                                            <View style={styles.calloutBackground}>
+                                                <View style={styles.callout}>
+                                                    <View>
+                                                        <Text
+                                                            style={
+                                                                {
+                                                                    color: "#fff",
+                                                                    fontWeight: "bold",
+                                                                    fontSize: wp("4%")
+                                                                }
+                                                            }>
+                                                            {point.Nome}
+                                                        </Text>
+                                                        <Text
+                                                            style={
+                                                                {
+                                                                    color: "#F90CC5",
+                                                                    fontSize: wp("3%")
+                                                                }
+                                                            }>
+                                                            {point.Titulo}
+                                                        </Text>
+                                                    </View>
+                                                    <Text style={{color: "#fff", fontSize: wp("2%"), marginLeft: wp("4%"), fontWeight: "bold"}}>Clique Aqui!</Text>
+                                                </View>
+                                            </View>
+                                        </Callout>
                                     </Marker>
                                 ))}
                             </MapView>
@@ -289,12 +316,13 @@ function Home() {
                                         point.Email
                                     )}>
                                     <Image style={styles.imageList} source={{ uri: point.image_url }} />
-                                    <Text style={styles.namePoint}>{point.Nome}</Text>
+                                    <Text style={styles.namePoint}>{point.Titulo.replace("Precisamos de", "")}</Text>
                                 </TouchableOpacity>
                             ))}
                         </ScrollView>
                     </View>
                 )}
+                <Modalize ref={modalizeRef}></Modalize>
             </View >
         )
     }
@@ -429,46 +457,23 @@ const styles = StyleSheet.create({
         color: "#fff"
     },
 
-    mapMarker: {
-        width: 90,
-        height: 80,
-    },
-
-    mapMarkerContainer: {
-        width: 90,
-        height: 70,
-        backgroundColor: "#F90CC5",
-        flexDirection: "column",
-        borderRadius: 8,
-        overflow: "hidden",
-        alignItems: "center",
-    },
-
-    mapMarkerImage: {
-        width: 90,
-        height: 52,
+    calloutBackground: {
         resizeMode: "cover",
-    },
-
-    mapMarkerTitle: {
-        flex: 1,
-        textAlign: "center",
-        width: '100%',
-        color: "#FFF",
-        fontSize: 8,
-        fontWeight: "bold",
-        lineHeight: 17,
-        backgroundColor: "#F90CC5"
-    },
-
-    sortDown: {
-        flex: 1,
-        position: "absolute",
-        alignSelf: "center",
+        borderRadius: 10,
+        marginBottom: wp("0.5%"),
+        backgroundColor: "#300C4B",
         justifyContent: "center",
-        bottom: 3,
-        color: "#F90CC5",
+        paddingHorizontal: wp("2.5%"),
+        paddingVertical: wp("3%")
     },
+
+    callout: {
+        width: wp("45%"),
+        flexDirection: "row",
+        alignItems: "center"
+    },
+
+
 
 });
 

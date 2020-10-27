@@ -15,6 +15,7 @@ import api from '../../services/api';
 
 interface Params {
     id_Necessidade: number;
+    Nome: string;
 }
 
 function ConfirmDonation() {
@@ -63,7 +64,7 @@ function ConfirmDonation() {
             <Text style={styles.title}>Confirmar sua doação</Text>
             <View style={styles.section1}>
                 <Text style={styles.titleSection1}>Você está doando para:</Text>
-                <Text style={styles.nameReceptor}>Assitência Social Gonzaga</Text>
+                <Text style={styles.nameReceptor}>{routeParams.Nome}</Text>
             </View>
             <View style={styles.main}>
                 <View style={styles.containerDonation}>
