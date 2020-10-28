@@ -37,7 +37,7 @@ function Canceladas() {
 
       const arrayPages = [];
       for (let i = 1; i <= totalPages; i++) {
-        arrayPages.push(i);
+         arrayPages.push(i);
       }
 
       setPages(arrayPages);

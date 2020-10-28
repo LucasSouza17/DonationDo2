@@ -6,7 +6,7 @@ import Header from "../../components/LandingHeader";
 import Dropzone from "../../components/Dropzone";
 import MarkerIcon from "../../assets/images/iconmap.svg";
 
-import { Map, TileLayer, Marker} from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import L, { LeafletMouseEvent } from "leaflet";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
