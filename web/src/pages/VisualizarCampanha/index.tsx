@@ -85,17 +85,17 @@ function VisualizarCampanha() {
       <div className="form-container">
         <form id="boxform-id" className="box-form-container" onSubmit={handleReaproveitar}>
           <div className="header">
-            <h1>Cadastro da campanha</h1>
+            <h1>Dados da campanha</h1>
             <Link to="andamento" style={{ textDecoration: "none" }}>
               <h3>Voltar para o menu</h3>
             </Link>
           </div>
           <span id="span-necessidade">
-            Faça o cadastro da sua campanha de doação
+            Veja os dados da sua campanha
           </span>
 
           <div className="items-necessidade">
-            <label className="label">Selecione a necessidade para doação</label>
+            <label className="label">Item da campanha</label>
             <ul className="items-grid" id="list">
               {items.map((item) => (
                 <li

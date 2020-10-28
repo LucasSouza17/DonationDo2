@@ -94,13 +94,13 @@ function AtualizarCampanha() {
             onSubmit={handleSubmit}
           >
             <div className="header">
-              <h1>Cadastro da campanha</h1>
+              <h1>Atualizar campanha</h1>
               <Link to="andamento" style={{ textDecoration: "none" }}>
                 <h3>Voltar para o menu</h3>
               </Link>
             </div>
             <span id="span-necessidade">
-              Faça o cadastro da sua campanha de doação
+              Faça a atualização da sua campanha de doação
             </span>
             <div className="field">
               <label className="label" htmlFor="Nome">

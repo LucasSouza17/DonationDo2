@@ -158,6 +158,21 @@ function FinalRegister() {
     const Cidade = selectedCity;
     const [Latitude, Longitude] = selectedPosition;
 
+    const noImageData = {
+      Nome,
+      DescricaoReceptor: Descricao,
+      Telefone,
+      Whatsapp,
+      Bairro,
+      Rua,
+      Numero,
+      CEP,
+      UF,
+      Cidade,
+      Latitude,
+      Longitude
+    }
+
     const data = new FormData();
 
     data.append("Nome", Nome);
@@ -179,10 +194,28 @@ function FinalRegister() {
     }
 
     try {
-      if (Tipo === "0") {
-        toast.warning("Tipo não pode ser nulo.");
-        document.getElementById("tipo")?.focus();
-      } else if (UF === "0") {
+      if(selectedFile !== undefined){
+      if (UF === "0") {
+        toast.warning("UF não pode ser nulo.");
+        document.getElementById("uf")?.focus();
+      } else if (Cidade === "0") {
+        toast.warning("Cidade não pode ser nulo.");
+        document.getElementById("cidade")?.focus();
+      } else if (Latitude === 0 && Longitude === 0) {
+        toast.warning("Marque no mapa sua localização.");
+      } else {
+        const response = await api.put(
+          `receptor/${id_Receptor}`,
+          noImageData
+        );
+        toast.success("Cadastro realizado com sucesso");
+        setTimeout(() => {
+          history.push("login");
+          localStorage.setItem("Nome", response.data.Nome);
+        }, 2500);
+      }
+    } else {
+      if (UF === "0") {
         toast.warning("UF não pode ser nulo.");
         document.getElementById("uf")?.focus();
       } else if (Cidade === "0") {
@@ -195,12 +228,16 @@ function FinalRegister() {
           `receptor/ConcluirCadastro/${id_Receptor}`,
           data
         );
+
+        console.log(data);
+
         toast.success("Cadastro realizado com sucesso");
         setTimeout(() => {
-          history.push("home");
+          history.push("login");
           localStorage.setItem("Nome", response.data.Nome);
-        }, 2200);
+        }, 2500);
       }
+    }
     } catch (err) {
       toast.error("Erro ao finalizar cadastro");
     }

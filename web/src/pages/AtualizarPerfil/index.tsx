@@ -6,7 +6,7 @@ import Header from "../../components/LandingHeader";
 import Dropzone from "../../components/Dropzone";
 import MarkerIcon from "../../assets/images/iconmap.svg";
 
-import { Map, TileLayer, Marker } from "react-leaflet";
+import { Map, TileLayer, Marker} from "react-leaflet";
 import L, { LeafletMouseEvent } from "leaflet";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,6 +40,7 @@ interface IBGECityResponse {
 }
 
 function AtualizarPerfil() {
+
   const history = useHistory();
 
   const id_Receptor = localStorage.getItem("id_Receptor");
@@ -142,8 +143,8 @@ function AtualizarPerfil() {
     const [Latitude, Longitude] = selectedPosition;
 
     const noImageData = {
-      Nome, 
-      DescricaoReceptor, 
+      Nome,
+      DescricaoReceptor,
       Telefone,
       Whatsapp,
       Bairro,
@@ -178,50 +179,50 @@ function AtualizarPerfil() {
     console.log(selectedFile);
 
     try {
-      if(selectedFile === undefined){
-      if (UF === "0") {
-        toast.warning("UF não pode ser nulo.");
-        document.getElementById("uf")?.focus();
-      } else if (Cidade === "0") {
-        toast.warning("Cidade não pode ser nulo.");
-        document.getElementById("cidade")?.focus();
-      } else if (Latitude === 0 && Longitude === 0) {
-        toast.warning("Marque no mapa sua localização.");
+      if (selectedFile === undefined) {
+        if (UF === "0") {
+          toast.warning("UF não pode ser nulo.");
+          document.getElementById("uf")?.focus();
+        } else if (Cidade === "0") {
+          toast.warning("Cidade não pode ser nulo.");
+          document.getElementById("cidade")?.focus();
+        } else if (Latitude === 0 && Longitude === 0) {
+          toast.warning("Marque no mapa sua localização.");
+        } else {
+          const response = await api.put(
+            `receptor/${id_Receptor}`,
+            noImageData
+          );
+          toast.success("Cadastro realizado com sucesso");
+          setTimeout(() => {
+            history.push("perfil");
+            localStorage.setItem("Nome", response.data.Nome);
+          }, 2500);
+        }
       } else {
-        const response = await api.put(
-          `receptor/${id_Receptor}`,
-          noImageData
-        );
-        toast.success("Cadastro realizado com sucesso");
-        setTimeout(() => {
-          history.push("perfil");
-          localStorage.setItem("Nome", response.data.Nome);
-        }, 2500);
-      }
-    }else {
-      if (UF === "0") {
-        toast.warning("UF não pode ser nulo.");
-        document.getElementById("uf")?.focus();
-      } else if (Cidade === "0") {
-        toast.warning("Cidade não pode ser nulo.");
-        document.getElementById("cidade")?.focus();
-      } else if (Latitude === 0 && Longitude === 0) {
-        toast.warning("Marque no mapa sua localização.");
-      } else {
-        const response = await api.put(
-          `receptor/img/${id_Receptor}`,
-          data
-        );
+        if (UF === "0") {
+          toast.warning("UF não pode ser nulo.");
+          document.getElementById("uf")?.focus();
+        } else if (Cidade === "0") {
+          toast.warning("Cidade não pode ser nulo.");
+          document.getElementById("cidade")?.focus();
+        } else if (Latitude === 0 && Longitude === 0) {
+          toast.warning("Marque no mapa sua localização.");
+        } else {
+          const response = await api.put(
+            `receptor/img/${id_Receptor}`,
+            data
+          );
 
-        console.log(data);
+          console.log(data);
 
-        toast.success("Cadastro realizado com sucesso");
-        setTimeout(() => {
-          history.push("perfil");
-          localStorage.setItem("Nome", response.data.Nome);
-        }, 2500);
+          toast.success("Cadastro realizado com sucesso");
+          setTimeout(() => {
+            history.push("perfil");
+            localStorage.setItem("Nome", response.data.Nome);
+          }, 2500);
+        }
       }
-    }
     } catch (err) {
       toast.error("Erro ao finalizar cadastro");
     }
@@ -231,170 +232,170 @@ function AtualizarPerfil() {
     <div id="page-att-perfil">
       <Header />
 
-        <div className="form-container">
-          <form className="box-form-container" onSubmit={handleSubmit}>
-            <h1>Atualizar Perfil</h1>
-            <span>
-              Atualize seu perfil para que as informações sejam mais atuais
-              possíveis
+      <div className="form-container">
+        <form className="box-form-container" onSubmit={handleSubmit}>
+          <h1>Atualizar Perfil</h1>
+          <span>
+            Atualize seu perfil para que as informações sejam mais atuais
+            possíveis
             </span>
 
+          <div className="field">
+            <label htmlFor="Nome">Nome do local*</label>
+            <input
+              type="text"
+              name="Nome"
+              id="Nome"
+              inputMode="text"
+              onChange={(e) => setNome(e.target.value)}
+              defaultValue={nome}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="Descricao">
+              Conte-nos um pouco sobre sua história*
+              </label>
+            <input
+              type="text"
+              name="Descricao"
+              id="Descricao"
+              defaultValue={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+            />
+          </div>
+
+          <div className="field-group">
             <div className="field">
-              <label htmlFor="Nome">Nome do local*</label>
+              <label htmlFor="Telefone">Telefone*</label>
               <input
                 type="text"
-                name="Nome"
-                id="Nome"
+                name="Telefone"
+                id="Telefone"
                 inputMode="text"
-                onChange={(e) => setNome(e.target.value)}
-                defaultValue={nome}
+                onChange={(e) => setTelefone(e.target.value)}
+                defaultValue={telefone}
               />
             </div>
             <div className="field">
-              <label htmlFor="Descricao">
-                Conte-nos um pouco sobre sua história*
-              </label>
+              <label htmlFor="Whatsapp">Whatsapp</label>
               <input
                 type="text"
-                name="Descricao"
-                id="Descricao"
-                defaultValue={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
+                name="Whatsapp"
+                id="Whatsapp"
+                onChange={(e) => setWhatsapp(e.target.value)}
+                defaultValue={whatsapp}
               />
             </div>
+          </div>
+          <div className="field">
+            <label>Insira uma foto do local</label>
+            <Dropzone onFileUploaded={setSelectedFile} />
+          </div>
 
-            <div className="field-group">
-              <div className="field">
-                <label htmlFor="Telefone">Telefone*</label>
-                <input
-                  type="text"
-                  name="Telefone"
-                  id="Telefone"
-                  inputMode="text"
-                  onChange={(e) => setTelefone(e.target.value)}
-                  defaultValue={telefone}
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="Whatsapp">Whatsapp</label>
-                <input
-                  type="text"
-                  name="Whatsapp"
-                  id="Whatsapp"
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                  defaultValue={whatsapp}
-                />
-              </div>
-            </div>
+          <div className="field">
+            <label htmlFor="cep">CEP</label>
+            <input type="text" name="CEP" id="cep" defaultValue={cep} onChange={(e) => setCep(e.target.value)} />
+          </div>
+          <div className="field-group-row">
             <div className="field">
-              <label>Insira uma foto do local</label>
-              <Dropzone onFileUploaded={setSelectedFile} />
-            </div>
-
-            <div className="field">
-              <label htmlFor="cep">CEP</label>
-              <input type="text" name="CEP" id="cep" defaultValue={cep} onChange={(e) => setCep(e.target.value)} />
-            </div>
-            <div className="field-group-row">
-              <div className="field">
-                <label htmlFor="uf">Estado (UF)*</label>
-                <select
-                  name="uf"
-                  id="uf"
-                  value={selectedUf}
-                  onChange={handleSelectUf}
-                  required
-                >
-                  <option value="0">Selecione uma UF</option>
-                  {ufs.map((uf) => (
-                    <option key={uf} value={uf}>
-                      {uf}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="field">
-                <label htmlFor="city">Cidade*</label>
-                <select
-                  name="city"
-                  id="city"
-                  value={selectedCity}
-                  onChange={handleSelectCity}
-                  required
-                >
-                  <option value="0">Selecione uma cidade</option>
-                  {cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="field-group">
-              <div className="field">
-                <label htmlFor="bairro">Bairro*</label>
-                <input
-                  type="text"
-                  name="Bairro"
-                  id="bairro"
-                  defaultValue={bairro}
-                  onChange={(e) => setBairro(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="field-group">
-              <div className="field">
-                <label htmlFor="rua">Rua*</label>
-                <input
-                  type="text"
-                  name="Rua"
-                  id="rua"
-                  defaultValue={rua}
-                  onChange={(e) => setRua(e.target.value)}
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="numero">Número*</label>
-                <input
-                  type="text"
-                  name="Numero"
-                  id="numero"
-                  defaultValue={numero}
-                  onChange={(e) => setNumero(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="container-map">
-              <label>
-                Marque no mapa a localização do ponto de recepção mais próximo
-                possível*
-              </label>
-              <Map
-                center={selectedPosition}
-                zoom={16}
-                style={{ width: "100%", height: "300px", marginTop: "2.5rem" }}
-                onClick={handleMapClick}
+              <label htmlFor="uf">Estado (UF)*</label>
+              <select
+                name="uf"
+                id="uf"
+                value={selectedUf}
+                onChange={handleSelectUf}
+                required
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker icon={icon} position={selectedPosition} />
-              </Map>
+                <option value="0">Selecione uma UF</option>
+                {ufs.map((uf) => (
+                  <option key={uf} value={uf}>
+                    {uf}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="button-submit">
-              <button>Atualizar perfil</button>
+            <div className="field">
+              <label htmlFor="city">Cidade*</label>
+              <select
+                name="city"
+                id="city"
+                value={selectedCity}
+                onChange={handleSelectCity}
+                required
+              >
+                <option value="0">Selecione uma cidade</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
-          </form>
-          <ToastContainer
+          </div>
+
+          <div className="field-group">
+            <div className="field">
+              <label htmlFor="bairro">Bairro*</label>
+              <input
+                type="text"
+                name="Bairro"
+                id="bairro"
+                defaultValue={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="field-group">
+            <div className="field">
+              <label htmlFor="rua">Rua*</label>
+              <input
+                type="text"
+                name="Rua"
+                id="rua"
+                defaultValue={rua}
+                onChange={(e) => setRua(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="numero">Número*</label>
+              <input
+                type="text"
+                name="Numero"
+                id="numero"
+                defaultValue={numero}
+                onChange={(e) => setNumero(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="container-map">
+            <label>
+              Marque no mapa a localização do ponto de recepção mais próximo
+              possível*
+              </label>
+            <Map
+              center={selectedPosition}
+              zoom={16}
+              style={{ width: "100%", height: "300px", marginTop: "2.5rem" }}
+              onClick={handleMapClick}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker icon={icon} position={selectedPosition} />
+            </Map>
+          </div>
+          <div className="button-submit">
+            <button>Atualizar perfil</button>
+          </div>
+        </form>
+        <ToastContainer
           position={"top-center"}
           autoClose={2500}
           transition={Bounce}
         />
-        </div>
+      </div>
     </div>
   );
 }
