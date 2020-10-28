@@ -6,13 +6,11 @@ import Header from "../../components/LandingHeader";
 import Dropzone from "../../components/Dropzone";
 import MarkerIcon from "../../assets/images/iconmap.svg";
 
-import { Map, TileLayer, Marker, withLeaflet } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import L, { LeafletMouseEvent } from "leaflet";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "leaflet/dist/leaflet.css";
-
-import {ReactLeafletSearch} from 'react-leaflet-search';
 
 import "./styles.css";
 import api from "../../services/api";
@@ -42,8 +40,6 @@ interface IBGECityResponse {
 }
 
 function AtualizarPerfil() {
-
-  const ReactLeafletSearchComponent = withLeaflet(ReactLeafletSearch);
 
   const history = useHistory();
 
@@ -232,16 +228,13 @@ function AtualizarPerfil() {
     }
   }
 
-  function preventDefault(event: FormEvent) {
-    event.preventDefault();
-  }
-
+  
   return (
     <div id="page-att-perfil">
       <Header />
 
       <div className="form-container">
-        <form className="box-form-container" onSubmit={preventDefault}>
+        <form className="box-form-container" onSubmit={handleSubmit}>
           <h1>Atualizar Perfil</h1>
           <span>
             Atualize seu perfil para que as informações sejam mais atuais
@@ -392,11 +385,10 @@ function AtualizarPerfil() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker icon={icon} position={selectedPosition} />
-              <ReactLeafletSearchComponent className="search" provider="OpenStreetMap" position="topleft" inputPlaceholder="Digite seu endereço" showMarker={false} zoom={15} providerOptions={{region: "br" }} />
             </Map>
           </div>
           <div className="button-submit">
-            <button onClick={handleSubmit}>Atualizar perfil</button>
+            <button type="submit">Atualizar perfil</button>
           </div>
         </form>
         <ToastContainer

@@ -24,10 +24,6 @@ function UserNotAuth() {
     AuthExpires();
   }, [history]);
 
-  function handleRegister() {
-    localStorage.removeItem("Nome");
-  }
-
   return (
     <div id="page-home">
       <Header></Header>
@@ -41,7 +37,7 @@ function UserNotAuth() {
               Precisamos que nos informe algumas coisas sobre o local de
               recepção
             </p>
-            <Link to="/finalregister" onClick={handleRegister}>
+            <Link to="/finalregister">
               Finalizar cadastro
             </Link>
           </div>
@@ -59,9 +55,9 @@ function UserAuth() {
   useEffect(() => {
     async function finalizarNecessidade() {
       try {
-        await api.put(`receptor/${id_Receptor}/necessidade`);
+        await api.put(`receptor/${id_Receptor}/necessidade`)
       } catch (err) {
-        //console.log("Não há nenhuma necessidade à ser finalizada")
+        console.log(err);
       }
     }
     finalizarNecessidade()
@@ -112,6 +108,7 @@ function UserAuth() {
 }
 
 function ValidadeUser() {
+
   const auth = localStorage.getItem("Nome");
 
   if (auth === "null") {
@@ -120,6 +117,7 @@ function ValidadeUser() {
     return <UserAuth />;
   }
 }
+
 
 function Home() {
   return <ValidadeUser />;

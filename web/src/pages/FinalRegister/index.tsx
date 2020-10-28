@@ -9,14 +9,13 @@ import MarkerIcon from "../../assets/images/iconmap.svg";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Map, TileLayer, Marker, withLeaflet } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import L, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import "./styles.css";
 import api from "../../services/api";
 
-import {ReactLeafletSearch} from 'react-leaflet-search';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -28,8 +27,6 @@ interface IBGECityResponse {
 
 function FinalRegister() {
 
-  const ReactLeafletSearchComponent = withLeaflet(ReactLeafletSearch);
-
   const history = useHistory();
 
   const id_Receptor = localStorage.getItem("id_Receptor");
@@ -39,11 +36,7 @@ function FinalRegister() {
     iconSize: [38, 95],
   });
 
-  const text = "NenhumaImagemSelecionada"
-  const img = JSON.stringify(text);
-  const imgFile = JSON.parse(img);
-
-  const [selectedFile, setSelectedFile] = useState<File>(imgFile);
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedUf, setSelectedUf] = useState("0");
@@ -61,7 +54,7 @@ function FinalRegister() {
     Nome: "",
     Descricao: "",
     Telefone: "",
-    Whatsapp: "Null",
+    Whatsapp: "Whatsapp Não Preenchido",
     Tipo: "",
     Bairro: "",
     Rua: "",
@@ -70,11 +63,11 @@ function FinalRegister() {
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3333/receptor/7/necessidade/EmAndamento")
-      .then((response) => {
-        console.log(response.data);
-      });
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
   }, []);
 
   useEffect(() => {
@@ -200,7 +193,7 @@ function FinalRegister() {
     }
 
     try {
-      if(selectedFile !== undefined){
+      if(selectedFile === undefined){
       if (UF === "0") {
         toast.warning("UF não pode ser nulo.");
         document.getElementById("uf")?.focus();
@@ -215,8 +208,9 @@ function FinalRegister() {
           noImageData
         );
         toast.success("Cadastro realizado com sucesso");
+        localStorage.removeItem("Nome")
         setTimeout(() => {
-          history.push("login");
+          history.push("Home");
           localStorage.setItem("Nome", response.data.Nome);
         }, 2500);
       }
@@ -238,8 +232,9 @@ function FinalRegister() {
         console.log(data);
 
         toast.success("Cadastro realizado com sucesso");
+        localStorage.removeItem("Nome");
         setTimeout(() => {
-          history.push("login");
+          history.push("Home");
           localStorage.setItem("Nome", response.data.Nome);
         }, 2500);
       }
@@ -249,16 +244,12 @@ function FinalRegister() {
     }
   }
 
-  function preventDefault(event: FormEvent) {
-    event.preventDefault();
-  }
-
   return (
     <div id="page-final-register">
       <Header />
 
       <div className="form-container">
-        <form className="box-form-container" onSubmit={preventDefault}>
+        <form className="box-form-container" onSubmit={handleSubmit}>
           <h1>Concluir Cadastro</h1>
           <span>Conclua o cadastro para começar as campanhas de doação</span>
 
@@ -432,8 +423,8 @@ function FinalRegister() {
               possível*
             </label>
             <Map
-              center={initialPosition}
-              zoom={16}
+              center={initialPosition !== [0, 0] ? initialPosition : [-20.8132191, -49.3787799]}
+              zoom={initialPosition !== [0, 0] ? 16 : 13}
               style={{ width: "100%", height: "300px", marginTop: "2.5rem" }}
               onClick={handleMapClick}
             >
@@ -442,11 +433,10 @@ function FinalRegister() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker icon={icon} position={selectedPosition} />
-              <ReactLeafletSearchComponent className="search" provider="OpenStreetMap" position="topleft" inputPlaceholder="Digite seu endereço" showMarker={false} zoom={15} providerOptions={{region: "br" }} />
             </Map>
           </div>
           <div className="button-submit">
-            <button type="button" onClick={handleSubmit}>Concluir cadastro</button>
+            <button type="submit">Concluir cadastro</button>
           </div>
         </form>
         <ToastContainer
