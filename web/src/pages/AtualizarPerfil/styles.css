@@ -6,6 +6,11 @@
   background-size: contain;
 }
 
+.search {
+  margin-top: 0rem;
+  margin-left: 0.4rem;
+}
+
 @media (min-width: 1100px) {
   #page-att-perfil {
     background-size: cover;

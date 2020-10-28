@@ -126,7 +126,7 @@ function VisualizarCampanha() {
           </div>
 
           <div className="button-group" id="button-margin-top">
-            <button type="button" className="button-att" onClick={handleClickReaproveitar}>
+            <button type="button" id="button-att" onClick={handleClickReaproveitar}>
               Reaproveitar campanha
             </button>
           </div>

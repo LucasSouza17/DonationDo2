@@ -9,12 +9,14 @@ import MarkerIcon from "../../assets/images/iconmap.svg";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Map, TileLayer, Marker } from "react-leaflet";
+import { Map, TileLayer, Marker, withLeaflet } from "react-leaflet";
 import L, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import "./styles.css";
 import api from "../../services/api";
+
+import {ReactLeafletSearch} from 'react-leaflet-search';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -25,6 +27,9 @@ interface IBGECityResponse {
 }
 
 function FinalRegister() {
+
+  const ReactLeafletSearchComponent = withLeaflet(ReactLeafletSearch);
+
   const history = useHistory();
 
   const id_Receptor = localStorage.getItem("id_Receptor");
@@ -166,6 +171,7 @@ function FinalRegister() {
       Bairro,
       Rua,
       Numero,
+      Tipo,
       CEP,
       UF,
       Cidade,
@@ -243,12 +249,16 @@ function FinalRegister() {
     }
   }
 
+  function preventDefault(event: FormEvent) {
+    event.preventDefault();
+  }
+
   return (
     <div id="page-final-register">
       <Header />
 
       <div className="form-container">
-        <form className="box-form-container" onSubmit={handleSubmit}>
+        <form className="box-form-container" onSubmit={preventDefault}>
           <h1>Concluir Cadastro</h1>
           <span>Conclua o cadastro para começar as campanhas de doação</span>
 
@@ -432,10 +442,11 @@ function FinalRegister() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker icon={icon} position={selectedPosition} />
+              <ReactLeafletSearchComponent className="search" provider="OpenStreetMap" position="topleft" inputPlaceholder="Digite seu endereço" showMarker={false} zoom={15} providerOptions={{region: "br" }} />
             </Map>
           </div>
           <div className="button-submit">
-            <button>Concluir cadastro</button>
+            <button type="button" onClick={handleSubmit}>Concluir cadastro</button>
           </div>
         </form>
         <ToastContainer
