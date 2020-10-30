@@ -1,0 +1,52 @@
+.aprovar {
+    margin-right: 1rem;
+    background-color: #15C211;
+    padding: 0.6rem;
+    width: 11rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    transition: all linear 0.2s;
+}
+
+.aprovar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.aprovar:hover {
+    opacity: 0.6;
+}
+
+.recusar {
+    margin-right: 1rem;
+    background-color: #FF0000;
+    padding: 0.6rem;
+    width: 11rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all linear 0.2s;
+}
+.recusar:hover {
+    opacity: 0.6;
+}
+
+.recusar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+#container-data-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row-start: 4;
+    grid-column-start: 1;
+    padding: 2rem;
+  }

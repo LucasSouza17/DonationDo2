@@ -73,6 +73,9 @@ function EmAndamento() {
             <Link to="/cadastrocampanha" className="nova-campanha">
               Cadastrar Campanha
             </Link>
+            <Link to="aprovardoacao" className="aceitar-doacao">
+                Aprovar doações
+              </Link>
           </div>
           <BoxFilters
             backColorAndamento="rgb(219, 10, 211, 21%)"

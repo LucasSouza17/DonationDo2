@@ -181,6 +181,14 @@ textarea {
   .container-buttons a {
     font-size: 1.5rem;
   }
+
+  .box-header .nova-campanha:hover {
+    opacity: 0.8;
+  }
+
+  .box-header .aceitar-doacao:hover {
+    opacity: 0.8;
+  }
 }
 
 button {

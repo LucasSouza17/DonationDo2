@@ -72,6 +72,9 @@ function Canceladas() {
             <Link to="/cadastrocampanha" className="nova-campanha">
               Cadastrar Campanha
             </Link>
+            <Link to="aprovardoacao" className="aceitar-doacao">
+                Aprovar doações
+              </Link>
           </div>
           <BoxFilters
             backColorCanceladas="rgb(219, 10, 211, 21%)"

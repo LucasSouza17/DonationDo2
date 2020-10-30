@@ -99,7 +99,7 @@ function UserAuth() {
               <Link to="/cadastrocampanha" className="nova-campanha">
                 Cadastrar Campanha
               </Link>
-              <Link to="" className="aceitar-doacao">
+              <Link to="aprovardoacao" className="aceitar-doacao">
                 Aprovar doações
               </Link>
           </div>

@@ -171,14 +171,6 @@
     margin: 0;
   }
 
-  .box-header .nova-campanha:hover {
-    opacity: 0.8;
-  }
-
-  .box-header .aceitar-doacao+:hover {
-    opacity: 0.8;
-  }
-
   .box-header h1 {
     font-size: 4rem;
   }

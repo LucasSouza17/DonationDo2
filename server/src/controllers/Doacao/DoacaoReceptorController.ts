@@ -16,8 +16,8 @@ class DoacaoReceptorController{
         .where('cod_Receptor', Number(id))
         .join('item', 'id_Item', '=', 'cod_Item')
         .join('doador', 'id_Doador', '=', 'cod_Doador')
-        .select('doacao.*', 'item.Nome as Tipo de Necessidade',
-          'doador.Nome as Nome do doador')
+        .select('doacao.*',
+          'doador.Nome as Nomedodoador', 'necessidade.Titulo')
         .orderBy('id_Doacao', 'desc');
       
       const serializeDoacoes = Doacoes.map(doacao =>{
