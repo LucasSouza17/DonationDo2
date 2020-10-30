@@ -6,10 +6,15 @@
   background-size: contain;
 }
 
+.button-container {
+  flex-direction: row;
+}
+
 #button-user {
   width: 7rem;
   height: 3rem;
-  margin-right: 0.5rem;
+  justify-content: space-between;
+  padding: 0 0.4rem
 }
 
 #button-user img {
@@ -25,6 +30,9 @@
 #button-logout {
   width: 7rem;
   height: 3rem;
+  justify-content: space-between;
+  padding: 0 0.4rem;
+  margin-left: 1rem;
 }
 
 #button-logout img {
@@ -94,6 +102,21 @@
   height: 3.5rem;
 }
 
+.box-header h1 {
+  font-size: 2.2rem;
+}
+
+.box-header .nova-campanha {
+  font-size: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.box-header .aceitar-doacao {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+
 @media (min-width: 1100px) {
   #page-home {
     background-size: cover;
@@ -102,12 +125,13 @@
   #button-user {
     width: 12rem;
     height: 3.3rem;
-    margin-right: 2rem;
+    margin-right: 1rem;
+    justify-content: center;
   }
   
   #button-user img {
     width: 1.8rem;
-    margin-right: 0.7rem;
+    margin-right: 1rem;
   }
   
   
@@ -116,13 +140,14 @@
   }
   
   #button-logout {
+    justify-content: center;
     width: 12rem;
     height: 3.3rem;
   }
   
   #button-logout img {
     width: 1.8rem;
-    margin-right: 0.7rem;
+    margin-right: 1rem;
   }
   
   #button-logout p {
@@ -132,12 +157,30 @@
   .box-header .nova-campanha {
     width: 20rem;
     height: 3.8rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     transition: 0.6s;
+    margin: 0;
+    margin-right: 1.5rem;
+  }
+
+  .box-header .aceitar-doacao {
+    width: 20rem;
+    height: 3.8rem;
+    font-size: 1.4rem;
+    transition: 0.6s;
+    margin: 0;
   }
 
   .box-header .nova-campanha:hover {
     opacity: 0.8;
+  }
+
+  .box-header .aceitar-doacao+:hover {
+    opacity: 0.8;
+  }
+
+  .box-header h1 {
+    font-size: 4rem;
   }
 
 }

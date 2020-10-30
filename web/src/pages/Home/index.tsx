@@ -96,9 +96,12 @@ function UserAuth() {
         <div className="box-home">
           <div className="box-header">
             <h1>Necessidades cadastradas</h1>
-            <Link to="/cadastrocampanha" className="nova-campanha">
-              Cadastrar Campanha
-            </Link>
+              <Link to="/cadastrocampanha" className="nova-campanha">
+                Cadastrar Campanha
+              </Link>
+              <Link to="" className="aceitar-doacao">
+                Aprovar doações
+              </Link>
           </div>
           <BoxFilters />
         </div>

@@ -2,11 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
   width: 100%;
   padding: 2rem;
-  padding-top: 6rem;
-  margin: 0 auto;
+  flex-direction: column;
 }
 
 .logo-container img {
@@ -17,6 +15,9 @@
 @media (min-width: 1100px) {
   .landing-header {
     width: 86%;
+    flex-direction: row;
+    padding-top: 0rem;
+    margin: 0 auto;
   }
 
   .logo-container img {
