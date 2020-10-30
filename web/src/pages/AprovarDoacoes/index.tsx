@@ -23,8 +23,10 @@ function AprovarDoacao() {
 
     const [doacao, setDoacao] = useState<DoacaoI[]>([]);
     const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(true);
 
     useEffect(() => {
+        setReload(true);
         const id = localStorage.getItem("id_Receptor")
         try {
         api.get(`receptor/${id}/doacoes`).then(response => {
@@ -34,7 +36,7 @@ function AprovarDoacao() {
         console.log(err)
     }
 
-    }, [loading])
+    }, [loading, reload])
 
     async function Aprovar(id_Doacao: number) {
         try {
@@ -63,6 +65,10 @@ function AprovarDoacao() {
         }
     }
 
+    function Reload() {
+        setReload(false);
+    }
+
     return (
         <div id="page-home">
             <Header>
@@ -87,6 +93,9 @@ function AprovarDoacao() {
                         <Link to="historicodoacao" className="aceitar-doacao">
                             Histórico
                         </Link>
+                    </div>
+                    <div style={{width: 200}}>
+                        <button style={{color: "#fff", fontSize: 14, width: 100, height: 25, backgroundColor: "#F90CC5", border: "none", borderRadius: 8}} onClick={Reload}>Atualizar</button>
                     </div>
                     {doacao.map((doacao) => (
                         <div className="container-lista" key={doacao.id_Doacao}>
