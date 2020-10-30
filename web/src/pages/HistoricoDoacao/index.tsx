@@ -6,8 +6,6 @@ import api from "../../services/api";
 import Header from "../../components/LandingHeader";
 import LogOut from "../../assets/images/logout.svg";
 import User from "../../assets/images/user.svg";
-import { toast, ToastContainer, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import './styles.css'
 
@@ -19,49 +17,34 @@ interface DoacaoI {
     Titulo: string;
 }
 
-function AprovarDoacao() {
+function HistoricoDoacao() {
 
     const [doacao, setDoacao] = useState<DoacaoI[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [total, setTotal] = useState<number>(0);
+    const [pages, setPages] = useState<number[]>([]);
+    const limit = 5;
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {
-        const id = localStorage.getItem("id_Receptor")
-        try {
-        api.get(`receptor/${id}/doacoes`).then(response => {
+        async function dataNecessidade() {
+            const id_Receptor = localStorage.getItem("id_Receptor");
+            const response = await api.get(
+                `receptor/${id_Receptor}/historico/doacoes?page=${currentPage}`
+            );
+            setTotal(response.headers["x-total-count"]);
+            const totalPages = Math.ceil(total / limit);
+
+            const arrayPages = [];
+            for (let i = 1; i <= totalPages; i++) {
+                arrayPages.push(i);
+            }
+
+            setPages(arrayPages);
             setDoacao(response.data);
-        })
-    }catch(err) {
-        console.log(err)
-    }
-
-    }, [loading])
-
-    async function Aprovar(id_Doacao: number) {
-        try {
-            api.put(`receptor/doacao/${id_Doacao}/confirmar`)
-            toast.success("Doação aprovada com sucesso");
-            setLoading(false);
-        } catch (err) {
-            console.log("erro")
-        }
-        if(loading === false) {
-            setLoading(true);
-        }
-    }
-
-    async function Recusar(id_Doacao: number) {
-        try {
-            api.put(`receptor/doacao/${id_Doacao}/recusar`)
-            toast.success("Doação recusada com sucesso");
-            setLoading(false);
-        } catch (err) {
-            console.log("erro")
         }
 
-        if(loading === false) {
-            setLoading(true);
-        }
-    }
+        dataNecessidade();
+    }, [currentPage, limit, total]);
 
     return (
         <div id="page-home">
@@ -79,13 +62,10 @@ function AprovarDoacao() {
             </Header>
             <div className="container-home">
                 <div className="box-home">
-                    <Link to="andamento" id="voltar-link">
-                        Voltar
-                    </Link>
                     <div className="box-header">
-                        <h1>Aprovar doações</h1>
-                        <Link to="historicodoacao" className="aceitar-doacao">
-                            Histórico
+                        <h1>Histórico de doações</h1>
+                        <Link to="aprovardoacao" className="aceitar-doacao">
+                            Voltar
                         </Link>
                     </div>
                     {doacao.map((doacao) => (
@@ -105,25 +85,23 @@ function AprovarDoacao() {
                                 <h2>{doacao.Data}</h2>
                             </div>
 
-                            <div id="container-data-link">
-                                <div className="aprovar">
-                                    <Link to="aprovardoacao" onClick={() => Aprovar(doacao.id_Doacao)} >Confirmar</Link>
-                                </div>
-                                <div className="recusar">
-                                    <Link to="aprovardoacao" onClick={() => Recusar(doacao.id_Doacao)}>Recusar</Link>
-                                </div>
+                            <div className="container-data">
+                                <p>Status</p>
+                                <h2 style={doacao.Status !== "Confirmada" ? {color: "#FF0000"} : {color: "#15C211"}}>{doacao.Status}</h2>
                             </div>
                         </div>
                     ))}
+                    <div className="pagination">
+                        {pages.map((page) => (
+                            <button className={currentPage === page ? "selected" : "button-pagination"} key={page} onClick={() => setCurrentPage(page)}>
+                                {page}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
-            <ToastContainer
-                position={"top-center"}
-                autoClose={1600}
-                transition={Bounce}
-            />
         </div>
     )
 }
 
-export default AprovarDoacao;
+export default HistoricoDoacao;

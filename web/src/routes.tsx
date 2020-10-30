@@ -15,6 +15,7 @@ import CadastrarCampanha from './pages/CadastroCampanha';
 import AtualizarCampanha from './pages/AtualizarCampanha';
 import VisualizarCampanha from './pages/VisualizarCampanha';
 import AprovarDoacao from './pages/AprovarDoacoes';
+import HistoricoDoacao from './pages/HistoricoDoacao';
 
 const Routes: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const Routes: React.FC = () => {
       <Route path="/atualizarcampanha" component={AtualizarCampanha} />
       <Route path="/visualizarcampanha" component={VisualizarCampanha} />
       <Route path="/aprovardoacao" component={AprovarDoacao} />
+      <Route path="/historicodoacao" component={HistoricoDoacao} />
     </BrowserRouter>
   );
 }

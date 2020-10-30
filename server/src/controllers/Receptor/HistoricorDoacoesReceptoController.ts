@@ -21,8 +21,8 @@ class HistoricorDoacoesReceptoController{
         .limit(10)
         .offset((Number(page) - 1) * 10)
         .orderBy('id_Doacao', 'desc')
-        .select('doacao.*', 'item.Nome as Tipo de Necessidade',
-          'doador.Nome as Nome do doador');
+        .select('doacao.*', 'necessidade.Titulo',
+          'doador.Nome as Nomedodoador');
       
       const [count] = await knex('doacao')
         .where('doacao.Status', '<>','Doação pendente')
