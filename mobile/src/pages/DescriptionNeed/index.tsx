@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     View,
     Text,
@@ -17,6 +17,8 @@ import {
 } from "react-native-responsive-screen";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer'
+import api from '../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 interface Params {
@@ -46,6 +48,22 @@ function DescriptionNeed() {
     const route = useRoute();
     const routeParams = route.params as Params;
 
+    useEffect(() => {
+        async function acesso() {
+            const id = await AsyncStorage.getItem("isLoggedId");
+            try {
+                api.get(`doador/necessidade/${routeParams.id_Necessidade}/receptor`, {
+                    headers: {
+                        authorization: id
+                }
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        acesso();
+    }, [])
+
     function handleNavigateGoBack() {
         navigation.goBack();
     }
@@ -59,26 +77,26 @@ function DescriptionNeed() {
 
     function handleWhatsapp() {
         Linking.openURL(
-          `whatsapp://send?phone=55${routeParams.Whatsapp}&text=Olá vim por meio do DonationDo e estou interessado em fazer uma doação!`
+            `whatsapp://send?phone=55${routeParams.Whatsapp}&text=Olá vim por meio do DonationDo e estou interessado em fazer uma doação!`
         );
-      }
-    
-      function handleEmail() {
+    }
+
+    function handleEmail() {
         MailComposer.composeAsync({
-          subject: "Olá vim por meio do DonationDo e estou interessado em fazer uma doação!",
-          recipients: [routeParams.Email],
+            subject: "Olá vim por meio do DonationDo e estou interessado em fazer uma doação!",
+            recipients: [routeParams.Email],
         });
-      }
-    
-      function handlePhone() {
+    }
+
+    function handlePhone() {
         Linking.openURL(`tel:${routeParams.Telefone}`);
-      }
-    
-      function handleMap() {
+    }
+
+    function handleMap() {
         Linking.openURL(
-          `google.navigation:q=${routeParams.Latitude}+${routeParams.Longitude}`
+            `google.navigation:q=${routeParams.Latitude}+${routeParams.Longitude}`
         );
-      }
+    }
 
 
     return (

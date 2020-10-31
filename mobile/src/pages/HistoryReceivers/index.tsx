@@ -1,13 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "@expo/vector-icons/build/Feather";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
+
+interface HistoryI {
+    id_Receptor: number;
+    Nome: string;
+    Acesso: number;
+}
 
 function HistoryReceiver() {
 
     const navigation = useNavigation();
+
+    const [history, setHistory] = useState<HistoryI[]>([]);
+
+    useEffect(() => {
+        async function History() {
+            const id = await AsyncStorage.getItem("isLoggedId");
+            try {
+                api.get(`doador/${id}/historico`).then(response => {
+                    setHistory(response.data);
+                })
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+
+        History();
+    }, [])
 
     function handleNavigateGoBack() {
         navigation.goBack();
@@ -26,28 +52,24 @@ function HistoryReceiver() {
                 <View style={styles.containerHistory}>
                     <Text style={styles.textHistory}>Buscas Recentes</Text>
 
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <View style={styles.containerList}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {history.map(data => (
+                            <View style={styles.containerList} key={data.id_Receptor}>
                                 <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
+                                    <Text style={styles.textButton}>{data.Nome}</Text>
+                                    <View style={styles.dataAcessos}>
+                                        <Text style={styles.AcessosTitle}>Acessos</Text>
+                                        <Text style={styles.numberAcesso}>{data.Acesso}</Text>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.containerList}>
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.textButton}>Assistência Social Gonzaga</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    </View>
+                        ))}
+                    </ScrollView>
                 </View>
             </View>
+        </View>
     );
 }
 
@@ -94,13 +116,30 @@ const styles = StyleSheet.create({
 
     button: {
         paddingHorizontal: wp("3%"),
-        justifyContent: "center",
+        justifyContent: "space-between",
+        alignItems: "center",
         borderWidth: wp("0.4%"),
         borderColor: "#74009E",
         width: wp("82%"),
-        height: hp("6%"),
+        height: hp("8%"),
         borderRadius: 5,
-        marginBottom: wp("2%")
+        marginBottom: wp("2%"),
+        flexDirection: 'row'
+    },
+
+
+    dataAcessos: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    AcessosTitle: {
+        color: "#74009E"
+    },
+
+    numberAcesso: {
+        fontWeight: "bold",
+        color: "#74009E"
     },
 
     textButton: {

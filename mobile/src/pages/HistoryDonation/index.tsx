@@ -40,7 +40,6 @@ function HistoryDonation() {
             try {
                 api.get(`doador/${Number(id)}/doacoes/`).then((response) => {
                     setHistory(response.data);
-                    console.log(response.data);
                 })
             } catch (err) {
                 console.log(err);
