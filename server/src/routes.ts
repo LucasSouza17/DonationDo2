@@ -130,7 +130,7 @@ routes.get('/doador/:id_doador/historico', historicoController.index);
 routes.get('/doador/historico/:cod_Receptor/necessidades', historicoController.show);
 
 //Rota de Ranking
-routes.get('/doador/ranking', rankingController.index);
+routes.get('/ranking/doador', rankingController.index);
 
 //Rota de Doação do Doador
 routes.post('/doador/necessidade/:id/doar', doacaoDoadorController.create);

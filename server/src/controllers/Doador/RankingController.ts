@@ -6,7 +6,7 @@ class RankingController{
   async index (request: Request, response:Response){
     
     try{
-      const { page = 1} = request.query;
+      const { page = 1 } = request.query;
     
       const ranking = await knex('doador')
         .orderBy('Pontuacao', 'desc')
@@ -18,8 +18,15 @@ class RankingController{
         .select('*').count('*');
         
       response.header('X-Total-Count', String(count['count(*)']) );
+
+    const serializedRanking = ranking.map(ranking => {
+      return {
+        ...ranking,
+        avatar_url: `http://192.168.1.106:3333/uploads/Doador/${ranking.Avatar}`
+      }
+    })
       
-      return response.json(ranking);
+      return response.json(serializedRanking);
     }
     catch(erro){
       return response.status(500).json({erro});

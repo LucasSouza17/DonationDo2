@@ -98,6 +98,9 @@ function InviteFriends() {
                     visibilityTime: 3000,
                     topOffset: 20
                 })
+                setTimeout(() => {
+                    navigation.dispatch(StackActions.push("Home"));
+                }, 3000)
             }
             catch(err) {
                 Toast.show({
