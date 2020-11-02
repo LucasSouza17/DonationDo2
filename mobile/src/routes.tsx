@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import OnBoarding1 from './pages/OnBoarding/board1';
 import OnBoarding2 from './pages/OnBoarding/board2';
+
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 import PerfilUpdate from './pages/PerfilUpdate';
@@ -20,6 +21,7 @@ import DescriptionNeed from './pages/DescriptionNeed';
 import ConfirmDonation from './pages/ConfirmDonation';
 import AnnotatedDonation from './pages/AnnotatedDonation';
 import DonationProgress from './pages/DonationProgress';
+import MyPoints from './pages/MyPoints';
 
 import DrawerContent from './components/Drawer';
 
@@ -58,7 +60,7 @@ const UserAuthRoutes = () => {
             <AppStack.Screen name="AnnotatedDonation" component={AnnotatedDonation} />
             <AppStack.Screen name="DonationProgress" component={DonationProgress} />
             <AppStack.Screen name="UserNotAuth" component={UserNotAuthRoutes} />
-            {/* <AppStack.Screen name="Register" component={Register} /> */}
+            <AppStack.Screen name="MyPoints" component={MyPoints} />
         </AppStack.Navigator>
     );
 };

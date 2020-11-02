@@ -66,6 +66,10 @@ function DrawerContent(props: any) {
         navigation.navigate("InviteFriends");
     }
 
+    function handleNavigateToMyPoints() {
+        navigation.navigate("MyPoints");
+    }
+
     async function handleSignOut() {
         await AsyncStorage.clear();
         navigation.navigate("UserNotAuth");
@@ -84,14 +88,14 @@ function DrawerContent(props: any) {
                     </TouchableOpacity>
                     <View style={styles.perfilContainer}>
                         <View style={styles.perfil}>
-                        <Image
-                            source={{
-                                uri: avatar
-                                    ? avatar
-                                    : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
-                            }}
-                            style={styles.perfil}
-                        />
+                            <Image
+                                source={{
+                                    uri: avatar
+                                        ? avatar
+                                        : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
+                                }}
+                                style={styles.perfil}
+                            />
                         </View>
                         <View style={styles.userData}>
                             <Text style={styles.name}>{nomeUser}</Text>
@@ -109,69 +113,78 @@ function DrawerContent(props: any) {
                             style={styles.drawerItem}
 
                         />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="user" color="#fff" size={24} />
-                            )}
-                            label="Meu Perfil"
-                            onPress={handleNavigateToPerfil}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="history" color="#fff" size={24} />
-                            )}
-                            label="Histórico de doações"
-                            onPress={handleNavigateToHistoryDonation}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="hand-holding-heart" color="#fff" size={24} />
-                            )}
-                            label="Instituições acessadas"
-                            onPress={handleNavigateToHistoryReceivers}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="award" color="#fff" size={24} />
-                            )}
-                            label="Meus pontos"
-                            onPress={() => props.navigation.navigate('')}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="trophy" color="#fff" size={24} />
-                            )}
-                            label="Ranking"
-                            onPress={handleNavigateToRanking}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="user-plus" color="#fff" size={24} />
-                            )}
-                            label="Convide amigos"
-                            onPress={handleNavigateToInviteFriends}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
-                        <DrawerItem
-                            icon={() => (
-                                <IconAwesome name="sign-out-alt" color="#fff" size={24} />
-                            )}
-                            label="Sair"
-                            onPress={handleSignOut}
-                            labelStyle={styles.drawerLabel}
-                            style={styles.drawerItem}
-                        />
+
+                        <View style={styles.separator}>
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="user" color="#fff" size={24} />
+                                )}
+                                label="Meu Perfil"
+                                onPress={handleNavigateToPerfil}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="history" color="#fff" size={24} />
+                                )}
+                                label="Histórico de doações"
+                                onPress={handleNavigateToHistoryDonation}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="hand-holding-heart" color="#fff" size={24} />
+                                )}
+                                label="Instituições acessadas"
+                                onPress={handleNavigateToHistoryReceivers}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                        </View>
+
+                        <View style={styles.separator}>
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="award" color="#fff" size={24} />
+                                )}
+                                label="Meus pontos"
+                                onPress={handleNavigateToMyPoints}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="trophy" color="#fff" size={24} />
+                                )}
+                                label="Ranking"
+                                onPress={handleNavigateToRanking}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="user-plus" color="#fff" size={24} />
+                                )}
+                                label="Convide amigos"
+                                onPress={handleNavigateToInviteFriends}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                        </View>
+
+                        <View style={styles.separator}>
+                            <DrawerItem
+                                icon={() => (
+                                    <IconAwesome name="sign-out-alt" color="#fff" size={24} />
+                                )}
+                                label="Sair"
+                                onPress={handleSignOut}
+                                labelStyle={styles.drawerLabel}
+                                style={styles.drawerItem}
+                            />
+                        </View>
                     </View>
                 </View>
             </DrawerContentScrollView>
@@ -235,6 +248,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginLeft: wp('-5%'),
         width: wp('52%')
+    },
+
+    separator: {
+        marginTop: wp("4%")
     }
 })
 
