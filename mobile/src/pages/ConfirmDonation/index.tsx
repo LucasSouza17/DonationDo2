@@ -48,7 +48,6 @@ function ConfirmDonation() {
                 }
             })
             navigation.navigate("AnnotatedDonation")
-            console.log("Deu bom!")
         } catch (err) {
             console.log(err);
         }

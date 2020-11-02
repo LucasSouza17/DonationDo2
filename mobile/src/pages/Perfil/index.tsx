@@ -40,7 +40,7 @@ function Perfil() {
     }, [nome, uf, city, avatar, loading])
 
     function handleGoBack() {
-        navigation.dispatch(StackActions.replace("Home"));
+        navigation.dispatch(StackActions.push("Home"));
     }
 
     function handleNavigateToUpdatePerfil() {

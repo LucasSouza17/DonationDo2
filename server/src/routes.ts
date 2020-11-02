@@ -142,7 +142,7 @@ routes.get('/doador/:id/doacoes/', historicoDoacoesController.index);
 routes.put('/doador/:id/CodigoConvite/', codigoConviteController.update);
 
 //Rota de Pontuação do Doador
-routes.get('/doador/pontuacao/', pontuacaoController.index);
+routes.get('/pontuacao/:id', pontuacaoController.index);
 
 //Rota de criação de medalhas
 routes.post('/medalha', medalhaController.create);

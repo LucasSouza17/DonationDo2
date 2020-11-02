@@ -106,12 +106,6 @@ function Ranking() {
                             </>
                         )}
                     />
-
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                    >
-
-                    </ScrollView>
                 </View>
             </View>
         </View>
@@ -145,12 +139,14 @@ const styles = StyleSheet.create({
     },
 
     containerHistory: {
+        flex: 1,
         marginTop: wp("4%"),
     },
 
     textHistory: {
         fontWeight: "bold",
-        color: "#8A8A8A"
+        color: "#8A8A8A",
+        marginBottom: wp("5%")
     },
 
     containerList: {
