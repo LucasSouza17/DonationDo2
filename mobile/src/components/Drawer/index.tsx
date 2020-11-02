@@ -5,7 +5,7 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { DrawerActions, StackActions, useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from "@expo/vector-icons/build/Feather";
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";

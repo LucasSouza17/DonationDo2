@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lulucarioxd.mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
