@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, ScrollView, FlatList, LogBox } from 'react-native';
+import { View, Text, StyleSheet, Image, StatusBar, ScrollView, FlatList, LogBox, ImageBackground } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from "@expo/vector-icons/build/Feather";
@@ -85,6 +85,9 @@ function Home() {
         0,
     ]);
 
+    const [loadingData, setLoadingData] = useState(true);
+    const [loadingPoints, setLoadingPoints] = useState(true);
+
     useEffect(() => {
         axios
             .get<IBGEUFResponse[]>(
@@ -125,6 +128,7 @@ function Home() {
                         setPointsUser(response.data.Pontuacao);
                         setNomeUser(response.data.Nome);
                         setAvatar(response.data.avatar_url);
+                        setLoadingData(false);
                     }
                 }, 200);
             }).catch(error => {
@@ -135,6 +139,7 @@ function Home() {
                     setPointsUser(null);
                     setNomeUser(null);
                     setAvatar(null);
+                    setLoadingData(true);
                 }
             })
         } catch (err) {
@@ -186,12 +191,14 @@ function Home() {
                     setTimeout(() => {
                         if (isSubscribed) {
                             setPoints(response.data);
+                            setLoadingPoints(false);
                         }
-                    }, 1000)
+                    }, 800)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
                         setPoints([]);
+                        setLoadingPoints(true);
                     }
                 })
             } else if (filterItem !== 0 && filterUf !== null && filterCity !== null) {
@@ -205,12 +212,14 @@ function Home() {
                     setTimeout(() => {
                         if (isSubscribed) {
                             setPoints(response.data);
+                            setLoadingPoints(false);
                         }
-                    }, 1000)
+                    }, 800)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
                         setPoints([]);
+                        setLoadingPoints(true);
                     }
                 })
             }
@@ -310,39 +319,44 @@ function Home() {
         setFilterItem(Number(selectedItems));
         modalizeRef.current?.close();
     }
+
+
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                {/* {doador.map(data => ( */}
-                <View style={styles.perfilContainer}>
-                    <View style={styles.perfil}>
-                        <Image
-                            source={{
-                                uri: avatar
-                                    ? avatar
-                                    : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
-                            }}
-                            style={styles.perfil}
-                        />
+            {!loadingData && (
+                <View style={styles.headerContainer}>
+                    <View style={styles.perfilContainer}>
+                        <View style={styles.perfil}>
+                            <Image
+                                source={{
+                                    uri: avatar
+                                        ? avatar
+                                        : "https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png"
+                                }}
+                                style={styles.perfil}
+                            />
+                        </View>
+                        <View style={styles.userData}>
+                            <Text style={styles.name}>{nomeUser}</Text>
+                            <Text style={styles.points}>{pointsUser} pontos</Text>
+                        </View>
                     </View>
-                    <View style={styles.userData}>
-                        <Text style={styles.name}>{nomeUser}</Text>
-                        <Text style={styles.points}>{pointsUser} pontos</Text>
-                    </View>
-                </View>
-                <TouchableOpacity onPress={handleDrawerOpen}>
-                    <Icon name="menu" size={28} color="#fff" style={styles.menuIcon} />
-                </TouchableOpacity>
-            </View>
-            <Toast ref={(ref: any) => Toast.setRef(ref)} />
-            <View style={styles.mainContainer}>
-                <View style={styles.headerMain}>
-                    <Text style={styles.title}>Filtre sua busca para doar</Text>
-                    <TouchableOpacity style={styles.filterButton} onPress={onOpenModalize}>
-                        <Text style={styles.textButton}>Filtrar</Text>
-                        <Icon name="filter" color="#fff" />
+                    <TouchableOpacity onPress={handleDrawerOpen}>
+                        <Icon name="menu" size={28} color="#fff" style={styles.menuIcon} />
                     </TouchableOpacity>
                 </View>
+            )}
+            <Toast ref={(ref: any) => Toast.setRef(ref)} />
+            <View style={styles.mainContainer}>
+                {!loadingData && (
+                    <View style={styles.headerMain}>
+                        <Text style={styles.title}>Filtre sua busca para doar</Text>
+                        <TouchableOpacity style={styles.filterButton} onPress={onOpenModalize}>
+                            <Text style={styles.textButton}>Filtrar</Text>
+                            <Icon name="filter" color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                )}
                 <View style={styles.mapContainer}>
                     {initialPosition[0] !== 0 && (
                         <MapView
@@ -362,7 +376,7 @@ function Home() {
                                         latitude: point.Latitude,
                                         longitude: point.Longitude
                                     }}
-                                    image={require('../../assets/icons/Location.png')}
+                                    pinColor="#280046"
                                 >
                                     <Callout
                                         tooltip
@@ -386,13 +400,12 @@ function Home() {
                                             point.Email
                                         )}
                                     >
-                                        <View style={styles.calloutBackground}>
+                                        <ImageBackground source={{ uri: point.image_url }} style={styles.calloutBackground}>
                                             <View style={styles.callout}>
                                                 <View>
                                                     <Text
                                                         style={
                                                             {
-
                                                                 color: "#fff",
                                                                 fontSize: wp("3.3%"),
                                                                 fontWeight: "bold"
@@ -413,7 +426,7 @@ function Home() {
                                                 </View>
                                                 <Text style={{ color: "#fff", fontSize: wp("2%"), marginLeft: wp("4%"), fontWeight: "bold" }}>Clique Aqui!</Text>
                                             </View>
-                                        </View>
+                                        </ImageBackground>
                                     </Callout>
                                 </Marker>
                             ))}
@@ -421,43 +434,41 @@ function Home() {
                     )}
                 </View>
             </View>
-            {initialPosition[0] !== 0 && (
-                <View style={styles.containerList}>
-                    <ScrollView
-                        style={styles.listPoints}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingHorizontal: wp('2%') }}
-                    >
-                        {points.map((point) => (
-                            <TouchableOpacity style={styles.List} key={point.id_Necessidade}
-                                onPress={() => handleNavigateToDescriptionNeed(
-                                    point.id_Necessidade,
-                                    point.Nome,
-                                    point.Latitude,
-                                    point.Longitude,
-                                    point.Titulo,
-                                    point.Descricao,
-                                    point.image_url,
-                                    point.Tipo,
-                                    point.Cidade,
-                                    point.UF,
-                                    point.Rua,
-                                    point.Bairro,
-                                    point.CEP,
-                                    point.Numero,
-                                    point.Telefone,
-                                    point.Whatsapp,
-                                    point.Email
-                                )}>
-                                <Image style={styles.imageList} source={{ uri: point.image_url }} />
-                                <Text style={styles.namePoint}>{point.Nome}</Text>
-                                <Text style={styles.titlePoint}>{point.Titulo}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
-                </View>
-            )}
+            <View style={styles.containerList}>
+                <ScrollView
+                    style={styles.listPoints}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: wp('2%') }}
+                >
+                    {points.map((point) => (
+                        <TouchableOpacity style={styles.List} key={point.id_Necessidade}
+                            onPress={() => handleNavigateToDescriptionNeed(
+                                point.id_Necessidade,
+                                point.Nome,
+                                point.Latitude,
+                                point.Longitude,
+                                point.Titulo,
+                                point.Descricao,
+                                point.image_url,
+                                point.Tipo,
+                                point.Cidade,
+                                point.UF,
+                                point.Rua,
+                                point.Bairro,
+                                point.CEP,
+                                point.Numero,
+                                point.Telefone,
+                                point.Whatsapp,
+                                point.Email
+                            )}>
+                            <Image style={styles.imageList} source={{ uri: point.image_url }} />
+                            <Text style={styles.namePoint}>{point.Nome}</Text>
+                            <Text style={styles.titlePoint}>{point.Titulo}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
             <Modalize ref={modalizeRef} handleStyle={{ backgroundColor: "#B95FF9" }}>
                 <View style={styles.containerModalize}>
                     <View style={styles.headerModalize}>

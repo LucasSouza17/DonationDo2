@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, StatusBar, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "@expo/vector-icons/build/Feather";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';

@@ -24,7 +24,12 @@
     },
     "description": "",
     "android": {
-      "package": "com.lulucarioxd.mobile"
+      "package": "com.lulucarioxd.mobile",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAysvF-hSfAAdZbUDMgMxrWMoc8UxC5BvU"
+        }
+      }
     }
   }
 }

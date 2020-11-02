@@ -6,7 +6,7 @@ import {
     StyleSheet,
     StatusBar,
     ScrollView,
-    Linking
+    Linking,
 } from "react-native";
 import Icon from "@expo/vector-icons/build/Feather";
 import { TouchableOpacity } from "react-native-gesture-handler";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform, RefreshControl } from 'react-native';
+import { View, Text, TextInput, StyleSheet, StatusBar, ScrollView, Linking, Share, Platform } from 'react-native';
 import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import IconAwesome from "@expo/vector-icons/build/FontAwesome5";

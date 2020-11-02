@@ -5,7 +5,7 @@ import Icon from "@expo/vector-icons/build/Feather";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface MedalhasI {
     id_Medalha: number,
