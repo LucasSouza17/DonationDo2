@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import api from "../../services/api";
 
 import Header from "../../components/LandingHeader";
@@ -20,6 +20,8 @@ interface DoacaoI {
 }
 
 function AprovarDoacao() {
+
+    const history = useHistory();
 
     const [doacao, setDoacao] = useState<DoacaoI[]>([]);
     const [loading, setLoading] = useState(true);
@@ -66,7 +68,8 @@ function AprovarDoacao() {
     }
 
     function Reload() {
-        setReload(false);
+        setReload(false); 
+        history.push("aprovardoacao");
     }
 
     return (
