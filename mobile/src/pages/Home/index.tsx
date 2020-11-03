@@ -150,7 +150,7 @@ function Home() {
             isSubscribed = false;
         }
 
-    }, [avatar, pointsUser, userUf, userCity, selectedUf, selectedCity])
+    }, [avatar, pointsUser, userUf, userCity])
 
     useEffect(() => {
         async function loadPosition() {
@@ -193,7 +193,7 @@ function Home() {
                             setPoints(response.data);
                             setLoadingPoints(false);
                         }
-                    }, 800)
+                    }, 400)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
@@ -214,7 +214,7 @@ function Home() {
                             setPoints(response.data);
                             setLoadingPoints(false);
                         }
-                    }, 800)
+                    }, 400)
                 }).catch(error => {
                     if (isSubscribed) {
                         console.log(error)
@@ -469,7 +469,7 @@ function Home() {
                     ))}
                 </ScrollView>
             </View>
-            <Modalize ref={modalizeRef} handleStyle={{ backgroundColor: "#B95FF9" }}>
+            <Modalize snapPoint={hp("95%")} ref={modalizeRef} handleStyle={{ backgroundColor: "#B95FF9" }}>
                 <View style={styles.containerModalize}>
                     <View style={styles.headerModalize}>
                         <Text style={styles.titleModalize}>Filtrar busca</Text>
@@ -487,7 +487,11 @@ function Home() {
                             >
                                 <Picker.Item label="Estado" value="0" color="#D6CCCA" />
                                 {ufs.map((uf) => (
-                                    <Picker.Item label={uf} value={uf} key={uf} color="#000" />
+                                    <Picker.Item 
+                                    label={uf} 
+                                    value={uf} 
+                                    key={uf} 
+                                    color="#000" />
                                 ))}
                             </Picker>
                         </View>

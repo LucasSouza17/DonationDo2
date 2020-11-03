@@ -126,10 +126,7 @@ function PerfilUpdate() {
       uri,
       type
     } = avatar;
-    const noImageDataStorage = {
-      userUF,
-      userCity
-    }
+    
     const dataSelected = {
       UF,
       Cidade
