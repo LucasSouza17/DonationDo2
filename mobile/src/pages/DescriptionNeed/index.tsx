@@ -116,7 +116,7 @@ function DescriptionNeed() {
                     <Text style={styles.tipoReceptor}>{routeParams.Tipo}</Text>
                 </View>
 
-                <ScrollView contentContainerStyle={{ paddingBottom: wp("5%") }}>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: wp("5%") }}>
                     <View style={styles.dataNeed}>
                         <Text style={styles.titleNeed}>{routeParams.Titulo}</Text>
                         <View style={styles.descriptionData}>
@@ -131,8 +131,8 @@ function DescriptionNeed() {
                             <Text style={styles.descriptionText}>Nº {routeParams.Numero}</Text>
 
                             <View style={styles.contact}>
-                                <Text style={{ padding: wp("2%"), marginTop: wp("2%"), fontWeight: "bold" }}>Navegação rápida</Text>
-                                <View style={{ flexDirection: "row" }}>
+                                <Text style={{ padding: wp("2%"), paddingHorizontal: wp("4%"), marginTop: wp("2%"), fontWeight: "bold", alignSelf: "flex-start" }}>Navegação rápida</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                     <View style={styles.containerButtonAddress}>
                                         <TouchableOpacity style={styles.buttonMap} onPress={handleMap}>
                                             <Icon name="map" size={20} color="#fff" />
@@ -257,14 +257,15 @@ const styles = StyleSheet.create({
         marginTop: wp("5%"),
         backgroundColor: "#fff",
         borderRadius: 8,
-        paddingHorizontal: wp("1%"),
+        justifyContent: "space-around",
+        alignItems:"center",
         paddingBottom: wp("4%")
     },
 
     containerButtonAddress: {
         alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: wp("4%"),
+        justifyContent: "space-between",
+        marginHorizontal: wp("3%"),
         marginTop: wp("4%"),
     },
 

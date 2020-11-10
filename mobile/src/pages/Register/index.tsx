@@ -241,7 +241,7 @@ function Register() {
                                 label={city}
                                 value={city}
                                 key={city}
-                                color="#fff"
+                                color="#000"
                             />
                         ))}
                     </Picker>

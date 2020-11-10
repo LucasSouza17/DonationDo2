@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     nomeUser: {
         fontWeight: "bold",
         color: "#300C4B",
-        fontSize: wp("4%")
+        fontSize: wp("2.8%")
     },
 
     containerDataPoints: {
@@ -205,13 +205,13 @@ const styles = StyleSheet.create({
     points: {
         color: "#300C4B",
         fontWeight: "bold",
-        fontSize: wp("6%"),
+        fontSize: wp("4.5%"),
         textAlign: "right"
     },
 
     pointsTitle: {
         marginTop: wp("-2%"),
-        fontSize: wp("3%"),
+        fontSize: wp("2.5%"),
         fontWeight: "bold",
         color: "#300C4B"
     }

@@ -414,14 +414,14 @@ function Home() {
                                             point.Email
                                         )}
                                     >
-                                        <ImageBackground source={{ uri: point.image_url }} style={styles.calloutBackground}>
+                                        <View style={styles.calloutBackground}>
                                             <View style={styles.callout}>
                                                 <View>
                                                     <Text
                                                         style={
                                                             {
                                                                 color: "#fff",
-                                                                fontSize: wp("3.3%"),
+                                                                fontSize: wp("2.8%"),
                                                                 fontWeight: "bold"
                                                             }
                                                         }>
@@ -432,7 +432,7 @@ function Home() {
                                                             {
                                                                 color: "#F90CC5",
                                                                 fontWeight: "bold",
-                                                                fontSize: wp("3.7%")
+                                                                fontSize: wp("3%")
                                                             }
                                                         }>
                                                         {point.Titulo}
@@ -440,7 +440,7 @@ function Home() {
                                                 </View>
                                                 <Text style={{ color: "#fff", fontSize: wp("2%"), marginLeft: wp("4%"), fontWeight: "bold" }}>Clique Aqui!</Text>
                                             </View>
-                                        </ImageBackground>
+                                        </View>
                                     </Callout>
                                 </Marker>
                             ))}
@@ -476,14 +476,15 @@ function Home() {
                                 point.Whatsapp,
                                 point.Email
                             )}>
-                            <Image style={styles.imageList} source={{ uri: point.image_url }} />
+                            <ImageBackground imageStyle={{opacity: 0.14, resizeMode: "cover", borderRadius: 8}} style={styles.imageList} source={{ uri: point.image_url }}>
                             <Text style={styles.namePoint}>{point.Nome}</Text>
                             <Text style={styles.titlePoint}>{point.Titulo}</Text>
+                            </ImageBackground>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
-            <Modalize snapPoint={hp("95%")} ref={modalizeRef} handleStyle={{ backgroundColor: "#B95FF9" }}>
+            <Modalize snapPoint={hp("100%")} modalHeight={hp("100%")} ref={modalizeRef} handleStyle={{ backgroundColor: "#B95FF9" }}>
                 <View style={styles.containerModalize}>
                     <View style={styles.headerModalize}>
                         <Text style={styles.titleModalize}>Filtrar busca</Text>
@@ -541,7 +542,7 @@ function Home() {
                         columnWrapperStyle={{ flex: 1, justifyContent: "flex-start" }}
                     />
                 </View>
-                <TouchableOpacity onPress={handleFilter} style={{ width: wp("80%"), height: hp("5%"), backgroundColor: "#15C211", alignItems: "center", justifyContent: "center", alignSelf: "center", marginTop: wp("5%"), borderRadius: 20 }}>
+                <TouchableOpacity onPress={handleFilter} style={{ width: wp("80%"), height: hp("5%"), backgroundColor: "#15C211", alignItems: "center", justifyContent: "center", alignSelf: "center", marginTop: wp("7%"), borderRadius: 20}}>
                     <Text style={{ color: "#fff" }}>Filtrar Busca</Text>
                 </TouchableOpacity>
             </Modalize>
@@ -599,7 +600,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: wp('4%')
+        marginTop: wp('1%')
     },
 
     headerMain: {
@@ -607,19 +608,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         padding: wp('4%'),
-        marginTop: wp('4%'),
+        marginTop: wp('3%'),
     },
 
     title: {
-        fontSize: wp('5.2%'),
+        fontSize: wp('4.5%'),
         color: "#300C4B",
         fontWeight: "bold"
     },
 
     filterButton: {
         backgroundColor: "#F90CC5",
-        width: wp('25%'),
-        height: hp('4.5%'),
+        width: wp('23%'),
+        height: hp('4%'),
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
@@ -627,14 +628,14 @@ const styles = StyleSheet.create({
     },
 
     textButton: {
-        marginHorizontal: wp('1.5%'),
+        marginHorizontal: wp('1.3%'),
         color: "#fff"
     },
 
     mapContainer: {
         flex: 1,
         padding: wp('4%'),
-        marginTop: wp('-2%')
+        marginTop: wp('-4%')
     },
 
     map: {
@@ -661,38 +662,33 @@ const styles = StyleSheet.create({
     },
 
     imageList: {
-        width: wp("35%"),
-        height: hp("15%"),
+        width: "100%",
+        height: "100%",
         borderRadius: 8,
         flex: 1,
         resizeMode: "cover",
-        alignSelf: "center",
+        justifyContent: "center",
     },
 
     titlePoint: {
         padding: wp('0.5%'),
-        backgroundColor: "#300C4B",
         textAlign: "center",
-        borderBottomRightRadius: 8,
-        borderBottomLeftRadius: 8,
         color: "#F90CC5",
-        fontSize: wp("3%"),
-        marginBottom: wp("2%"),
+        fontSize: wp("2.8%"),
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
+        fontWeight: "bold",
     },
 
     namePoint: {
-        marginTop: wp("1%"),
-        backgroundColor: "#300C4B",
+        padding: wp('0.5%'),
         textAlign: "center",
-        borderBottomRightRadius: 8,
-        borderBottomLeftRadius: 8,
         color: "#fff",
-        fontSize: wp("3.5%"),
-        fontWeight: "bold"
+        fontSize: wp("2.7%"),
+        fontWeight: "bold",
     },
 
     calloutBackground: {
-        resizeMode: "cover",
         borderRadius: 10,
         marginBottom: wp("0.5%"),
         backgroundColor: "#300C4B",
@@ -709,6 +705,7 @@ const styles = StyleSheet.create({
     containerModalize: {
         flex: 1,
         backgroundColor: "#fff",
+        justifyContent: "center"
     },
 
     headerModalize: {
@@ -716,7 +713,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: wp('5%'),
-        paddingTop: wp('4%')
     },
 
     titleModalize: {
