@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
 
     pointNumber: {
-        fontSize: wp("8%"),
+        fontSize: wp("7%"),
         color: "#fff",
         fontWeight: "bold"
     },

@@ -241,7 +241,7 @@ function Register() {
                                 label={city}
                                 value={city}
                                 key={city}
-                                color="#000"
+                                color="#fff"
                             />
                         ))}
                     </Picker>
@@ -253,7 +253,7 @@ function Register() {
                     secureTextEntry={true}
                     placeholderTextColor="#4F0A83"
                     style={styles.input}
-                    placeholder="Senha"
+                    placeholder="Digite uma senha de 8 caracteres"
                     onChangeText={(text) => setSenha(text)}
                     value={senha}
                 />
@@ -264,7 +264,7 @@ function Register() {
                     secureTextEntry={true}
                     placeholderTextColor="#4F0A83"
                     style={styles.input}
-                    placeholder="Confirmar senha"
+                    placeholder="Confirme sua senha"
                     onChangeText={(text) => setConfirmSenha(text)}
                     value={confirmSenha}
                 />
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
         height: hp('6%'),
         marginTop: wp('3%'),
         paddingLeft: wp('3%'),
-        color: "#4F0A83",
+        color: "#fff",
         borderRadius: 8
     },
 

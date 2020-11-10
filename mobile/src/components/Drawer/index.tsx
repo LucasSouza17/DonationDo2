@@ -40,7 +40,7 @@ function DrawerContent(props: any) {
         }
 
         getDataUser();
-    }, [loading])
+    }, [nomeUser, pointsUser, idUser, avatar, loading])
 
     function handleNavigateToHome() {
         navigation.navigate("Home");

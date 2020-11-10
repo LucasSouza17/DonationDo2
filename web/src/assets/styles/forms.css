@@ -82,6 +82,7 @@
 }
 
 .box-form-container .field input[type="text"]:focus,
+.box-form-container .field input[type="email"]:focus,
 .box-form-container .field input[type="password"]:focus,
 .box-form-container .field select:focus {
   border: solid 1px;

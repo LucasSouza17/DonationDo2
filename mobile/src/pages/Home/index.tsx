@@ -60,6 +60,8 @@ function Home() {
 
     const navigation = useNavigation();
 
+    const ToastModalize = Toast;
+
     const [nomeUser, setNomeUser] = useState(null);
     const [idUser, setIdUser] = useState<string | null>(null);
     const [avatar, setAvatar] = useState<string | null>(null);
@@ -314,10 +316,22 @@ function Home() {
     }
 
     function handleFilter() {
+        if(selectedCity === userCity && selectedUf !== userUf) {
+            ToastModalize.show({
+                type: 'error',
+                text1: 'Preencha a cidade',
+                text2: 'Você esqueceu de preencher a cidade correspondente',
+                visibilityTime: 2000,
+                topOffset: 7
+            })
+        }else {
         setFilterUf(selectedUf);
         setFilterCity(selectedCity);
         setFilterItem(Number(selectedItems));
         modalizeRef.current?.close();
+        console.log(selectedCity);
+        console.log(selectedUf)
+        }
     }
 
 
@@ -474,6 +488,7 @@ function Home() {
                     <View style={styles.headerModalize}>
                         <Text style={styles.titleModalize}>Filtrar busca</Text>
                     </View>
+                    <ToastModalize ref={(ref: any) => ToastModalize.setRef(ref)} />
                     <View style={styles.containerPicker}>
                         <Text style={styles.descriptionPicker}>Escolha um estado e em seguida uma cidade</Text>
                         <View style={styles.inputPicker}>

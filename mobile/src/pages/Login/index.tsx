@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         marginTop: wp('3%'),
         paddingLeft: wp('3%'),
         fontWeight: "bold",
-        color: "#4F0A83",
+        color: "#fff",
         borderRadius: 8
     },
 

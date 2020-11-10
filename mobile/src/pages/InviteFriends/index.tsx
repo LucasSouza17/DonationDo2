@@ -100,7 +100,7 @@ function InviteFriends() {
                 })
                 setTimeout(() => {
                     navigation.dispatch(StackActions.push("Home"));
-                }, 3000)
+                }, 2000)
             }
             catch(err) {
                 Toast.show({
@@ -134,7 +134,7 @@ function InviteFriends() {
                     </View>
                     <View style={styles.section2}>
                         <Text style={styles.text2}>Convide um amigo compartilhando esse
-                        código, e ainda ganha um bônus de <Text style={styles.textPoint}>50 pontos!</Text>
+                        código, e ainda ganha um bônus de <Text style={styles.textPoint}>15 pontos!</Text>
                         </Text>
                     </View>
                 </View>

@@ -14,7 +14,7 @@ function OnBoarding2() {
         <ImageBackground source={require('../../assets/onboarding/onboarding.jpg')} style={styles.container}>
             <Image style={styles.board1} source={require("../../assets/onboarding/board2.png")} />
             <Text style={styles.title}>Convide Amigos</Text>
-            <Text style={styles.description}>Convide amigos para ganhar o bonûs de<Text style={styles.destaque}> 50 pontos.</Text></Text>
+            <Text style={styles.description}>Convide amigos para ganhar o bonûs de<Text style={styles.destaque}> 15 pontos.</Text></Text>
             <TouchableOpacity style={styles.nextButton} onPress={handleEndBoard}>
                 <Text style={styles.textButton}>Pronto</Text>
             </TouchableOpacity>

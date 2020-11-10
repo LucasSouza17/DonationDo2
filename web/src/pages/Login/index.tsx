@@ -66,7 +66,7 @@ function Login() {
             <div className="field">
               <label htmlFor="Email">Email</label>
               <input
-                type="Email"
+                type="email"
                 name="Email"
                 id="Email"
                 inputMode="email"
