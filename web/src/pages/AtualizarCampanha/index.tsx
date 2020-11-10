@@ -39,14 +39,23 @@ function AtualizarCampanha() {
 
   function handleAtualizar() {
     setValidate("atualizar");
+    setTimeout(() => {
+      document.getElementById('button')?.focus();
+    }, 10)
   }
 
   function handleFinalizar() {
     setValidate("finalizar");
+    setTimeout(() => {
+      document.getElementById('button')?.focus();
+    }, 10)
   }
 
   function handleCancelar() {
     setValidate("cancelar")
+    setTimeout(() => {
+      document.getElementById('button')?.focus();
+    }, 10)
   }
 
   async function handleConcluir() {
@@ -157,9 +166,9 @@ function AtualizarCampanha() {
           </div>
           {validate !== "" ? (
             <div className="button-validate">
-              <label style={{ color: "#000"}}>Você tem certeza que deseja <label style={{color: "#F90CC5", fontWeight: "bold" }}>{validate}</label> essa campanha?</label>
+              <label style={{ color: "#000" }}>Você tem certeza que deseja <label style={{ color: "#F90CC5", fontWeight: "bold" }}>{validate}</label> essa campanha?</label>
               <div id="button-margin-top">
-                <button className="button-concluir" type="button" onClick={handleConcluir}>
+                <button id="button" className="button-concluir" type="button" onClick={handleConcluir}>
                   Sim
               </button>
               </div>

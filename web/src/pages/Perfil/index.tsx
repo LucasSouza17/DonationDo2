@@ -53,8 +53,8 @@ function Perfil() {
         <div id="box-home">
           <div className="box-header">
             <h1>Perfil</h1>
-            <Link to="andamento" style={{textDecoration: "none"}}>
-              <h3>Voltar para o menu</h3>
+            <Link to="andamento" style={{textDecoration: "none", marginTop: "2rem"}}>
+              <h3 style={{fontSize: "1.6rem"}}>Voltar para o menu</h3>
               </Link>
           </div>
             {userdata.map(data => (

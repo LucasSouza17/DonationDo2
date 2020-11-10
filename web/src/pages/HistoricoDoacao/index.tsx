@@ -22,7 +22,7 @@ function HistoricoDoacao() {
     const [doacao, setDoacao] = useState<DoacaoI[]>([]);
     const [total, setTotal] = useState<number>(0);
     const [pages, setPages] = useState<number[]>([]);
-    const limit = 5;
+    const limit = 10;
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {

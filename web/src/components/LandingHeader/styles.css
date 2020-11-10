@@ -5,10 +5,11 @@
   width: 100%;
   padding: 2rem;
   flex-direction: column;
+  margin-top: 3rem;
 }
 
 .logo-container img {
-  height: 1.7rem;
+  height: 3.2rem;
 }
 
 
