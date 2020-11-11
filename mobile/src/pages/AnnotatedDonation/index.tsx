@@ -23,7 +23,7 @@ function AnnotatedDonation() {
                 <Text style={styles.description}>Você pode visualizar as informações de
                 suas doações no menu em
                 </Text>
-                <Text style={styles.destaque}> Histório de doações</Text>
+                <Text style={styles.destaque}> Histórico de doações</Text>
             </View>
             <TouchableOpacity style={styles.button} onPress={handleNavigateToHome}>
                 <Text style={styles.textButton}>Voltar à página principal</Text>

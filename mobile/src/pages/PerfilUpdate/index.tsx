@@ -250,7 +250,7 @@ function PerfilUpdate() {
                   setSelectedUf(itemValue.toString())
                 }
               >
-                <Picker.Item label={userUF} value={userUF} color="#D6CCCA" />
+                <Picker.Item label="Estado" value={userUF} color="#D6CCCA" />
                 {ufs.map((uf) => (
                   <Picker.Item label={uf} value={uf} key={uf} color="#000" />
                 ))}
@@ -265,7 +265,7 @@ function PerfilUpdate() {
                   setSelectedCity(itemValue.toString())
                 }
               >
-                <Picker.Item label={userCity} value={userCity} color="#D6CCCA" />
+                <Picker.Item label="Cidade" value={userCity} color="#D6CCCA" />
                 {cities.map((city) => (
                   <Picker.Item
                     label={city}
@@ -277,6 +277,7 @@ function PerfilUpdate() {
               </Picker>
             </View>
           </View>
+          <Text style={{color: "red", fontWeight: "100", paddingHorizontal: wp("12%"), marginTop: wp("2%"), fontSize: wp("2.6%")}}>Aviso: Seu estado e sua cidade já estão selecionados, caso queira alterar só a imagem, escolha uma e depois toque em salvar dados.</Text>
         </View>
       </View>
       <View style={styles.containerButton}>
@@ -345,7 +346,7 @@ const styles = StyleSheet.create({
   picker: {
     width: wp("80%"),
     height: hp("6%"),
-    color: "#4F0A83"
+    color: "#fff"
   },
 
   pickerIOS: {

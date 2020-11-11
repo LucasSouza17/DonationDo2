@@ -233,7 +233,7 @@ function Home() {
             isSubscribed = false;
         }
 
-    }, [filterItem, filterUf, filterCity, selectedCity, selectedUf, userCity, userUf])
+    }, [filterItem, filterUf, filterCity, userCity, userUf])
 
     useEffect(() => {
         api.get("itens").then((response) => {
@@ -329,8 +329,6 @@ function Home() {
         setFilterCity(selectedCity);
         setFilterItem(Number(selectedItems));
         modalizeRef.current?.close();
-        console.log(selectedCity);
-        console.log(selectedUf)
         }
     }
 
@@ -476,7 +474,7 @@ function Home() {
                                 point.Whatsapp,
                                 point.Email
                             )}>
-                            <ImageBackground imageStyle={{opacity: 0.14, resizeMode: "cover", borderRadius: 8}} style={styles.imageList} source={{ uri: point.image_url }}>
+                            <ImageBackground imageStyle={{opacity: 0.22, resizeMode: "cover", borderRadius: 8}} style={styles.imageList} source={{ uri: point.image_url }}>
                             <Text style={styles.namePoint}>{point.Nome}</Text>
                             <Text style={styles.titlePoint}>{point.Titulo}</Text>
                             </ImageBackground>
