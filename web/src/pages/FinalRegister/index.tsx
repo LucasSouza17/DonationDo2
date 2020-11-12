@@ -54,12 +54,12 @@ function FinalRegister() {
     Nome: "",
     Descricao: "",
     Telefone: "",
-    Whatsapp: "Whatsapp Não Preenchido",
+    Whatsapp: "-",
     Tipo: "",
     Bairro: "",
     Rua: "",
     Numero: "",
-    CEP: "Null",
+    CEP: "-",
   });
 
   useEffect(() => {
@@ -194,7 +194,11 @@ function FinalRegister() {
 
     try {
       if(selectedFile === undefined){
-      if (UF === "0") {
+        if(selectedTipo === "0") {
+          toast.warning("Tipo não pode ser nulo.");
+          document.getElementById("tipo")?.focus();
+        }
+      else if (UF === "0") {
         toast.warning("UF não pode ser nulo.");
         document.getElementById("uf")?.focus();
       } else if (Cidade === "0") {
@@ -215,7 +219,11 @@ function FinalRegister() {
         }, 2500);
       }
     } else {
-      if (UF === "0") {
+      if(selectedTipo === "0") {
+        toast.warning("Tipo não pode ser nulo.");
+        document.getElementById("tipo")?.focus();
+      }
+      else if (UF === "0") {
         toast.warning("UF não pode ser nulo.");
         document.getElementById("uf")?.focus();
       } else if (Cidade === "0") {
@@ -326,7 +334,7 @@ function FinalRegister() {
           </div>
 
           <div className="field">
-            <label>Insira uma foto do local*</label>
+            <label>Insira uma foto do local</label>
             <Dropzone onFileUploaded={setSelectedFile} />
           </div>
 

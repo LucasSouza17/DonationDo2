@@ -42,7 +42,7 @@ function Login() {
           history.push("/home");
         }, 2200);
       }catch(err) {
-        toast.error("😕 Falha ao entrar no sistema.")
+        toast.error("😕 Login ou senha inválidos")
       }
   }
 

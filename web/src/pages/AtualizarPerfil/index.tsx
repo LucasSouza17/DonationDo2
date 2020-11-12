@@ -193,7 +193,7 @@ function AtualizarPerfil() {
             `receptor/${id_Receptor}`,
             noImageData
           );
-          toast.success("Cadastro realizado com sucesso");
+          toast.success("Perfil atualizado com sucesso");
           setTimeout(() => {
             history.push("perfil");
             localStorage.setItem("Nome", response.data.Nome);
@@ -216,7 +216,7 @@ function AtualizarPerfil() {
 
           console.log(data);
 
-          toast.success("Cadastro realizado com sucesso");
+          toast.success("Perfil atualizado com sucesso");
           setTimeout(() => {
             history.push("perfil");
             localStorage.setItem("Nome", response.data.Nome);
@@ -250,6 +250,7 @@ function AtualizarPerfil() {
               inputMode="text"
               onChange={(e) => setNome(e.target.value)}
               defaultValue={nome}
+              required
             />
           </div>
           <div className="field">
@@ -262,6 +263,7 @@ function AtualizarPerfil() {
               id="Descricao"
               defaultValue={descricao}
               onChange={(e) => setDescricao(e.target.value)}
+              required
             />
           </div>
 
@@ -275,6 +277,7 @@ function AtualizarPerfil() {
                 inputMode="text"
                 onChange={(e) => setTelefone(e.target.value)}
                 defaultValue={telefone}
+                required
               />
             </div>
             <div className="field">
@@ -343,6 +346,7 @@ function AtualizarPerfil() {
                 id="bairro"
                 defaultValue={bairro}
                 onChange={(e) => setBairro(e.target.value)}
+                required
               />
             </div>
           </div>
@@ -355,6 +359,7 @@ function AtualizarPerfil() {
                 id="rua"
                 defaultValue={rua}
                 onChange={(e) => setRua(e.target.value)}
+                required
               />
             </div>
             <div className="field">
@@ -365,6 +370,7 @@ function AtualizarPerfil() {
                 id="numero"
                 defaultValue={numero}
                 onChange={(e) => setNumero(e.target.value)}
+                required
               />
             </div>
           </div>

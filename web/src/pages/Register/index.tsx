@@ -19,23 +19,28 @@ function Register() {
   function handleCreateUser(event: FormEvent) {
     event.preventDefault();
 
-    if (confirmarSenha === senha) {
-      api
-        .post("/receptor", {
-          Email: email,
-          Senha: senha,
-        })
-        .then(() => {
-          toast.success("😀 Cadastro realizado com sucesso");
-          setTimeout(() => {
-          history.push('/login')
-        }, 2200);
-        })
-        .catch(() => {
-          toast.error("😕 Falha ao se cadastrar");
-        });
-    } else {
-      toast.warning("😨 As senhas não se coincidem.");
+    try {
+      if (confirmarSenha === senha) {
+        api
+          .post("/receptor", {
+            Email: email,
+            Senha: senha,
+          })
+          .then(() => {
+            toast.success("😀 Cadastro realizado com sucesso");
+            setTimeout(() => {
+              history.push('/login')
+            }, 2200);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.warning("😕 Esse email já está cadastrado.");
+          });
+      } else {
+        toast.warning("😨 As senhas não se coincidem.");
+      }
+    } catch (err) {
+      toast.error("😨 Falha ao se conectar.");
     }
   }
 
@@ -83,9 +88,10 @@ function Register() {
                   setSenha(e.target.value);
                 }}
                 minLength={8}
-                placeholder="A senha deve conter 8 ou mais caracteres"
-                pattern="^.{8,30}$"
+                placeholder="A senha deve conter de 8 a 20 caracteres"
+                pattern="^.{8,20}$"
                 required
+                maxLength={20}
               />
             </div>
             <div className="field">
@@ -97,14 +103,16 @@ function Register() {
                 onChange={(e) => {
                   setConfirmarSenha(e.target.value);
                 }}
-                placeholder="A senha deve conter 8 ou mais caracteres"
-                pattern="^.{8,30}$"
+                placeholder="Sua senha deve estar igual a anterior"
+                pattern="^.{8,20}$"
                 required
+                maxLength={20}
+                minLength={8}
               />
             </div>
           </div>
           <div className="button-submit">
-              <button type="submit">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
           </div>
           <div className="spans">
             <span className="span-cadastro">
