@@ -8,6 +8,8 @@
     text-align: center;
     border-radius: 50px;
     transition: all linear 0.2s;
+    border: 0;
+    cursor: pointer;
 }
 
 .aprovar a {
@@ -21,6 +23,8 @@
 }
 
 .recusar {
+    cursor: pointer;
+    border: 0;
     margin-right: 1rem;
     background-color: #FF0000;
     padding: 0.6rem;
@@ -60,7 +64,23 @@
 }
 
 #voltar-link:hover{
-    opacity: 0.7;
+    opacity: 0.6;
+}
+
+.atualizar{
+    border: 0;
+    color: #fff;
+    font-size: 14; 
+    width: 10rem; 
+    height: 3rem;
+    background-color: #F90CC5;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all linear 0.2s;
+}
+
+.atualizar:hover {
+    opacity: 0.5;
 }
 
 @media (max-width: 700px) {

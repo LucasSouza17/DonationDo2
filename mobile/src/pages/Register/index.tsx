@@ -141,6 +141,15 @@ function Register() {
                 topOffset: 50
             })
         }
+        else if (Senha.length < 8) {
+            Toast.show({
+                type: 'error',
+                text1: 'Sua senha é maior que 8 caracteres?',
+                text2: 'Suas senhas precisam ser maiores que 8 caracteres para prosseguir.',
+                visibilityTime: 4000,
+                topOffset: 50
+            })
+        }
         else if (Senha !== confirmSenha) {
             Toast.show({
                 type: 'error',
@@ -193,13 +202,12 @@ function Register() {
                 <Toast ref={(ref: any) => Toast.setRef(ref)} />
                 <Text style={styles.title}>Crie sua conta, é simples e rápido.</Text>
                 <TextInput
-                    autoFocus={true}
                     selectionColor="#390A5C"
                     textContentType="name"
                     placeholderTextColor="#4F0A83"
                     style={styles.input}
                     value={nome}
-                    placeholder="Nome completo"
+                    placeholder="Usuário"
                     onChangeText={(text) => setNome(text)}
                 />
                 <TextInput
@@ -210,6 +218,7 @@ function Register() {
                     placeholder="E-mail"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
+                    autoCapitalize="none"
                 />
                 <View style={styles.inputPicker}>
                     <Picker
@@ -253,9 +262,10 @@ function Register() {
                     secureTextEntry={true}
                     placeholderTextColor="#4F0A83"
                     style={styles.input}
-                    placeholder="Digite uma senha de 8 caracteres"
+                    placeholder="8 a 20 caracteres"
                     onChangeText={(text) => setSenha(text)}
                     value={senha}
+                    maxLength={20}
                 />
                 <TextInput
                     autoCapitalize="none"
@@ -267,6 +277,7 @@ function Register() {
                     placeholder="Confirme sua senha"
                     onChangeText={(text) => setConfirmSenha(text)}
                     value={confirmSenha}
+                    maxLength={20}
                 />
                 <View style={styles.containerButtons}>
                     <RectButton style={styles.buttonSubmit} onPress={handleRegister}>

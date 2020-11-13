@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "@expo/vector-icons/build/Feather";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 
@@ -36,7 +36,7 @@ function HistoryReceiver() {
     }, [])
 
     function handleNavigateGoBack() {
-        navigation.goBack();
+        navigation.dispatch(StackActions.push("Home"));
     }
 
     return (

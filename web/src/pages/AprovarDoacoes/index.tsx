@@ -41,15 +41,18 @@ function AprovarDoacao() {
     }, [loading, reload])
 
     async function Aprovar(id_Doacao: number) {
+        setReload(true);
         try {
             api.put(`receptor/doacao/${id_Doacao}/confirmar`)
             toast.success("Doação aprovada com sucesso");
             setLoading(false);
+            setReload(false);
         } catch (err) {
             console.log("erro")
         }
         if(loading === false) {
             setLoading(true);
+            setReload(true);
         }
     }
 
@@ -98,7 +101,7 @@ function AprovarDoacao() {
                         </Link>
                     </div>
                     <div style={{width: 200}}>
-                        <button style={{color: "#fff", fontSize: 14, width: 100, height: 25, backgroundColor: "#F90CC5", border: "none", borderRadius: 8}} onClick={Reload}>Atualizar</button>
+                        <button className="atualizar" onClick={Reload}>Atualizar</button>
                     </div>
                     {doacao.map((doacao) => (
                         <div className="container-lista" key={doacao.id_Doacao}>
@@ -118,12 +121,8 @@ function AprovarDoacao() {
                             </div>
 
                             <div id="container-data-link">
-                                <div className="aprovar">
-                                    <Link to="aprovardoacao" onClick={() => Aprovar(doacao.id_Doacao)} >Confirmar</Link>
-                                </div>
-                                <div className="recusar">
-                                    <Link to="aprovardoacao" onClick={() => Recusar(doacao.id_Doacao)}>Recusar</Link>
-                                </div>
+                                    <button type="button" className="aprovar" onClick={() => Aprovar(doacao.id_Doacao)} >Confirmar</button>
+                                    <button type="button" className="recusar" onClick={() => Recusar(doacao.id_Doacao)}>Recusar</button>
                             </div>
                         </div>
                     ))}
@@ -131,7 +130,7 @@ function AprovarDoacao() {
             </div>
             <ToastContainer
                 position={"top-center"}
-                autoClose={1600}
+                autoClose={1000}
                 transition={Bounce}
             />
         </div>
