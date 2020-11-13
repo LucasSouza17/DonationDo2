@@ -36,7 +36,7 @@ function InviteFriends() {
     }, [inputCode])
 
     function handleGoBack() {
-        navigation.goBack();
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     function copyText() {

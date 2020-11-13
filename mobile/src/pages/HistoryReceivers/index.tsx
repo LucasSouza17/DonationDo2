@@ -34,9 +34,9 @@ function HistoryReceiver() {
 
         History();
     }, [])
-
+        
     function handleNavigateGoBack() {
-        navigation.dispatch(StackActions.push("Home"));
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     return (

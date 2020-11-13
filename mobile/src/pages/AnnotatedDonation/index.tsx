@@ -12,7 +12,7 @@ function AnnotatedDonation() {
     const navigation = useNavigation();
 
     function handleNavigateToHome() {
-        navigation.dispatch(StackActions.push("Home"));
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     return (

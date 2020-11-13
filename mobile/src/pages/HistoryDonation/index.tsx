@@ -33,6 +33,10 @@ function HistoryDonation() {
     const navigation = useNavigation();
 
     const [history, setHistory] = useState<historyI[]>([]);
+    const [colorStatus, setColorStatus] = useState("");
+    const [textStatus, setTextStatus] = useState("");
+    const [textColor, setTextColor] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         async function getHistory() {
@@ -40,16 +44,29 @@ function HistoryDonation() {
             try {
                 api.get(`doador/${Number(id)}/doacoes/`).then((response) => {
                     setHistory(response.data);
+                    setStatus(response.data.Status);
                 })
             } catch (err) {
                 console.log(err);
             }
         }
         getHistory();
-    }, [history])
+    }, [])
+
+    useEffect(() => {
+        if (status === "Doação pendente") {
+            setTextColor("#FFB800");
+        }
+        if (status === "Doação concluida") {
+            setTextColor("#15C211");
+        }
+        if (status === "Doação recusada") {
+            setTextColor("#C21111");
+        }
+    }, [])
 
     function handleNavigateGoBack() {
-        navigation.dispatch(StackActions.push("Home"));
+        navigation.dispatch(StackActions.replace("Home"));
     }
 
     function handleNavigateDonationProgress(
@@ -136,6 +153,7 @@ function HistoryDonation() {
                                     )}
                                 >
                                     <Text style={styles.textButton}>{data.NomeReceptor}</Text>
+                                    <Text style={data.Status === "Doação pendente" ? {color: "#FFB800", fontWeight: "bold"} : data.Status === "Doação concluida" ? {color: "#15C211", fontWeight: "bold"} : {color: "#C21111", fontWeight: "bold"}}>{data.Status}</Text>
                                     <Icon name="chevron-right" color="#74009E" size={24} />
                                 </TouchableOpacity>
                             </View>

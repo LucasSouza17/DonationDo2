@@ -41,18 +41,18 @@ function AprovarDoacao() {
     }, [loading, reload])
 
     async function Aprovar(id_Doacao: number) {
-        setReload(true);
         try {
             api.put(`receptor/doacao/${id_Doacao}/confirmar`)
             toast.success("Doação aprovada com sucesso");
             setLoading(false);
-            setReload(false);
+            setTimeout(() => {
+                history.go(0);
+            }, 1000)
         } catch (err) {
             console.log("erro")
         }
         if(loading === false) {
-            setLoading(true);
-            setReload(true);
+            setLoading(true);        
         }
     }
 
@@ -61,18 +61,20 @@ function AprovarDoacao() {
             api.put(`receptor/doacao/${id_Doacao}/recusar`)
             toast.success("Doação recusada com sucesso");
             setLoading(false);
+            setTimeout(() => {
+                history.go(0);
+            }, 1000)
         } catch (err) {
             console.log("erro")
         }
 
         if(loading === false) {
-            setLoading(true);
+            setLoading(true);        
         }
     }
 
     function Reload() {
-        setReload(false); 
-        history.push("aprovardoacao");
+        history.go(0);
     }
 
     return (
