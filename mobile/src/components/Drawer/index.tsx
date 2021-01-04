@@ -22,9 +22,11 @@ function DrawerContent(props: any) {
     const [avatar, setAvatar] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         async function getDataUser() {
+            setRefresh(false);
             const Id = await AsyncStorage.getItem("isLoggedId");
             setIdUser(Id);
             try {
@@ -40,7 +42,7 @@ function DrawerContent(props: any) {
         }
 
         getDataUser();
-    }, [nomeUser, pointsUser, idUser, avatar, loading])
+    }, [nomeUser, pointsUser, idUser, avatar, loading, refresh])
 
     function handleNavigateToHome() {
         navigation.navigate("Home");
@@ -79,6 +81,10 @@ function DrawerContent(props: any) {
         navigation.dispatch(DrawerActions.closeDrawer());
     }
 
+    function handleRefresh() {
+        setRefresh(true);
+    }
+
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -97,9 +103,16 @@ function DrawerContent(props: any) {
                                 style={styles.perfil}
                             />
                         </View>
-                        <View style={styles.userData}>
-                            <Text style={styles.name}>{nomeUser}</Text>
-                            <Text style={styles.points}>{pointsUser} pontos</Text>
+                        <View style={styles.containerUserData}>
+                            <View style={styles.userData}>
+                                <Text style={styles.name}>{nomeUser}</Text>
+                                <Text style={styles.points}>{pointsUser} pontos</Text>
+                            </View>
+                            <View style={styles.refreshButton}>
+                                <TouchableOpacity onPress={handleRefresh}>
+                                    <Icon name="rotate-ccw" size={20} color="#fff" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.drawerSection}>
@@ -219,8 +232,14 @@ const styles = StyleSheet.create({
         borderRadius: wp('100%'),
     },
 
+    containerUserData: {
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+    },
+
     userData: {
         marginLeft: wp('2%'),
+        marginBottom: wp('2%')
     },
 
     name: {
@@ -231,6 +250,10 @@ const styles = StyleSheet.create({
     points: {
         color: "#F90CC5",
         fontWeight: "bold"
+    },
+
+    refreshButton: {
+        marginLeft: wp('2%')
     },
 
     drawerSection: {

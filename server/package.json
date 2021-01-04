@@ -2,10 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/server.js",
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
-    "knex:seed": "knex --knexfile knexfile.ts seed:run"
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "",

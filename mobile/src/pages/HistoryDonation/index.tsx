@@ -33,40 +33,25 @@ function HistoryDonation() {
     const navigation = useNavigation();
 
     const [history, setHistory] = useState<historyI[]>([]);
-    const [colorStatus, setColorStatus] = useState("");
-    const [textStatus, setTextStatus] = useState("");
-    const [textColor, setTextColor] = useState("");
-    const [status, setStatus] = useState("");
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         async function getHistory() {
+            setRefresh(false);
             const id = await AsyncStorage.getItem("isLoggedId");
             try {
                 api.get(`doador/${Number(id)}/doacoes/`).then((response) => {
                     setHistory(response.data);
-                    setStatus(response.data.Status);
                 })
             } catch (err) {
                 console.log(err);
             }
         }
         getHistory();
-    }, [])
-
-    useEffect(() => {
-        if (status === "Doação pendente") {
-            setTextColor("#FFB800");
-        }
-        if (status === "Doação concluida") {
-            setTextColor("#15C211");
-        }
-        if (status === "Doação recusada") {
-            setTextColor("#C21111");
-        }
-    }, [])
+    }, [refresh])
 
     function handleNavigateGoBack() {
-        navigation.dispatch(StackActions.replace("Home"));
+        navigation.goBack();
     }
 
     function handleNavigateDonationProgress(
@@ -111,12 +96,21 @@ function HistoryDonation() {
         })
     }
 
+    function handleRefresh() {
+        setRefresh(true);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleNavigateGoBack}>
                     <Icon name="arrow-left" color="#36004A" size={28} />
                 </TouchableOpacity>
+                <View style={styles.refreshButton}>
+                    <TouchableOpacity onPress={handleRefresh}>
+                        <Icon name="rotate-ccw" size={24} color="#36004A" />
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.main}>
                 <Text style={styles.title}>Histórico de doações</Text>
@@ -153,7 +147,7 @@ function HistoryDonation() {
                                     )}
                                 >
                                     <Text style={styles.textButton}>{data.NomeReceptor}</Text>
-                                    <Text style={data.Status === "Doação pendente" ? {color: "#FFB800", fontWeight: "bold"} : data.Status === "Doação concluida" ? {color: "#15C211", fontWeight: "bold"} : {color: "#C21111", fontWeight: "bold"}}>{data.Status}</Text>
+                                    <Text style={data.Status === "Doação pendente" ? { color: "#FFB800", fontWeight: "bold" } : data.Status === "Doação concluida" ? { color: "#15C211", fontWeight: "bold" } : { color: "#C21111", fontWeight: "bold" }}>{data.Status}</Text>
                                     <Icon name="chevron-right" color="#74009E" size={24} />
                                 </TouchableOpacity>
                             </View>
@@ -177,6 +171,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: wp('5%'),
         paddingTop: wp('4%')
+    },
+
+    refreshButton: {
+        paddingTop: wp('1%')
     },
 
     main: {

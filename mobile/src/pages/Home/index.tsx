@@ -89,6 +89,7 @@ function Home() {
 
     const [loadingData, setLoadingData] = useState(true);
     const [loadingPoints, setLoadingPoints] = useState(true);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         axios
@@ -115,6 +116,7 @@ function Home() {
     }, [selectedUf, selectedCity]);
 
     useEffect(() => {
+        setRefresh(false);
         let isSubscribed = true;
         AsyncStorage.getItem("isLoggedId").then(id => {
             setIdUser(id)
@@ -152,7 +154,7 @@ function Home() {
             isSubscribed = false;
         }
 
-    }, [avatar, pointsUser, userUf, userCity])
+    }, [avatar, pointsUser, userUf, userCity, refresh])
 
     useEffect(() => {
         async function loadPosition() {
@@ -316,7 +318,7 @@ function Home() {
     }
 
     function handleFilter() {
-        if(selectedCity === userCity && selectedUf !== userUf) {
+        if (selectedCity === userCity && selectedUf !== userUf) {
             ToastModalize.show({
                 type: 'error',
                 text1: 'Preencha a cidade',
@@ -324,12 +326,16 @@ function Home() {
                 visibilityTime: 2000,
                 topOffset: 7
             })
-        }else {
-        setFilterUf(selectedUf);
-        setFilterCity(selectedCity);
-        setFilterItem(Number(selectedItems));
-        modalizeRef.current?.close();
+        } else {
+            setFilterUf(selectedUf);
+            setFilterCity(selectedCity);
+            setFilterItem(Number(selectedItems));
+            modalizeRef.current?.close();
         }
+    }
+
+    function handleRefresh() {
+        setRefresh(true);
     }
 
 
@@ -348,9 +354,16 @@ function Home() {
                                 style={styles.perfil}
                             />
                         </View>
-                        <View style={styles.userData}>
-                            <Text style={styles.name}>{nomeUser}</Text>
-                            <Text style={styles.points}>{pointsUser} pontos</Text>
+                        <View style={styles.containerUserData}>
+                            <View style={styles.userData}>
+                                <Text style={styles.name}>{nomeUser}</Text>
+                                <Text style={styles.points}>{pointsUser} pontos</Text>
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={handleRefresh}>
+                                    <Icon name="rotate-ccw" size={20} color="#fff" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <TouchableOpacity onPress={handleDrawerOpen}>
@@ -474,9 +487,9 @@ function Home() {
                                 point.Whatsapp,
                                 point.Email
                             )}>
-                            <ImageBackground imageStyle={{opacity: 0.22, resizeMode: "cover", borderRadius: 8}} style={styles.imageList} source={{ uri: point.image_url }}>
-                            <Text style={styles.namePoint}>{point.Nome}</Text>
-                            <Text style={styles.titlePoint}>{point.Titulo}</Text>
+                            <ImageBackground imageStyle={{ opacity: 0.22, resizeMode: "cover", borderRadius: 8 }} style={styles.imageList} source={{ uri: point.image_url }}>
+                                <Text style={styles.namePoint}>{point.Nome}</Text>
+                                <Text style={styles.titlePoint}>{point.Titulo}</Text>
                             </ImageBackground>
                         </TouchableOpacity>
                     ))}
@@ -501,11 +514,11 @@ function Home() {
                             >
                                 <Picker.Item label="Estado" value="0" color="#D6CCCA" />
                                 {ufs.map((uf) => (
-                                    <Picker.Item 
-                                    label={uf} 
-                                    value={uf} 
-                                    key={uf} 
-                                    color="#000" />
+                                    <Picker.Item
+                                        label={uf}
+                                        value={uf}
+                                        key={uf}
+                                        color="#000" />
                                 ))}
                             </Picker>
                         </View>
@@ -540,7 +553,7 @@ function Home() {
                         columnWrapperStyle={{ flex: 1, justifyContent: "flex-start" }}
                     />
                 </View>
-                <TouchableOpacity onPress={handleFilter} style={{ width: wp("80%"), height: hp("5%"), backgroundColor: "#15C211", alignItems: "center", justifyContent: "center", alignSelf: "center", marginTop: wp("7%"), borderRadius: 20}}>
+                <TouchableOpacity onPress={handleFilter} style={{ width: wp("80%"), height: hp("5%"), backgroundColor: "#15C211", alignItems: "center", justifyContent: "center", alignSelf: "center", marginTop: wp("7%"), borderRadius: 20 }}>
                     <Text style={{ color: "#fff" }}>Filtrar Busca</Text>
                 </TouchableOpacity>
             </Modalize>
@@ -575,8 +588,14 @@ const styles = StyleSheet.create({
         borderRadius: wp('100%'),
     },
 
+    containerUserData: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
     userData: {
         marginLeft: wp('2%'),
+        marginRight: wp('4%')
     },
 
     name: {

@@ -41,7 +41,7 @@ function MyPoints() {
     }, [])
 
     function handleNavigateGoBack() {
-        navigation.dispatch(StackActions.replace("Home"));
+        navigation.goBack();
     }
 
     return (

@@ -57,7 +57,7 @@ function Login() {
         }
         else {
             try {
-                const response = await api.post("SessionDoador", data);
+                const response = await api.post("sessionDoador", data);
 
                 Toast.show({
                     type: 'success',
@@ -80,6 +80,8 @@ function Login() {
                 clearInput();
             }
             catch (err) {
+                console.log(err)
+                console.log(data)
                 Toast.show({
                     type: 'error',
                     text1: 'Confere ai',
