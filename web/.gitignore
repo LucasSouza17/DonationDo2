@@ -10,6 +10,7 @@
 
 # production
 /build
+/public/donationdo.apk
 
 # misc
 .DS_Store
