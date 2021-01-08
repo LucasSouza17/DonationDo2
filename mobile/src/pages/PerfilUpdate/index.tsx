@@ -105,7 +105,7 @@ function PerfilUpdate() {
       allowsEditing: true,
       allowsMultipleSelection: false,
       aspect: [4, 5],
-      quality: 0
+      quality: 0.5
     });
 
     if (data.cancelled) {

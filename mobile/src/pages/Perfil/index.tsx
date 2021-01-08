@@ -42,7 +42,7 @@ function Perfil() {
     }, [nome, uf, city, avatar, loading, refresh])
 
     function handleGoBack() {
-        navigation.goBack();
+        navigation.navigate('Home');
     }
 
     function handleNavigateToUpdatePerfil() {
@@ -61,7 +61,7 @@ function Perfil() {
                 </TouchableOpacity>
                 <View style={styles.refreshButton}>
                     <TouchableOpacity onPress={handleRefresh}>
-                        <Icon name="rotate-ccw" size={24} color="#36004A" />
+                        <Icon name="rotate-ccw" size={24} color="#fff" />
                     </TouchableOpacity>
                 </View>
             </View>
