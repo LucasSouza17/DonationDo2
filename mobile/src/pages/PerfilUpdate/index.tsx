@@ -104,7 +104,8 @@ function PerfilUpdate() {
     const data = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       allowsMultipleSelection: false,
-      aspect: [4, 5]
+      aspect: [4, 5],
+      quality: 0
     });
 
     if (data.cancelled) {
@@ -160,7 +161,7 @@ function PerfilUpdate() {
         topOffset: 30
       })
       setTimeout(() => {
-        navigation.dispatch(StackActions.push("Perfil"))
+        navigation.goBack()
       }, 3000)
     } else if (selectedCity === "0" && selectedUf === "0" && uri !== "") {
       data.append("Cidade", userCity);

@@ -1,7 +1,7 @@
 import { Request, Response} from 'express';
 import knex from '../../database/connection';
 import crypto from 'crypto';
-import { any } from '@hapi/joi';
+import bcrypt from 'bcryptjs';
 
 class DoadorController{
   
@@ -13,6 +13,9 @@ class DoadorController{
       const Pontuacao = 0;
       
       const Codigo_Convite = crypto.randomBytes(4).toString('hex');
+      
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(Senha, salt);
       
       const doador = {Nome, Email, Senha, Cidade, UF, Pontuacao, Codigo_Convite };    
       
@@ -26,14 +29,14 @@ class DoadorController{
         return response.status(422).json({error: 'A senha tem que possuir mais de 8 Caracteres'});
       }
 
-      const id_doador = await knex('doador').insert(doador);
+      const id_doador = await knex('doador').insert({...doador, Senha: hash});
 
       const doadorData = await knex('doador').where('id_Doador', '=', id_doador).first();
 
       await knex('medalha_doador')
         .insert({'cod_Doador': id_doador, 'cod_Medalha': 1});
-
-      return response.json(doadorData);
+    
+      return response.json({...doadorData, Senha: Senha});
     }
     catch(erro){
       return response.status(500).json({erro});

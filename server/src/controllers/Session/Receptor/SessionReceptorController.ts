@@ -1,5 +1,6 @@
 import { Request, Response} from 'express';
 import knex from '../../../database/connection';
+import bcrypt from 'bcryptjs';
 
 class SessionController {
   
@@ -9,12 +10,18 @@ class SessionController {
       const {Email, Senha} = request.body;
     
       const receptor = await knex('receptor')
-        .where({Email, Senha})
+        .where({Email})
         .select('*')
         .first();
       
+      const CofimarcaoSenha = bcrypt.compareSync(Senha, receptor.Senha);
+        
       if(!receptor){
         return response.status(400).json({error: 'Usuário não encontrado'});       
+      }
+      
+      if(!CofimarcaoSenha){
+        return response.status(400).json({error: 'Senha Incorreta'});
       }
       
       const Nome = receptor.Nome;

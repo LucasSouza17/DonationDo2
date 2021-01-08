@@ -18,10 +18,12 @@ function Perfil() {
     const [avatar, setAvatar] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
 
     useEffect(() => {
         async function getDataUser() {
+            setRefresh(false);
             const Id = await AsyncStorage.getItem("isLoggedId");
             setIdUser(Id);
             try {
@@ -37,7 +39,7 @@ function Perfil() {
             }
         }
         getDataUser();
-    }, [nome, uf, city, avatar, loading])
+    }, [nome, uf, city, avatar, loading, refresh])
 
     function handleGoBack() {
         navigation.goBack();
@@ -47,12 +49,21 @@ function Perfil() {
         navigation.navigate("PerfilUpdate")
     }
 
+    function handleRefresh() {
+        setRefresh(true);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleGoBack}>
                     <Icon name="arrow-left" color="#fff" size={28} />
                 </TouchableOpacity>
+                <View style={styles.refreshButton}>
+                    <TouchableOpacity onPress={handleRefresh}>
+                        <Icon name="rotate-ccw" size={24} color="#36004A" />
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.main} >
                 <Text style={styles.title}>Meu Perfil</Text>
@@ -93,6 +104,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: wp('5%'),
         paddingTop: wp('4%')
+    },
+
+    refreshButton: {
+        paddingTop: wp('1%')
     },
 
     main: {

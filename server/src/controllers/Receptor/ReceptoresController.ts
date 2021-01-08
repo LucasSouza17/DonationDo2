@@ -1,5 +1,6 @@
 import { Request, Response} from 'express';
 import knex from '../../database/connection';
+import bcrypt from 'bcryptjs';
 
 class ReceptoresController {
   
@@ -10,15 +11,18 @@ class ReceptoresController {
      
       const receptor = {Email, Senha}
       
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(Senha, salt);
+      
       const receptor_verificado = await knex('receptor').where({Email}).select('*').first();
       
       if(receptor_verificado != null){
         return response.status(422).json({error: 'Usuário já cadastrado'});
       }
        
-      await knex('receptor').insert(receptor);
+      await knex('receptor').insert({...receptor, Senha: hash});
       
-      return response.json({...receptor});
+      return response.json({...receptor, Senha: Senha});
     }
     catch(erro){
       return response.status(500).json({erro});

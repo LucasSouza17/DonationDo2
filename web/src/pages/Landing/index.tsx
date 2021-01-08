@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import boxImg from "../../assets/images/box.png";
 import phoneImg from "../../assets/images/phone.png";
 import Us from "../../assets/images/us.png";
+// import Apk from "../../assets/download/donationdo.apk";
 
 import "./styles.css";
 
@@ -49,7 +50,7 @@ function Landing() {
               Confira nosso app e busque por campanhas solidarias em um click.
             </p>
             <div className="button-container">
-              <Link to="/">Baixar app</Link>
+              <a href="/donationdo.apk" download>Baixar app</a>
             </div>
           </div>
           <img src={phoneImg} alt="Caixa de doações" />

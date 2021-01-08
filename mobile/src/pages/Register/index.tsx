@@ -181,7 +181,8 @@ function Register() {
                     clearInput();
                 })
             }
-            catch (err) {
+           catch (err) {
+                console.log(err);
                 Toast.show({
                     type: 'error',
                     text1: 'Algo de errado',
