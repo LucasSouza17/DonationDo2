@@ -2,7 +2,7 @@
   "expo": {
     "name": "Donation.Do",
     "slug": "DonationDo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,7 +25,7 @@
     },
     "description": "",
     "android": {
-      "package": "com.lulucarioxd.mobile",
+      "package": "com.donationdo.mobile",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAysvF-hSfAAdZbUDMgMxrWMoc8UxC5BvU"

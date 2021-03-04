@@ -9,6 +9,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import OnBoarding1 from './pages/OnBoarding/board1';
 import OnBoarding2 from './pages/OnBoarding/board2';
+import OnBoarding3 from './pages/OnBoarding/board3';
+import OnBoarding4 from './pages/OnBoarding/board4';
+import OnBoarding5 from './pages/OnBoarding/board5';
+import OnBoarding6 from './pages/OnBoarding/board6';
+import OnBoarding7 from './pages/OnBoarding/board7';
 
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
@@ -51,6 +56,11 @@ const UserAuthRoutes = () => {
             <AppStack.Screen name="Perfil" component={Perfil} />
             <AppStack.Screen name="OnBoarding1" component={OnBoarding1} />
             <AppStack.Screen name="OnBoarding2" component={OnBoarding2} />
+            <AppStack.Screen name="OnBoarding3" component={OnBoarding3} />
+            <AppStack.Screen name="OnBoarding4" component={OnBoarding4} />
+            <AppStack.Screen name="OnBoarding5" component={OnBoarding5} />
+            <AppStack.Screen name="OnBoarding6" component={OnBoarding6} />
+            <AppStack.Screen name="OnBoarding7" component={OnBoarding7} />
             <AppStack.Screen name="PerfilUpdate" component={PerfilUpdate} />
             <AppStack.Screen name="HistoryReceivers" component={HistoryReceivers} />
             <AppStack.Screen name="HistoryDonation" component={HistoryDonation} />
@@ -78,6 +88,11 @@ const UserNotAuthRoutes = () => {
             <AppStack.Screen name="UserAuth" component={UserAuthRoutes} />
             <AppStack.Screen name="OnBoarding1" component={OnBoarding1} />
             <AppStack.Screen name="OnBoarding2" component={OnBoarding2} />
+            <AppStack.Screen name="OnBoarding3" component={OnBoarding3} />
+            <AppStack.Screen name="OnBoarding4" component={OnBoarding4} />
+            <AppStack.Screen name="OnBoarding5" component={OnBoarding5} />
+            <AppStack.Screen name="OnBoarding6" component={OnBoarding6} />
+            <AppStack.Screen name="OnBoarding7" component={OnBoarding7} />
         </AppStack.Navigator>
     )
 };
@@ -100,7 +115,7 @@ const UserAuth = () => {
 const UserNotAuth = () => {
     return (
         <NavigationContainer>
-            <AppStack.Navigator headerMode="none" initialRouteName="Login" screenOptions={{
+            <AppStack.Navigator headerMode="none" screenOptions={{
                 cardStyle: {
                     backgroundColor: "#fff",
                 },

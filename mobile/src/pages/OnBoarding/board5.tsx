@@ -3,18 +3,21 @@ import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'reac
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native';
 
-function OnBoarding2() {
+function OnBoarding5() {
     const navigation = useNavigation();
 
-    function handleEndBoard () {
-        navigation.navigate("OnBoarding3");
+    function handleEndBoard() {
+        navigation.navigate("OnBoarding6");
     }
 
     return (
         <ImageBackground source={require('../../assets/onboarding/onboarding.jpg')} style={styles.container}>
-            <Image style={styles.board1} source={require("../../assets/onboarding/board2.png")} />
-            <Text style={styles.title}>Convide Amigos</Text>
-            <Text style={styles.description}>Convide amigos para ganhar o bonûs de<Text style={styles.destaque}> 15 pontos.</Text></Text>
+            <Image style={styles.board1} source={require("../../assets/onboarding/board5.png")} />
+            <Text style={styles.title}>Passo 01</Text>
+            <Text style={styles.description}>
+            Na tela inicial, clique no botão filtrar e escolha 
+            sua região e o que deseja doar.
+            </Text>
             <TouchableOpacity style={styles.nextButton} onPress={handleEndBoard}>
                 <Text style={styles.textButton}>Próximo</Text>
             </TouchableOpacity>
@@ -33,11 +36,13 @@ const styles = StyleSheet.create({
 
     board1: {
         width: wp("85%"),
-        resizeMode: "contain"
+        height: hp('55%'),
+        resizeMode: "contain",
+        marginBottom: wp("5%")
     },
 
     title: {
-        color: "#000",
+        color: "#B000F0",
         fontSize: wp('6.5%'),
         fontWeight: "bold"
     },
@@ -55,22 +60,22 @@ const styles = StyleSheet.create({
     },
 
     nextButton: {
-        marginTop: wp("25%"),
+        marginTop: wp("15%"),
         borderColor: "#74009E",
         borderWidth: wp("0.3%"),
         width: wp("40%"),
         height: hp("5.5%"),
         alignItems: "center",
-        justifyContent:"center", 
+        justifyContent: "center",
         borderRadius: 20
     },
 
     textButton: {
         fontSize: wp('4.5%'),
-        fontWeight:"bold",
+        fontWeight: "bold",
         color: "#74009E"
     }
 
 });
 
-export default OnBoarding2;
+export default OnBoarding5;

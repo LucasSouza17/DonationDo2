@@ -51,25 +51,25 @@ function InviteFriends() {
     }
 
     function shareToWhatsAppp() {
-        Linking.openURL(`whatsapp://send?text=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`);
+        Linking.openURL(`whatsapp://send?text=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Faça o download do nosso aplicativo no site www.donationdo.com.br! Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`);
     }
 
     function sharePlus() {
         Share.share({
             title: 'Convide amigos para o DonationDo',
-            message: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`,
+            message: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Faça o download do nosso aplicativo no site www.donationdo.com.br! Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`,
         })
     }
 
     function shareEmail() {
         MailComposer.composeAsync({
             subject: "Você recebeu um convite DonationDo",
-            body: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`
+            body: `Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Faça o download do nosso aplicativo no site www.donationdo.com.br! Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`
         });
     }
 
     function shareSMS() {
-        Linking.openURL(`sms:${Platform.OS === "ios" ? "&" : "?"}body=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Usando meu código (${code}) você ganha 10 pontos logo de cara!💜💜`)
+        Linking.openURL(`sms:${Platform.OS === "ios" ? "&" : "?"}body=Descobri uma forma de fazer o bem de uma forma rápida e divertida! Bora mudar o mundo comigo? Faça o download do nosso aplicativo no site www.donationdo.com.br! Usando meu código *${code}* você ganha 10 pontos logo de cara!💜💜`)
     }
 
     async function handleSubmitCode() {

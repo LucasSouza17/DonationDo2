@@ -10,7 +10,7 @@ class SessionController {
       const {Email, Senha} = request.body;
     
       const doador = await knex('doador')
-        .where({Email})
+        .where({ Email })
         .select('*')
         .first();
       
@@ -21,7 +21,7 @@ class SessionController {
       }
        
        if(!CofimarcaoSenha){
-        return response.status(400).json({error: 'Senha Incorreta'});
+        return response.status(400).json({error: 'Senha Incorreta', erro: `${CofimarcaoSenha}`});
        }
    
       return response.json({...doador, Senha: Senha});
